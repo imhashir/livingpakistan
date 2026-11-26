@@ -1,5 +1,7 @@
 """OCHA COD-AB Pakistan admin boundaries (HDX). Defines the district frame (160 districts, P-codes) every
 other dataset joins to. Output: data/interim/districts.json (attributes) — geometry is read directly by world.py."""
+from __future__ import annotations
+
 import json
 import zipfile
 
@@ -35,3 +37,23 @@ def process():
 
 if __name__ == "__main__":
     print(len(process()))
+
+
+_LOCATOR = None
+
+
+def pcode_at(lon: float, lat: float) -> str | None:
+    """COD-AB district P-code containing (lon, lat), or None if outside every district polygon."""
+    global _LOCATOR
+    if _LOCATOR is None:
+        from shapely import STRtree
+        from shapely.geometry import shape
+        feats = geojson(2)["features"]
+        geoms = [shape(f["geometry"]) for f in feats]
+        _LOCATOR = (STRtree(geoms), geoms, [f["properties"]["adm2_pcode"] for f in feats])
+    from shapely.geometry import Point
+    tree, geoms, codes = _LOCATOR
+    p = Point(lon, lat)
+    for i in tree.query(p, predicate="intersects"):
+        return codes[int(i)]
+    return None

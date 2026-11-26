@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "data" / "raw"
 INTERIM = ROOT / "data" / "interim"
-WEB_DATA = ROOT / "web" / "data"
+WEB_DATA = ROOT / "web" / "public" / "data"
 
 UA = "Mozilla/5.0 (X11; Linux x86_64) PakCiv-pipeline/1.0 (+https://github.com/imhashir/pakciv)"
 
@@ -122,7 +122,7 @@ def interim(name: str) -> Path:
 PROJ = "+proj=aea +lat_0=30 +lon_0=69.5 +lat_1=26 +lat_2=35 +x_0=0 +y_0=0 +ellps=WGS84 +units=km +no_defs"
 
 # Map extent in lon/lat (Pakistan incl. AJK and Gilgit-Baltistan, plus a margin of neighbours / Arabian Sea).
-BBOX = (60.3, 23.2, 78.2, 37.4)  # W S E N
+BBOX = (60.0, 23.0, 78.6, 38.2)  # W S E N
 MARGIN_KM = 40.0
 
 
