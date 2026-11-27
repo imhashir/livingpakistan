@@ -20,7 +20,8 @@ export class Guide {
 
   // ------------------------------------------------------------------ first visit
   shouldAutoShow() {
-    try { if (localStorage.getItem(STORE_KEY) === 'hide') return false; } catch { /* private mode */ }
+    // shown once per browser: any stored value counts as seen
+    try { if (localStorage.getItem(STORE_KEY)) return false; } catch { /* private mode */ }
     if (/[?&]guide=0/.test(location.search)) return false;
     return location.hash.length <= 1; // shared deep links go straight to their view
   }
@@ -43,7 +44,6 @@ export class Guide {
     const card = (icon, title, text, onTry) => el('button', { class: 'gw-card', title: 'Try it', onclick: () => { this.closeWelcome(); onTry(); } }, [
       el('span', { class: 'gw-ico', text: icon }), el('b', { text: title }), el('span', { text })]);
     const A = this.app;
-    this.dontShow = el('input', { type: 'checkbox', id: 'gw-dont' });
     this.welcome = el('div', { class: 'modal guide-welcome hidden', role: 'dialog', 'aria-label': 'Welcome to living pakistan' }, [
       el('div', { class: 'gw-panel glass' }, [
         el('button', { class: 'gw-x', text: '✕', title: 'Close', onclick: () => this.closeWelcome() }),
@@ -68,7 +68,6 @@ export class Guide {
           el('button', { class: 'gw-primary', onclick: () => { this.closeWelcome(); this.start(); } }, ['▶ Start interactive walkthrough ', el('small', { text: '~2 min' })]),
           el('button', { class: 'gw-secondary', text: 'Jump right in', onclick: () => this.closeWelcome() }),
         ]),
-        el('label', { class: 'gw-dont', for: 'gw-dont' }, [this.dontShow, " Don't show this again"]),
         el('div', { class: 'gw-hint', text: 'Reopen any time with the ❔ Guide button or the ? key.' }),
       ]),
     ]);
@@ -78,12 +77,13 @@ export class Guide {
 
   openWelcome() {
     this.end();
-    try { this.dontShow.checked = localStorage.getItem(STORE_KEY) === 'hide'; } catch { /* ignore */ }
+    // marked on open, not on close, so a visitor who refreshes past it without
+    // closing is not shown it again
+    try { localStorage.setItem(STORE_KEY, 'seen'); } catch { /* ignore */ }
     this.welcome.classList.remove('hidden');
   }
 
   closeWelcome() {
-    try { localStorage.setItem(STORE_KEY, this.dontShow.checked ? 'hide' : 'seen'); } catch { /* ignore */ }
     this.welcome.classList.add('hidden');
   }
 
@@ -179,7 +179,7 @@ export class Guide {
 
   start() {
     this.closeWelcome();
-    this.app.tours.stop();
+    this.app.tours.stop(false);
     this.steps = this._steps();
     this.running = true; this.i = -1;
     document.body.classList.add('guiding');

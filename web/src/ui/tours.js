@@ -31,9 +31,17 @@ export class Tours {
   d(name) { return this.app.districts[this.dist(name)]; }
   fact(s, k) { return s?.facts?.[k]; }
 
-  goSite(s, opts) { return s ? this.app.flyToSite(s, opts) : null; }
-  goDist(name, opts) { const i = this.dist(name); return i >= 0 ? this.app.flyToDistrict(i, opts) : null; }
-  goXY(x, y, opts) { const [wx, wz] = this.app.board.mapToWorld(x, y); return this.app.stage.flyTo([wx, this.app.board.heightAt(wx, wz), wz], opts); }
+  goSite(s, opts) { this._focus = s ? { site: s } : null; return s ? this.app.flyToSite(s, opts) : null; }
+  goDist(name, opts) {
+    const i = this.dist(name);
+    this._focus = i >= 0 ? { district: i } : null;
+    return i >= 0 ? this.app.flyToDistrict(i, opts) : null;
+  }
+  goXY(x, y, opts) {
+    this._focus = { xy: [x, y] };
+    const [wx, wz] = this.app.board.mapToWorld(x, y);
+    return this.app.stage.flyTo([wx, this.app.board.heightAt(wx, wz), wz], opts);
+  }
 
   layers(on) {
     const all = ['rivers', 'canals', 'corridors', 'roads', 'faults', 'city', 'wonder', 'unesco', 'era', 'water', 'power', 'airport', 'port', 'university', 'shrine', 'craft', 'cricket', 'park', 'quake', 'heat', 'glof'];
@@ -156,7 +164,7 @@ export class Tours {
   }
 
   // ---------------------------------------------------------------- player
-  openMenu() { this.stop(); this.menu.classList.toggle('hidden'); }
+  openMenu() { this.stop(false); this.menu.classList.toggle('hidden'); }
 
   async run(k) {
     this.menu.classList.add('hidden');
@@ -199,7 +207,11 @@ export class Tours {
       prog);
     this.narr.classList.remove('hidden');
     this.narr.style.animation = 'none'; void this.narr.offsetWidth; this.narr.style.animation = '';
+    this._focus = null;
+    this.app.focusOn(null);
     await st.go?.();
+    if (!this.active || this.active.token !== token) return;
+    this.app.focusOn(this._focus);
     // auto-advance
     let t = 0;
     while (t < dwell) {
@@ -214,11 +226,21 @@ export class Tours {
   next() { if (this.active) this.show(this.active.i + 1); }
   prev() { if (this.active) this.show(Math.max(0, this.active.i - 1)); }
 
-  stop() {
+  /**
+   * End the tour. A tour leaves the camera, lens and lighting wherever it
+   * finished, so by default ending one returns to the home state — whether it
+   * was closed, escaped, or played to the last step.
+   * goHome is false for callers that are about to take over the view
+   * themselves (picking another tour, starting the walkthrough, Home itself),
+   * which also keeps resetView from calling back into here.
+   */
+  stop(goHome = true) {
     if (!this.active) return;
     this.active = null; this.paused = false;
     this.narr.classList.add('hidden'); document.body.classList.remove('touring');
     this.app.lines.focusCorridor(null);
+    this.app.focusOn(null);
     this.app.flood?.hide(); if (this.app.lens.current === 'flood') this.app.flood.show();
+    if (goHome) this.app.resetView();
   }
 }

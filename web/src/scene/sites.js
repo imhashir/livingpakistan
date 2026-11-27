@@ -266,6 +266,14 @@ export class Sites {
 
   setKind(kind, on) { on ? this.visibleKinds.add(kind) : this.visibleKinds.delete(kind); this.applyVisibility(); }
 
+  /** Single one site's label out (tours). It is drawn first and never decluttered away. */
+  setFocus(site) {
+    this.focusSite = site || null;
+    for (const o of [...this.banners, ...this.wonderLabels]) {
+      o.element.classList.toggle('focused', !!site && o.userData.site === site);
+    }
+  }
+
   /** Declutter labels: distance gates + greedy screen-space collision (big cities first). Runs ~6×/s. */
   updateLabels(camera, target) {
     const now = performance.now();
@@ -282,13 +290,21 @@ export class Sites {
       if (boxes.some((q) => b[0] < q[2] && b[2] > q[0] && b[1] < q[3] && b[3] > q[1])) return false;
       boxes.push(b); return true;
     };
-    for (const o of this.banners) {
-      const want = !o.userData.hidden && (d < o.userData.minDist || o.userData.rank < 6);
-      o.visible = want && place(o, 26 + o.userData.site.name.length * 9, 26);
-    }
-    for (const o of this.wonderLabels) {
-      const near = o.position.distanceTo(camera.position) < 900;
-      o.visible = !o.userData.hidden && near && place(o, 20 + o.userData.site.name.length * 7, 18);
+    const all = [...this.banners, ...this.wonderLabels];
+    // the focused label is placed first, so a neighbour cannot take its box
+    if (this.focusSite) all.sort((a, b) => (b.userData.site === this.focusSite) - (a.userData.site === this.focusSite));
+    const isBanner = new Set(this.banners);
+    for (const o of all) {
+      const focused = !!this.focusSite && o.userData.site === this.focusSite;
+      const banner = isBanner.has(o);
+      const want = banner
+        ? !o.userData.hidden && (d < o.userData.minDist || o.userData.rank < 6)
+        : !o.userData.hidden && o.position.distanceTo(camera.position) < 900;
+      const w = banner ? 26 + o.userData.site.name.length * 9 : 20 + o.userData.site.name.length * 7;
+      const h = banner ? 26 : 18;
+      // a tour's subject stays legible whatever the distance gates say
+      o.visible = (want || focused) && place(o, w, h);
+      if (focused) o.visible = true;
     }
   }
 

@@ -4,6 +4,7 @@ import { el, fmt } from './ui/dom.js';
 import { Borders } from './scene/borders.js';
 import { Lines } from './scene/lines.js';
 import { Sites, KIND_META } from './scene/sites.js';
+import { Outline } from './scene/outline.js';
 import { LensEngine, LABELS } from './ui/lenses.js';
 import { Inspector } from './ui/inspector.js';
 import { Search } from './ui/search.js';
@@ -73,7 +74,9 @@ export class App {
     this.home(true);
     this._bindPointer();
     this._bindKeys();
+    this.outline = new Outline(this.board, stage.scene);
     stage.onTick((t, dt) => {
+      this.outline.tick(t);
       this.lines.uTime.value = t; this.sites.uTime.value = t;
       this.sites.updateLabels(stage.camera, stage.controls.target);
       this.flood?.tick(t, dt);
@@ -124,7 +127,7 @@ export class App {
 
   /** Home: put the map back to how it looked on arrival, not just the camera. */
   resetView() {
-    this.tours?.stop();
+    this.tours?.stop(false);
     this.eras?.hide();
     this.flood?.hide();
     this.hud.querySelectorAll('.modal:not(.hidden)').forEach((m) => m.classList.add('hidden'));
@@ -133,6 +136,7 @@ export class App {
     const treaty = this.hud.querySelector('.treaty input');
     if (treaty) treaty.checked = false;
     this.select(null);
+    this.focusOn(null);
     for (const [k, on] of Object.entries(this._initial.layers)) this.setLayer(k, on);
     this.setRelief(this._initial.relief);
     this.setMood('day');
@@ -280,6 +284,38 @@ export class App {
 
   // ------------------------------------------------------------------ picking & selection
   cellWorld(cell) { const [x, z] = this.board.worldXZ(cell); return [x, this.board.topY(cell), z]; }
+
+  /**
+   * Mark what a tour is talking about. Pass {site}, {district} or {xy}, or
+   * null to clear. The marker is sized from how far the camera ended up, so it
+   * reads the same whether the step closed in on a city or pulled back over a
+   * range.
+   */
+  focusOn(target) {
+    if (!target) {
+      this.outline.hide(); this.sites.setFocus(null); this.board.setHighlight(null);
+      return;
+    }
+    let cells = null;
+    if (target.district != null) {
+      // a district has a real footprint, so trace that
+      cells = this.districts[target.district].cells;
+      this.sites.setFocus(null);
+    } else {
+      // a city or peak is a point: outline the hex it stands on and its ring
+      const [x, z] = target.site
+        ? [this.sites.worldPos(target.site).x, this.sites.worldPos(target.site).z]
+        : this.board.mapToWorld(target.xy[0], target.xy[1]);
+      const c = this.outline.cellAt(x, z);
+      if (c < 0) return;
+      cells = this.outline.rosette(c);
+      this.sites.setFocus(target.site || null);
+    }
+    // the fill reads as area, which is right for a district and muddy around a
+    // single city, where the boundary alone is clearer
+    this.board.setHighlight(target.district != null ? cells : null);
+    this.outline.show(cells);
+  }
 
   flyToCell(cell, opts = {}) { const [x, y, z] = this.cellWorld(cell); return this.stage.flyTo([x, Math.max(y, 0), z], opts); }
 
