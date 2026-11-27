@@ -16,6 +16,7 @@ import { EraMachine } from './ui/eras.js';
 import { FloodPlayer } from './ui/flood.js';
 import { Surprise } from './ui/surprise.js';
 import { Guide } from './ui/guide.js';
+import { MobileUI } from './ui/mobile.js';
 
 export const DEFAULT_LENS = 'elevation';
 
@@ -70,6 +71,7 @@ export class App {
     this.flood = new FloodPlayer(this);
     this.surprise = new Surprise(this);
     this.guide = new Guide(this);
+    this.mobile = new MobileUI(this, { defaultLens: DEFAULT_LENS });
     this.setMood('day');
     this.home(true);
     this._bindPointer();
@@ -87,6 +89,9 @@ export class App {
   }
 
   intro() {
+    // On a phone the map is the opening: no title card over it, no welcome
+    // modal after it. The guide is one tap away on the ❔ button.
+    if (this.mobile.on) return;
     const N = this.atlas.nation;
     const k2 = this.sites.sites.find((s) => s.name === 'K2');
     const card = el('div', { class: 'intro' }, [
@@ -116,12 +121,16 @@ export class App {
   }
 
   home(instant = false) {
-    const [cx, cz] = this.board.mapToWorld(990, 980);
+    // a phone fits the country to whatever clear space its screen has
+    const pose = this.mobile?.on ? this.mobile.homePose() : null;
+    const [cx, cz] = pose ? [pose.x, pose.z] : this.board.mapToWorld(990, 980);
     const tgt = [cx, 0, cz];
-    const dist = 2350, tilt = 0.62, az = -0.12;
+    const { dist, tilt, az } = pose || { dist: 2350, tilt: 0.62, az: -0.12 };
+    const pos = new THREE.Vector3(cx + dist * Math.sin(tilt) * Math.sin(az), dist * Math.cos(tilt), cz + dist * Math.sin(tilt) * Math.cos(az));
+    this.mobile?.homed(pos);
     if (instant) {
       this.stage.controls.target.set(...tgt);
-      this.stage.camera.position.set(cx + dist * Math.sin(tilt) * Math.sin(az), dist * Math.cos(tilt), cz + dist * Math.sin(tilt) * Math.cos(az));
+      this.stage.camera.position.copy(pos);
     } else this.stage.flyTo(tgt, { distance: dist, tilt, azimuth: az });
   }
 
@@ -346,19 +355,31 @@ export class App {
 
   _bindPointer() {
     const dom = this.stage.renderer.domElement;
-    let down = null;
-    dom.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
+    // A tap is one pointer that barely moved. Any second finger makes the
+    // gesture a pinch or a twist, and none of its lifts count as a tap.
+    let down = null, multi = false;
+    const pointers = new Set();
+    dom.addEventListener('pointerdown', (e) => {
+      if (!pointers.size) multi = false;
+      pointers.add(e.pointerId);
+      if (pointers.size > 1) multi = true; else down = [e.clientX, e.clientY];
+    });
+    dom.addEventListener('pointercancel', (e) => { pointers.delete(e.pointerId); multi = true; });
     dom.addEventListener('pointermove', (e) => {
+      // a finger has no hover; its drags are pans, not tooltips
+      if (e.pointerType === 'touch') return;
       this.pointer.set((e.clientX / dom.clientWidth) * 2 - 1, -(e.clientY / dom.clientHeight) * 2 + 1);
       this._pendingPick = [e.clientX, e.clientY];
     });
     dom.addEventListener('pointerleave', () => { this.tip.classList.add('hidden'); this.hoverRing.visible = false; });
     dom.addEventListener('pointerup', (e) => {
-      if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
+      pointers.delete(e.pointerId);
+      if (multi || !down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > (e.pointerType === 'touch' ? 10 : 5)) return;
       this.pointer.set((e.clientX / dom.clientWidth) * 2 - 1, -(e.clientY / dom.clientHeight) * 2 + 1);
       this.raycaster.setFromCamera(this.pointer, this.stage.camera);
       const hit = this.board.pick(this.raycaster);
       if (this.duel.picking && hit && this.data.world.owner[hit.cell] >= 0) { this.duel.pickDistrict(this.data.world.owner[hit.cell]); return; }
+      if (this.mobile.dismissOnTap()) return;
       const site = this.sites.pick(this.raycaster);
       if (site) { this.select({ site }); return; }
       if (hit && this.data.world.owner[hit.cell] >= 0) this.select(e.shiftKey ? { district: this.data.world.owner[hit.cell] } : { cell: hit.cell });

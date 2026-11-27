@@ -1,0 +1,241 @@
+/* Phone layout (ui/mobile.js puts body.mobile on). The map owns the screen:
+   a brand chip and two icons along the top, a dock of six along the bottom,
+   and one bottom sheet at a time between them. Every rule here is scoped to
+   body.mobile, so the desktop HUD is untouched. Same language as the desktop:
+   hex-cut glass, amber = act, ice = read. */
+
+.m-top, .m-dock, .m-peek, .m-sheet, .m-x { display: none; }
+
+body.mobile {
+  --m-l: calc(env(safe-area-inset-left, 0px) + 8px);
+  --m-r: calc(env(safe-area-inset-right, 0px) + 8px);
+  --m-top: calc(env(safe-area-inset-top, 0px) + 8px);
+  --m-dock-h: 58px;
+  --m-dock-b: calc(env(safe-area-inset-bottom, 0px) + 8px);
+  /* sheets float just above the dock, so it stays in reach */
+  --m-sheet-b: calc(var(--m-dock-b) + var(--m-dock-h) + 8px);
+  --m-room: calc(100dvh - var(--m-sheet-b) - var(--m-top));
+  overscroll-behavior: none;
+}
+body.mobile #hud button, body.mobile #hud input, body.mobile #hud select { touch-action: manipulation; }
+/* inputs under 16px make iOS zoom the page on focus */
+body.mobile #hud :is(input[type=text], input[type=search], select) { font-size: 16px; }
+
+/* ---------- desktop chrome that the phone layout replaces */
+body.mobile :is(.topbar, .dock-toggle, .dock-head, .tip, .intro) { display: none !important; }
+
+/* ---------- top: brand chip, and search + guide */
+body.mobile .m-top { display: flex; position: fixed; top: var(--m-top); left: var(--m-l); right: var(--m-r); z-index: 22;
+  justify-content: space-between; align-items: flex-start; gap: 8px; pointer-events: none; }
+body.mobile .m-top > * { pointer-events: auto; }
+.m-brand { display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 14px 0 12px; color: var(--ink); cursor: pointer; min-width: 0; }
+.m-flag { width: 26px; height: 17px; }
+.m-brand-name { font-family: var(--sans); font-weight: 800; font-size: 16.5px; white-space: nowrap;
+  background: linear-gradient(180deg, #e8f4f8, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.m-top-right { display: flex; gap: 6px; }
+.m-ibtn { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; color: var(--accent-2); cursor: pointer; }
+.m-ibtn.on { color: #141000; background: var(--accent); border-color: var(--accent); }
+
+.m-ico { display: grid; place-items: center; }
+.m-ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.m-more .m-ico svg circle, [data-sheet=more] .m-ico svg circle { fill: currentColor; stroke: none; }
+
+/* ---------- dock */
+body.mobile .m-dock { display: grid; grid-template-columns: repeat(6, 1fr); position: fixed; z-index: 22;
+  left: var(--m-l); right: var(--m-r); bottom: var(--m-dock-b); height: var(--m-dock-h); padding: 3px 4px;
+  max-width: 480px; margin: 0 auto; }
+.m-dbtn { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  min-width: 0; min-height: 44px; padding: 0; background: none; border: 0; color: #cfe6ee; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; transition: color 0.15s; }
+.m-dlabel { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); transition: color 0.15s; }
+.m-dbtn.on { color: var(--accent); }
+.m-dbtn.on .m-dlabel { color: var(--accent); }
+/* the lit button gets the tick the dock's edge would carry on an instrument */
+.m-dbtn.on::before { content: ''; position: absolute; top: -3px; left: 26%; right: 26%; height: 2px;
+  background: var(--accent); box-shadow: 0 0 10px rgba(255, 182, 39, 0.8); }
+.m-dbtn:active { color: #fff; }
+
+/* ---------- legend peek: which lens is painting the map */
+body.mobile .m-peek { display: flex; position: fixed; z-index: 21; left: var(--m-l); bottom: var(--m-sheet-b);
+  align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 10px; max-width: calc(100vw - 32px);
+  color: var(--ink); font-size: 12px; font-weight: 600; cursor: pointer; }
+body.mobile .m-peek.hidden, body.m-sheet-open .m-peek, body.touring .m-peek,
+#hud:has(.timebar:not(.hidden)) .m-peek { display: none !important; }
+.m-peek-sw { width: 38px; height: 8px; flex: none; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2); }
+.m-peek-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.m-peek-more { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-2); }
+
+/* ---------- close button, for every sheet */
+body.mobile .m-x { display: grid; place-items: center; flex: none; width: 40px; height: 40px; margin: -6px -8px -6px 0; padding: 0;
+  background: none; border: 0; color: var(--ink-dim); cursor: pointer; }
+.m-x .m-ico svg { width: 20px; height: 20px; }
+.m-x:active { color: #fff; }
+body.mobile :is(.pc-x, .insp-close, .gw-x, .narr-x) { min-width: 40px; min-height: 40px; display: grid; place-items: center; font-size: 17px; }
+body.mobile .pc-x { width: 40px; height: 40px; }
+body.mobile .insp-close { top: 6px; right: 6px; }
+
+/* ---------- the sheet frame, shared by every panel */
+body.mobile :is(.m-sheet, .tour-menu, .srch, .pc-panel, .surp, .inspector, .guide-welcome) {
+  position: fixed; z-index: 24; left: var(--m-l); right: var(--m-r); top: auto; bottom: var(--m-sheet-b);
+  width: auto; min-width: 0; max-width: none; height: auto; transform: none; margin: 0;
+  max-height: min(60dvh, var(--m-room) - 52px);
+  animation: m-sheet-in 0.3s cubic-bezier(.2, .8, .2, 1);
+}
+body.mobile :is(.m-sheet, .tour-menu, .srch, .pc-panel, .surp, .inspector, .guide-welcome).hidden { display: none !important; }
+@keyframes m-sheet-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { body.mobile * { animation-duration: 0.01ms !important; } }
+
+body.mobile .m-sheet { display: flex; flex-direction: column; overflow: hidden; }
+.m-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex: none; padding: 12px 14px 8px 16px; }
+.m-sheet-title { margin: 0; font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+.m-sheet-title::after { content: ''; display: block; height: 1px; margin-top: 6px; width: 72px; background: linear-gradient(90deg, var(--accent), transparent); }
+.m-sheet-body { overflow-y: auto; overscroll-behavior: contain; padding: 0 16px 16px; min-height: 0;
+  scrollbar-width: thin; scrollbar-color: var(--accent-dim) transparent; }
+.m-sub { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-dim); margin: 16px 0 8px; }
+
+/* ---------- lenses sheet: legend on top, then the lens dock, unboxed */
+body.mobile .m-sheet .legend, body.mobile .m-sheet .dock {
+  position: static; width: auto; max-height: none; overflow: visible; padding: 0; transform: none; opacity: 1; pointer-events: auto;
+  background: none; border: 0; filter: none; clip-path: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+body.mobile .m-sheet .legend { padding: 10px 12px; margin-bottom: 8px; border: 1px solid var(--line); background: rgba(127, 231, 255, 0.04);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+body.mobile .m-sheet .legend .lg-hist { width: 100%; height: 50px; }
+body.mobile .m-sheet .legend .lg-desc { font-size: 12px; }
+body.mobile .m-sheet .lg-cats { max-height: 132px; }
+body.mobile .m-sheet .dock-gtitle { margin: 12px 0 6px; }
+body.mobile .m-sheet .dock-items { gap: 6px; }
+body.mobile .m-sheet :is(.lens-btn, .layer-btn) { padding: 0 11px; min-height: 36px; font-size: 13px; }
+body.mobile .m-sheet .dock > .dock-title { margin-top: 16px; }
+body.mobile .m-sheet .treaty { min-height: 40px; font-size: 13px; }
+
+/* ---------- light sheet */
+body.mobile .m-sheet :is(.moods, .relief) {
+  position: static; background: none; border: 0; filter: none; clip-path: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+body.mobile .m-sheet .moods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 0; }
+body.mobile .m-sheet .moods .chip { min-height: 44px; font-size: 13px; color: var(--ink); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); }
+body.mobile .m-sheet .moods .chip.on { color: #141000; background: var(--accent); border-color: var(--accent); }
+body.mobile .m-sheet .relief { display: flex; padding: 16px 2px 4px; gap: 12px; font-size: 13px; color: var(--ink); }
+body.mobile .m-sheet .relief input { flex: 1; width: auto; min-width: 0; height: 32px; }
+
+/* ---------- more sheet */
+.m-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.m-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-height: 76px; padding: 10px 10px 9px;
+  background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(127, 231, 255, 0.18); color: var(--ink); text-align: left; cursor: pointer;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
+.m-tile .m-ico { color: var(--accent-2); margin-bottom: 3px; }
+.m-tile b { font-size: 13px; font-weight: 700; }
+.m-tile small { font-size: 10.5px; color: var(--ink-dim); }
+.m-tile:active { border-color: var(--accent); background: rgba(255, 182, 39, 0.12); }
+body.mobile .m-glance .yields { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin: 0; }
+body.mobile .m-glance .yield { padding: 8px 10px; gap: 9px; border: 1px solid rgba(255, 255, 255, 0.07); background: rgba(255, 255, 255, 0.025); }
+body.mobile .m-glance .yield .k { display: block; font-size: 9.5px; }
+body.mobile .m-glance .yield .v { font-size: 14px; }
+
+/* ---------- panels restyled as sheets */
+body.mobile .tour-menu { display: flex; flex-direction: column; padding: 12px 16px 14px; overflow-y: auto; overscroll-behavior: contain; }
+body.mobile .tour-menu.hidden { display: none; }
+body.mobile .tour-head { gap: 10px; }
+body.mobile .tour-menu h3 { font-size: 14px; flex: 1; min-width: 0; }
+body.mobile .tour-head .tb-btn { height: 38px; }
+body.mobile .tour-grid { grid-template-columns: 1fr; gap: 6px; }
+body.mobile .tour-card { padding: 10px 12px; }
+
+body.mobile .srch { top: var(--m-top); bottom: auto; max-height: min(64dvh, var(--m-room)); z-index: 30; }
+body.mobile .srch-bar { padding: 6px 12px 6px 14px; min-height: 54px; }
+body.mobile :is(.srch-kbd, .srch-foot) { display: none; }
+body.mobile .srch-row { min-height: 48px; }
+
+body.mobile .pc-head { padding: 10px 14px 8px 16px; }
+body.mobile .pc-title { font-size: 16px; }
+body.mobile .pc-btn { height: 36px; }
+/* the tall panels still leave a strip of map above them, to tap away */
+body.mobile { --m-tall: calc(var(--m-top) + 52px + 10dvh); }
+body.mobile .alm, body.mobile .exp, body.mobile .duel { max-height: none; top: var(--m-tall); }
+body.mobile .alm-row { grid-template-columns: 70px 1fr; }
+body.mobile .exp .pc-body { display: block; overflow-y: auto; overscroll-behavior: contain; }
+body.mobile .exp-grid { grid-template-columns: 1fr; gap: 14px; }
+body.mobile .exp-table { max-height: 38dvh; }
+body.mobile .exp-svg { flex: none; height: 250px; }
+body.mobile .exp.min { top: auto; width: auto; left: var(--m-l); }
+body.mobile .duel-row, body.mobile .duel-trow { grid-template-columns: 1fr 86px 1fr; }
+/* picking on the map: fold the duel down to its two slots so the map is free */
+body.mobile .duel:has(.duel-tools .pc-btn.on) { top: auto; }
+body.mobile .duel:has(.duel-tools .pc-btn.on) :is(.duel-chips, .duel-out) { display: none; }
+
+body.mobile .surp { padding: 16px 18px 14px; overflow-y: auto; }
+body.mobile .surp-emoji { font-size: 36px; }
+body.mobile .surp-btns .pc-btn { height: 40px; flex: 1; }
+
+body.mobile .inspector { max-height: min(46dvh, var(--m-room) - 52px); overscroll-behavior: contain; }
+body.mobile .insp-hero { padding: 12px 52px 10px 16px; }
+body.mobile .insp-title { font-size: 19px; }
+body.mobile .insp-actions button { min-height: 40px; }
+
+/* the welcome modal becomes a tall sheet, and its backdrop goes */
+body.mobile .guide-welcome { display: block; top: var(--m-tall); max-height: none; background: none; }
+body.mobile .gw-panel { width: 100%; height: 100%; max-height: none; padding: 18px 16px 16px; overscroll-behavior: contain; }
+body.mobile .gw-kicker { font-size: 10.5px; }
+body.mobile .gw-title { font-size: 30px; }
+body.mobile .gw-lede { font-size: 13.5px; margin: 8px 0 12px; }
+body.mobile .gw-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+body.mobile .gw-card { padding: 9px; }
+body.mobile .gw-card .gw-ico { font-size: 18px; }
+body.mobile .gw-card b { font-size: 13px; }
+body.mobile .gw-actions { flex-direction: column; align-items: stretch; gap: 8px; }
+body.mobile .gw-x { top: 6px; right: 6px; }
+
+/* ---------- time bars (eras, flood): above the dock, out of the way of any sheet */
+body.mobile .timebar { position: fixed; left: var(--m-l); right: var(--m-r); top: auto; bottom: var(--m-sheet-b); width: auto; min-width: 0;
+  transform: none; max-height: min(40dvh, var(--m-room) - 52px); overflow-y: auto; padding: 10px 14px 12px; }
+body.m-sheet-open .timebar { display: none; }
+body.mobile .timebar h5 { gap: 8px; font-size: 11.5px; }
+body.mobile .timebar h5 > span { min-width: 0; }
+body.mobile .timebar h5 small { display: none; }
+body.mobile .timebar .ticks { overflow-x: auto; gap: 2px; justify-content: flex-start; scrollbar-width: none; }
+body.mobile .timebar .ticks button { white-space: nowrap; padding: 6px 7px; font-size: 11px; }
+body.mobile .timebar .play { width: 38px; height: 38px; flex: none; }
+body.mobile .era-card { grid-template-columns: 1fr; gap: 2px; }
+body.mobile .era-card .big { font-size: 19px; }
+body.mobile .flood-stats { gap: 14px; flex-wrap: wrap; }
+
+/* ---------- tours: the narration is the screen's one card; the dock rests */
+body.mobile .narr { position: fixed; top: auto; left: var(--m-l); right: var(--m-r); bottom: var(--m-dock-b); width: auto; max-height: 40dvh; }
+body.mobile .narr-ctl .tb-btn { height: 38px; min-width: 42px; justify-content: center; }
+body.mobile.touring :is(.m-dock, .m-top-right, .m-peek) { display: none !important; }
+body.mobile.cinema :is(.m-top, .m-dock, .m-peek) { display: none !important; }
+body.mobile .cinema-exit { top: var(--m-top); right: var(--m-r); width: 44px; height: 44px; }
+
+/* ---------- walkthrough: the card takes the top, sheets keep the bottom */
+body.mobile .gd-card { left: var(--m-l); right: var(--m-r); top: var(--m-top); width: auto; transform: none !important; padding: 12px 14px 10px; }
+body.mobile .gd-card h3 { font-size: 16px; }
+body.mobile .gd-card p { font-size: 12.5px; }
+body.mobile .gd-keys { display: none; }
+body.mobile .gd-nav .tb-btn, body.mobile .gd-nav .gw-primary { min-height: 40px; }
+
+body.mobile .toast { top: calc(var(--m-top) + 54px); max-width: calc(100vw - 24px); font-size: 12.5px; }
+
+/* the banners are a touch smaller so the country is not buried in names */
+body.mobile .banner-name { font-size: 11px; padding: 2px 7px; }
+body.mobile .banner-pop { font-size: 10px; padding: 2px 5px; }
+
+/* city banners would ghost through the usual glass over this much of the map */
+body.mobile :is(.m-sheet, .tour-menu, .srch, .pc-panel, .surp, .inspector, .gw-panel, .timebar, .narr) {
+  background: linear-gradient(170deg, rgb(12, 22, 29), rgb(5, 11, 15)); }
+/* lenses are picked by watching the map change, so leave more of it showing */
+body.mobile .m-sheet-lenses { max-height: min(50dvh, var(--m-room) - 52px); }
+
+/* ---------- phone on its side: the dock becomes a rail on the right, so the
+   short screen's height goes to the map and the sheets */
+@media (orientation: landscape) and (max-height: 520px) {
+  body.mobile { --m-rail: 62px; --m-sheet-b: var(--m-dock-b); --m-room: calc(100dvh - var(--m-dock-b) - var(--m-top)); }
+  body.mobile .m-dock { grid-template-columns: 1fr; grid-template-rows: repeat(6, 1fr); left: auto; width: var(--m-rail); height: auto;
+    top: calc(var(--m-top) + 52px); padding: 4px 3px; margin: 0; }
+  body.mobile .m-dbtn { gap: 2px; min-height: 0; }
+  body.mobile .m-dbtn .m-ico svg { width: 19px; height: 19px; }
+  body.mobile .m-dlabel { font-size: 8.5px; }
+  body.mobile .m-dbtn.on::before { top: 22%; bottom: 22%; left: -3px; right: auto; width: 2px; height: auto; }
+  body.mobile :is(.m-sheet, .tour-menu, .pc-panel, .surp, .inspector, .guide-welcome, .timebar, .narr) {
+    right: calc(var(--m-r) + var(--m-rail) + 8px); left: auto; width: min(420px, 52vw); max-height: calc(var(--m-room) - 52px); }
+  body.mobile :is(.alm, .exp, .duel, .guide-welcome) { left: var(--m-l); width: auto; }
+  body.mobile .narr { bottom: var(--m-dock-b); }
+}

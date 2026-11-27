@@ -34,5 +34,30 @@ await p.mouse.move(700, 400); await p.mouse.down(); await p.mouse.move(600, 380,
 await p.mouse.wheel(0, -600); await p.waitForTimeout(800);
 await p.keyboard.press('l'); await p.keyboard.press('h'); await p.waitForTimeout(1500);
 await p.screenshot({ path: '/tmp/sweep.png' });
+await p.close(); // two software-rendered WebGL pages at once starve each other
+
+// Phone: a first visit opens on the bare map (no welcome, no panels), and the
+// dock opens one sheet at a time, which a tap on the map puts away.
+const mctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+const m = await mctx.newPage();
+m.on('console', (x) => { if (['error', 'warning'].includes(x.type())) errs.push(`[mobile ${x.type()}] ${x.text()}`); });
+m.on('pageerror', (e) => errs.push(`[mobile pageerror] ${e.message}`));
+await m.goto('http://127.0.0.1:4173/', { waitUntil: 'load' });
+await m.waitForFunction(() => window.__livingpakistan_ready === true, null, { timeout: 120000 });
+await m.waitForTimeout(8000); // longer than the desktop intro takes to bring up the welcome
+const openSheets = () => m.evaluate(() => window.__livingpakistan.mobile.sheets.filter((s) => !s.node.classList.contains('hidden')).map((s) => s.key));
+const expect = async (label, want) => { const got = await openSheets(); if (got.join() !== want.join()) errs.push(`[mobile] ${label}: open sheets ${JSON.stringify(got)}, expected ${JSON.stringify(want)}`); };
+const layout = await m.evaluate(() => ({ mobile: document.body.classList.contains('mobile'), topbar: getComputedStyle(document.querySelector('.topbar')).display, dock: getComputedStyle(document.querySelector('.m-dock')).display }));
+if (!layout.mobile || layout.topbar !== 'none' || layout.dock === 'none') errs.push(`[mobile] layout ${JSON.stringify(layout)}`);
+await expect('first visit', []);
+await m.tap('[data-sheet=lenses]'); await m.waitForTimeout(500); await expect('lenses', ['lenses']);
+await m.tap('[data-sheet=tours]'); await m.waitForTimeout(500); await expect('tours replaces lenses', ['tours']);
+await m.tap('.m-guide'); await m.waitForTimeout(500); await expect('guide replaces tours', ['guide']);
+// the strip of map between the top buttons and the sheet
+const stripY = await m.evaluate(() => (document.querySelector('.m-top').getBoundingClientRect().bottom + document.querySelector('.guide-welcome').getBoundingClientRect().top) / 2);
+await m.touchscreen.tap(195, stripY); await m.waitForTimeout(500);
+await expect('tap on the map dismisses', []);
+await m.tap('[data-sheet=more]'); await m.waitForTimeout(400); await m.keyboard.press('Escape'); await m.waitForTimeout(400); await expect('Esc dismisses', []);
+await mctx.close();
 console.log(JSON.stringify({ errors: errs }, null, 1));
 await b.close();

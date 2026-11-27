@@ -218,6 +218,7 @@ export class Guide {
     this.current = st;
     this._position();
     try { await st.demo?.(tok); } catch (e) { console.warn('guide demo', e); }
+    if (tok === this.token) this.app.mobile?.reveal(st.target);
     if (tok === this.token) this._position();
   }
 
