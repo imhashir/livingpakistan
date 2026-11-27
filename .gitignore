@@ -9,3 +9,6 @@ dist/
 .DS_Store
 previews/*.mp4
 media/*.mp4
+
+# local design scratch page, not part of the site
+web/public/ui-styles.html
