@@ -371,9 +371,9 @@ body.intro-on .labels-layer { opacity: 0; }
 .gw-hint { font-size: 11px; color: var(--ink-dim); margin-top: 4px; }
 @media (max-width: 1100px) { .gw-grid { grid-template-columns: repeat(3, 1fr); } }
 
-/* Narrow screens. This is a desktop-first 3D atlas and there is no phone
-   layout; these rules only stop the chrome overflowing and keep the map
-   visible, they are not a mobile design. */
+/* Narrow desktop windows, between the phone layout (ui/mobile.css, at 768px
+   and below) and a full desktop. These rules only stop the desktop chrome
+   overflowing and keep the map visible. */
 @media (max-width: 900px) {
   .narr { top: auto; bottom: 108px; right: 8px; left: 8px; width: auto; max-height: 40vh; }
   .yields { display: none; }           /* would run off the edge; same numbers live in the panels */
