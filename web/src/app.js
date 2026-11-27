@@ -196,7 +196,7 @@ export class App {
   // ------------------------------------------------------------------ HUD
   buildHud() {
     const N = this.atlas.nation, Y = this.atlas.yields;
-    const yieldEls = Object.entries(Y).map(([k, y]) => el('div', { class: 'yield', title: y.def, onclick: () => this.explorer.open({ sortBy: `yields.${k}` }) }, [
+    const yieldEls = Object.entries(Y).map(([k, y]) => el('div', { class: 'yield', title: `${y.def}\n\nClick to rank all 160 districts by this`, onclick: () => this.explorer.open({ sortBy: `yields.${k}` }) }, [
       el('span', { class: 'ico', text: y.icon }),
       el('div', {}, [el('div', { class: 'v', 'data-count': N.yields[k] || 0, 'data-money': k === 'gold' ? '1' : null, text: '0' }), el('div', { class: 'k', text: y.label })]),
     ]));
@@ -214,7 +214,6 @@ export class App {
       btn('🎬 Tours', 'T', () => this.tours.openMenu(), 'Guided story tours'),
       btn('⏳ Eras', 'Y', () => this.eras.toggle(), 'Era Time-Machine: 9,000 years on the same hexes'),
       btn('⚔️ Duel', 'D', () => this.duel.open(), 'District Duel: compare two districts'),
-      btn('📊 Explorer', 'E', () => this.explorer.open(), 'Sortable table + scatter of all 160 districts'),
       btn('🎲 Surprise', 'S', () => this.surprise.go(), 'Fly to a remarkable outlier'),
       btn('📜', 'A', () => this.ui.almanac.open(), 'Almanac: every source, vintage and caveat (A)'),
       Object.assign(btn('❔ Guide', '?', () => this.guide.openWelcome(), 'Welcome guide & interactive walkthrough (?)'), { className: 'tb-btn guide-btn' }),

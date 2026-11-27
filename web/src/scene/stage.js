@@ -71,7 +71,7 @@ export class Stage {
 
   start(render) {
     // Capture mode (?capture=1): no free-running loop; a recorder advances a virtual clock one fixed frame at a time
-    // via window.__pakciv_step(dt), so camera moves, shaders and playback are deterministic at any render speed.
+    // via window.__livingpakistan_step(dt), so camera moves, shaders and playback are deterministic at any render speed.
     this.vt = 0;
     const frame = (dt, t, draw = true) => {
       if (this.flight) {
@@ -89,7 +89,7 @@ export class Stage {
       render?.(t, dt);
     };
     if (this.capture) {
-      window.__pakciv_step = (dt = 1 / 30, draw = true) => { this.vt += dt; frame(dt, this.vt, draw); };
+      window.__livingpakistan_step = (dt = 1 / 30, draw = true) => { this.vt += dt; frame(dt, this.vt, draw); };
       frame(0, 0);
       return;
     }

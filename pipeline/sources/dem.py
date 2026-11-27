@@ -1,7 +1,7 @@
 """Copernicus DEM GLO-90 (ESA / AWS Open Data) → per-hex elevation statistics.
 
 Tiles are cloud-optimised GeoTIFFs read in place with HTTP range requests (no bulk download). Each 1°×1° tile
-(1200×1200 px, 3 arc-sec ≈ 90 m) is aggregated straight onto the PakCiv hex grid, and a ~1 km mosaic is kept for
+(1200×1200 px, 3 arc-sec ≈ 90 m) is aggregated straight onto the living pakistan hex grid, and a ~1 km mosaic is kept for
 other builders (coast/lake detection, rivers). Ocean tiles do not exist in the collection: their cells stay empty.
 """
 from __future__ import annotations

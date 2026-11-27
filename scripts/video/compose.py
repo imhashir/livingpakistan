@@ -1,6 +1,6 @@
-"""Compose the PakCiv demo video from recorded frames + timeline.
+"""Compose the living pakistan demo video from recorded frames + timeline.
 
-  .venv/bin/python scripts/video/compose.py /tmp/pakciv-video/raw media/pakciv-demo.mp4
+  .venv/bin/python scripts/video/compose.py /tmp/livingpakistan-video/raw media/livingpakistan-demo.mp4
 
 Per frame: soft eased zoom/pan highlight (cosine ease between keyframes) → 1280×720 Lanczos resample → cursor with
 click ripples → minimal chapter label / title / outro cards. Then a two-pass H.264 encode (yuv420p, +faststart).
@@ -15,8 +15,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-RAW = Path(sys.argv[1] if len(sys.argv) > 1 else "/tmp/pakciv-video/raw")
-OUT_MP4 = Path(sys.argv[2] if len(sys.argv) > 2 else "media/pakciv-demo.mp4")
+RAW = Path(sys.argv[1] if len(sys.argv) > 1 else "/tmp/livingpakistan-video/raw")
+OUT_MP4 = Path(sys.argv[2] if len(sys.argv) > 2 else "media/livingpakistan-demo.mp4")
 TMP = RAW.parent / "composed"
 OW, OH = 1280, 720
 ZOOM_FRAMES = 24          # 0.8 s ease between zoom keyframes
@@ -166,14 +166,14 @@ def compose():
             t = tl["title"]
             age = f - t["f"]
             al = min(1.0, (t["n"] - age) / 20) if age > 20 else min(1.0, age / 10 + 0.3)
-            draw_card(frame, cos_ease(al), [("PAKCIV", F_HERO, GOLD),
+            draw_card(frame, cos_ease(al), [("living pakistan", F_HERO, GOLD),
                                               ("Pakistan as a 3D strategy map — built from real public data", F_HERO_SUB, INK)])
         if in_outro:
             age = f - tl["outro"]["f"]
             al = min(1.0, age / 24)
-            draw_card(frame, cos_ease(al), [("PAKCIV", F_HERO, GOLD),
+            draw_card(frame, cos_ease(al), [("living pakistan", F_HERO, GOLD),
                                               ("23 public data sources · 3,409 hexes · 160 districts · 100% static Three.js", F_HERO_SUB, INK),
-                                              ("github.com/imhashir/pakciv", F_SMALL, GOLD)])
+                                              ("github.com/imhashir/livingpakistan", F_SMALL, GOLD)])
         frame.convert("RGB").save(TMP / f"c{f:05d}.jpg", quality=95)
         if f % 300 == 0:
             print("composed", f, "/", n, flush=True)

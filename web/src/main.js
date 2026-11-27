@@ -34,9 +34,9 @@ async function boot() {
   });
   stage.start();
   document.getElementById('loader').classList.add('gone');
-  window.__pakciv = app;
+  window.__livingpakistan = app;
   // let a couple of frames render before announcing readiness (used by the screenshot harness)
-  requestAnimationFrame(() => requestAnimationFrame(() => { window.__pakciv_ready = true; }));
+  requestAnimationFrame(() => requestAnimationFrame(() => { window.__livingpakistan_ready = true; }));
 }
 
 boot().catch((e) => {

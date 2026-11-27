@@ -802,7 +802,7 @@
     "Culture lens pins (shrine / craft / cricket)",
     "City View badges"
    ],
-   "caveats": "Curated list from the PakCiv brief, not a ranking. Shrine points are the shrine's Wikidata item where one exists, otherwise the town of the shrine (facts.coord_from) and so are approximate. Craft pins mark the hub town, not a workshop, and are included only when the cited Wikipedia article mentions the craft (facts.evidence holds the sentence); unverified crafts are dropped. Stadium capacity is the current English Wikipedia infobox value (Wikidata P1083 kept alongside; the two can disagree after renovations). Arbab Niaz Stadium appears under its current enwiki title, Imran Khan Cricket Stadium.",
+   "caveats": "Curated list from the living pakistan brief, not a ranking. Shrine points are the shrine's Wikidata item where one exists, otherwise the town of the shrine (facts.coord_from) and so are approximate. Craft pins mark the hub town, not a workshop, and are included only when the cited Wikipedia article mentions the craft (facts.evidence holds the sentence); unverified crafts are dropped. Stadium capacity is the current English Wikipedia infobox value (Wikidata P1083 kept alongside; the two can disagree after renovations). Arbab Niaz Stadium appears under its current enwiki title, Imran Khan Cricket Stadium.",
    "files": [
     {
      "name": "wikidata_culture.json",
@@ -2572,7 +2572,7 @@
     "Flood-surge playback (weekly)",
     "District flood exposure"
    ],
-   "caveats": "Satellite analysis, not field validated. Cloud cover hides some water in some weeks. The playback spreads each district's weekly flooded area over that district's cumulative footprint hexes — the weekly *district totals* are UNOSAT's; their placement inside a district is approximate. The 1 Jul – 31 Aug VIIRS composite also picks up flooded rice paddies (Punjab rice belt, e.g. Sialkot); PakCiv district headlines therefore use the peak of the cloud-free weekly windows (from 25 Aug), with the monthly maximum shown separately.",
+   "caveats": "Satellite analysis, not field validated. Cloud cover hides some water in some weeks. The playback spreads each district's weekly flooded area over that district's cumulative footprint hexes — the weekly *district totals* are UNOSAT's; their placement inside a district is approximate. The 1 Jul – 31 Aug VIIRS composite also picks up flooded rice paddies (Punjab rice belt, e.g. Sialkot); living pakistan district headlines therefore use the peak of the cloud-free weekly windows (from 25 Aug), with the monthly maximum shown separately.",
    "files": [
     {
      "name": "UNOSAT_Population_Exposure_FL20220808PAK_20220825_20220831_20220901_20220907_Updated14Sep2022.xlsx",

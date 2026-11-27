@@ -1,4 +1,4 @@
-"""Shared plumbing for the PakCiv pipeline.
+"""Shared plumbing for the living pakistan pipeline.
 
 * paths: data/raw/<source_id>/ (downloads, git-ignored), data/interim/<id>.json (tidy per-source output),
   web/data/*.json (what the browser loads).
@@ -26,7 +26,7 @@ RAW = ROOT / "data" / "raw"
 INTERIM = ROOT / "data" / "interim"
 WEB_DATA = ROOT / "web" / "public" / "data"
 
-UA = "Mozilla/5.0 (X11; Linux x86_64) PakCiv-pipeline/1.0 (+https://github.com/imhashir/pakciv)"
+UA = "Mozilla/5.0 (X11; Linux x86_64) living pakistan-pipeline/1.0 (+https://github.com/imhashir/livingpakistan)"
 
 
 # --------------------------------------------------------------------------------------------- downloads

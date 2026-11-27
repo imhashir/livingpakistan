@@ -3,7 +3,7 @@ import './panels.css';
 import { el } from './dom.js';
 import { panel, norm, fmtNum } from './panelkit.js';
 
-const REPO = 'https://github.com/imhashir/pakciv';
+const REPO = 'https://github.com/imhashir/livingpakistan';
 
 export class Almanac {
   constructor(app) {

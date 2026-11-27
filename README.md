@@ -1,4 +1,4 @@
-# PakCiv
+# living pakistan
 
 **Pakistan as a 3D Civilization-style strategy map, built entirely from real public data.**
 
@@ -6,9 +6,9 @@ Every hex is a real 20 km patch of the country, raised to its real height betwee
 coloured by what is actually there. Every number on screen comes from a public source, and you can trace it back in the
 in-app Almanac.
 
-![PakCiv at night: every hex glows with its census-scaled population density](docs/images/nightlights.webp)
+![living pakistan at night: every hex glows with its census-scaled population density](docs/images/nightlights.webp)
 
-**🎬 96-second product demo** — rendered locally to `previews/pakciv-demo.mp4` by `npm run video:record && npm run video:compose`
+**🎬 96-second product demo** — rendered locally to `previews/livingpakistan-demo.mp4` by `npm run video:record && npm run video:compose`
 (kept out of git so the repo stays lean; see [scripts/video/](scripts/video/)).
 
 | | | | | |
@@ -19,7 +19,7 @@ in-app Almanac.
 
 ## Contents
 
-- [Why PakCiv](#why-pakciv)
+- [Why living pakistan](#why-livingpakistan)
 - [Feature tour](#feature-tour)
 - [Yields: the game words and what they really measure](#yields-the-game-words-and-what-they-really-measure)
 - [Architecture](#architecture)
@@ -32,10 +32,10 @@ in-app Almanac.
 
 ---
 
-## Why PakCiv
+## Why living pakistan
 
 Andrej Karpathy's [usaciv](https://karpathy.ai/usaciv/) showed that a country's statistics are much more fun to explore
-when they look like a Civilization board: hexes, yields, cities, wonders and lenses. PakCiv asks what that would look
+when they look like a Civilization board: hexes, yields, cities, wonders and lenses. living pakistan asks what that would look
 like for Pakistan, and tries to make the result **unmistakably Pakistani** rather than a reskinned US map:
 
 - **The vertical drama.** The board climbs from the Indus Delta mangroves to five of the world's fourteen
@@ -50,7 +50,7 @@ like for Pakistan, and tries to make the result **unmistakably Pakistani** rathe
 **It is honest about its data.** Pakistan does not publish official district GDP, so the "Gold" yield is a **gridded GDP
 model** and is labelled as one everywhere. Missing data shows as "—", never as 0. The census join reproduces the official
 national total of **241,499,431** people exactly. A data-feasibility audit written before any code is in
-[docs/pakciv-data-sources.md](docs/pakciv-data-sources.md).
+[docs/livingpakistan-data-sources.md](docs/livingpakistan-data-sources.md).
 
 ---
 
@@ -273,7 +273,7 @@ Cloudflare Pages, S3 or any other static host.
   banners and wonder labels are **`CSS2DObject`** labels, decluttered in screen space.
 - **UI** ([web/src/ui/](web/src/ui)): one module per panel (inspector, lenses, search, almanac, explorer, duel, tours,
   eras, flood, surprise, guide), wired together by [web/src/app.js](web/src/app.js). The app is exposed as
-  `window.__pakciv` for scripting and screenshots.
+  `window.__livingpakistan` for scripting and screenshots.
 
 **Data contract.** The browser loads `manifest.json`, then the six files it lists from
 [web/public/data/](web/public/data), about 1.9 MB of JSON in total:
@@ -304,7 +304,7 @@ Cloudflare Pages, S3 or any other static host.
 This table is generated from [web/public/data/sources.json](web/public/data/sources.json). The in-app Almanac has full
 licences, caveats and file hashes for each source.
 
-| # | Source | Publisher | Vintage | What it powers in PakCiv |
+| # | Source | Publisher | Vintage | What it powers in living pakistan |
 |---:|---|---|---|---|
 | 1 | [Airports (OurAirports) with PCAA annual traffic](https://ourairports.com/data/) | OurAirports (public domain); Pakistan Civil Aviation Authority, Statistics Branch | OurAirports snapshot at retrieval; PCAA FY 2024-25 (July 2024 - June 2025) | airport points; airport icon size by annual passengers |
 | 2 | [7th Population & Housing Census 2023: district population, growth, religion, mother tongue, literacy](https://www.pbs.gov.pk/census/) | Pakistan Bureau of Statistics | Census 2023 (reference date 1 Mar 2023) | Population / density / urbanisation lens; Population growth 2017-2023; Religion and mother-tongue composition; Literacy (10+) by sex; Age structure (under 15, 60+) |
@@ -405,7 +405,7 @@ done
 ## Repository layout
 
 ```
-pakciv/
+livingpakistan/
 ├── web/                      Vite app root
 │   ├── index.html
 │   ├── src/
@@ -422,9 +422,9 @@ pakciv/
 │   └── build/                world · atlas · layers · districts_web · catalog · manifest
 ├── scripts/                  screenshots.mjs · verify-prod.mjs · video/
 ├── docs/
-│   ├── pakciv-data-sources.md   pre-build data audit (usaciv → Pakistan)
+│   ├── livingpakistan-data-sources.md   pre-build data audit (usaciv → Pakistan)
 │   └── images/                  README screenshots
-├── previews/                 full-resolution progress screenshots (+ local, git-ignored pakciv-demo.mp4)
+├── previews/                 full-resolution progress screenshots (+ local, git-ignored livingpakistan-demo.mp4)
 ├── PROGRESS.md               milestone log
 └── vite.config.js · package.json
 ```

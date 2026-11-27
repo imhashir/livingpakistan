@@ -1,14 +1,14 @@
-// PakCiv demo-video director: drives the production build frame-by-frame (deterministic virtual clock, ?capture=1),
+// living pakistan demo-video director: drives the production build frame-by-frame (deterministic virtual clock, ?capture=1),
 // performs real mouse/keyboard input, and writes one JPEG per frame + a timeline log (cursor, clicks, zoom keyframes,
 // chapter labels) for scripts/video/compose.py.
 //   npm run build && npx vite preview --port 4173 &
-//   node scripts/video/record.mjs [outDir=/tmp/pakciv-video/raw]
+//   node scripts/video/record.mjs [outDir=/tmp/livingpakistan-video/raw]
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const OUT = process.argv[2] || '/tmp/pakciv-video/raw';
-const URL = process.env.PAKCIV_URL || 'http://127.0.0.1:4173/?capture=1';
+const OUT = process.argv[2] || '/tmp/livingpakistan-video/raw';
+const URL = process.env.LIVINGPAKISTAN_URL || 'http://127.0.0.1:4173/?capture=1';
 const W = 1600, H = 900, FPS = 30;
 const DRY = !!process.env.DRY;
 fs.rmSync(OUT, { recursive: true, force: true });
@@ -17,14 +17,14 @@ fs.mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist', '--enable-unsafe-swiftshader'] });
 const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
 // no welcome modal / walkthrough in the video
-await ctx.addInitScript(() => { try { localStorage.setItem('pakciv.welcome.v1', 'hide'); } catch {} });
+await ctx.addInitScript(() => { try { localStorage.setItem('livingpakistan.welcome.v1', 'hide'); } catch {} });
 const page = await ctx.newPage();
 const errors = [];
 page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) errors.push(`[${m.type()}] ${m.text()}`); });
 page.on('pageerror', (e) => errors.push(`[pageerror] ${e.message}`));
 page.on('requestfailed', (r) => errors.push(`[requestfailed] ${r.url()}`));
 await page.goto(URL, { waitUntil: 'load' });
-await page.waitForFunction(() => window.__pakciv_ready === true, null, { timeout: 180000 });
+await page.waitForFunction(() => window.__livingpakistan_ready === true, null, { timeout: 180000 });
 await page.waitForTimeout(1200); // fonts + loader fade
 
 // ------------------------------------------------------------------ timeline state
@@ -36,7 +36,7 @@ const js = (fnOrStr, arg) => page.evaluate(fnOrStr, arg);
 
 async function step(n = 1) {
   for (let i = 0; i < n; i++) {
-    await js((d) => window.__pakciv_step(1 / 30, d), !DRY);
+    await js((d) => window.__livingpakistan_step(1 / 30, d), !DRY);
     if (!DRY) await page.screenshot({ path: path.join(OUT, `f${String(frame).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 93 });
     log.frames.push({ c: [Math.round(cursor[0]), Math.round(cursor[1])] });
     frame++;
@@ -86,12 +86,12 @@ const unzoom = () => zoom(W / 2, H / 2, 1);
 const chapter = (title, sub, sec = 3.4) => log.chapters.push({ f: frame, n: Math.round(sec * FPS), title, sub });
 /** Screen position of a map cell (projected through the live camera). */
 const cellScreen = (cell) => js((c) => {
-  const a = window.__pakciv; const [x, y, z] = a.cellWorld(c);
+  const a = window.__livingpakistan; const [x, y, z] = a.cellWorld(c);
   const v = a.sites.worldPos({ xy: a.board.grid.center(c) }); v.y = Math.max(y, 0) + 0.6;
   v.project(a.stage.camera); return [(v.x + 1) / 2 * innerWidth, (1 - v.y) / 2 * innerHeight];
 }, cell);
 const siteScreen = (name) => js((n) => {
-  const a = window.__pakciv; const s = a.sites.sites.find((q) => q.name === n); const v = a.sites.worldPos(s, 1);
+  const a = window.__livingpakistan; const s = a.sites.sites.find((q) => q.name === n); const v = a.sites.worldPos(s, 1);
   v.project(a.stage.camera); return [(v.x + 1) / 2 * innerWidth, (1 - v.y) / 2 * innerHeight];
 }, name);
 
@@ -99,7 +99,7 @@ const siteScreen = (name) => js((n) => {
 console.log('recording…');
 // 1 · Arabian Sea → K2 → home -------------------------------------------------------------------------------------
 await js(() => {
-  const a = window.__pakciv; a.ui.dock.classList.add('collapsed'); a.setMood('golden'); a.setLayer('roads', false);
+  const a = window.__livingpakistan; a.ui.dock.classList.add('collapsed'); a.setMood('golden'); a.setLayer('roads', false);
   const [x, z] = a.board.mapToWorld(770, 1530); // off the Karachi coast
   a.stage.controls.target.set(x, 0, z); a.stage.camera.position.set(x - 60, 70, z + 260);
   const k2 = a.sites.sites.find((s) => s.name === 'K2'); const p = a.sites.worldPos(k2);
@@ -108,17 +108,17 @@ await js(() => {
 log.title = { f: 0, n: 110 };
 await hold(6.8);
 chapter('From the Arabian Sea to K2', 'Copernicus DEM · 0 m to 8,611 m · 3,409 hexes');
-await js(() => { const a = window.__pakciv; const k2 = a.sites.sites.find((s) => s.name === 'K2'); const p = a.sites.worldPos(k2);
+await js(() => { const a = window.__livingpakistan; const k2 = a.sites.sites.find((s) => s.name === 'K2'); const p = a.sites.worldPos(k2);
   a.stage.flyTo([p.x, p.y, p.z], { distance: 500, tilt: 1.0, azimuth: -0.6, duration: 2.2 }); });
 await hold(2.2);
-await js(() => { window.__pakciv.home(); window.__pakciv.stage.flight.duration = 2.3; });
+await js(() => { window.__livingpakistan.home(); window.__livingpakistan.stage.flight.duration = 2.3; });
 await hold(2.3);
 
 // 2 · relief + lighting -------------------------------------------------------------------------------------------
 chapter('Stretch the relief · change the light', 'Relief ×1–30 · Day, Golden hour, Nightlights');
 await moveTo('.relief input', 0.9);
 zoom(W * 0.62, H * 0.7, 1.35);
-await js(() => { const a = window.__pakciv; a.lines.group.visible = false; a.sites.group.visible = false; a.borders.group.visible = false; });
+await js(() => { const a = window.__livingpakistan; a.lines.group.visible = false; a.sites.group.visible = false; a.borders.group.visible = false; });
 const relief = await rect('.relief input');
 const sweep = [12, 28, 30, 16];
 for (let s = 1; s < sweep.length; s++) {
@@ -127,12 +127,12 @@ for (let s = 1; s < sweep.length; s++) {
     const v = sweep[s - 1] + (sweep[s] - sweep[s - 1]) * ease(i / n);
     const x = relief.x + relief.w * (v - 1) / 29;
     cursor = [x, relief.y + relief.h / 2]; await page.mouse.move(cursor[0], cursor[1]);
-    await js((val) => { const a = window.__pakciv; const cb = a.board.onExaggeration; a.board.onExaggeration = null; a.board.setExaggeration(val);
+    await js((val) => { const a = window.__livingpakistan; const cb = a.board.onExaggeration; a.board.onExaggeration = null; a.board.setExaggeration(val);
       a.board.onExaggeration = cb; a.reliefEl.querySelector('input').value = val; a.reliefEl.querySelector('b').textContent = val.toFixed(0); }, v);
     await step(1);
   }
 }
-await js(() => { const a = window.__pakciv; a.setRelief(16); a.lines.group.visible = true; a.sites.group.visible = true; a.borders.group.visible = true; });
+await js(() => { const a = window.__livingpakistan; a.setRelief(16); a.lines.group.visible = true; a.sites.group.visible = true; a.borders.group.visible = true; });
 await click('[data-mood="day"]', null, 0.5);
 await zoomOn('.moods', 1.25, null, -150, -170);
 await hold(0.8);
@@ -150,20 +150,20 @@ await zoomOn('[data-layer="corridors"]', 1.7, null, 120, -60);
 await click('[data-layer="corridors"]', null, 0.9);
 await hold(0.7);
 unzoom();
-await js(() => { const a = window.__pakciv; const [x, z] = a.board.mapToWorld(1250, 520);
+await js(() => { const a = window.__livingpakistan; const [x, z] = a.board.mapToWorld(1250, 520);
   a.stage.flyTo([x, 0, z], { distance: 980, tilt: 0.9, azimuth: -0.35, duration: 3.6 }); });
 await moveTo([W * 0.7, H * 0.4], 1.2);
 await hold(2.4);
-await js(() => { window.__pakciv.lines.focusCorridor('kkh'); });
+await js(() => { window.__livingpakistan.lines.focusCorridor('kkh'); });
 await hold(1.4);
-await js(() => { window.__pakciv.lines.focusCorridor(null); window.__pakciv.setLayer('corridors', false); });
+await js(() => { window.__livingpakistan.lines.focusCorridor(null); window.__livingpakistan.setLayer('corridors', false); });
 
 // 4 · tiles & City View --------------------------------------------------------------------------------------------
 chapter('Click any tile · City View', 'Census 2023 · Economic Census 2023 · modelled GDP');
 await click('[data-mood="day"]', null, 0.7);
-await js(() => { const a = window.__pakciv; const i = a.districts.findIndex((d) => d.name === 'Faisalabad'); a.flyToDistrict(i, { distance: 560, tilt: 0.86, azimuth: -0.1 }); a.stage.flight.duration = 1.8; });
+await js(() => { const a = window.__livingpakistan; const i = a.districts.findIndex((d) => d.name === 'Faisalabad'); a.flyToDistrict(i, { distance: 560, tilt: 0.86, azimuth: -0.1 }); a.stage.flight.duration = 1.8; });
 await hold(1.9);
-const fsd = await js(() => { const a = window.__pakciv; const d = a.districts.find((q) => q.name === 'Faisalabad'); return d.cells[Math.floor(d.cells.length * 0.35)]; });
+const fsd = await js(() => { const a = window.__livingpakistan; const d = a.districts.find((q) => q.name === 'Faisalabad'); return d.cells[Math.floor(d.cells.length * 0.35)]; });
 await moveTo(await cellScreen(fsd), 0.9);
 await hold(0.8);
 await click(null);
@@ -173,7 +173,7 @@ await hold(1.9);
 unzoom();
 if (await rect('.banner[data-id="lahore"]')) await click('.banner[data-id="lahore"]', null, 1.0);
 else { await moveTo(await siteScreen('Lahore'), 1.0); log.clicks.push(frame);
-  await js(() => { const a = window.__pakciv; a.select({ site: a.sites.sites.find((s) => s.kind === 'city' && s.name === 'Lahore') }); }); await step(1); }
+  await js(() => { const a = window.__livingpakistan; a.select({ site: a.sites.sites.find((s) => s.kind === 'city' && s.name === 'Lahore') }); }); await step(1); }
 await hold(0.4);
 await zoomOn('.inspector', 1.4, null, 0, 40);
 await page.mouse.move(W - 200, 500); cursor = [W - 200, 500];
@@ -184,7 +184,7 @@ unzoom();
 // 5 · lenses -------------------------------------------------------------------------------------------------------
 chapter('24 lenses on one board', 'Mother tongue · literacy · density · modelled GDP');
 await page.keyboard.press('Escape'); await step(1);
-await js(() => { window.__pakciv.home(); window.__pakciv.stage.flight.duration = 1.6; });
+await js(() => { window.__livingpakistan.home(); window.__livingpakistan.stage.flight.duration = 1.6; });
 await zoomOn('[data-lens="language"]', 1.6, null, 140, 80);
 await click('[data-lens="language"]', null, 0.8);
 await hold(0.6);
@@ -210,7 +210,7 @@ if (hist) {
 // 6 · 2022 flood ----------------------------------------------------------------------------------------------------
 chapter('Replay the 2022 mega-flood', 'UNOSAT satellite extents · Aug → Dec 2022');
 await click('[data-lens="flood"]', null, 0.8);
-await js(() => { const a = window.__pakciv; a.ui.dock.classList.add('collapsed'); const [x, z] = a.board.mapToWorld(880, 1180);
+await js(() => { const a = window.__livingpakistan; a.ui.dock.classList.add('collapsed'); const [x, z] = a.board.mapToWorld(880, 1180);
   a.stage.flyTo([x, 0, z], { distance: 1050, tilt: 0.8, azimuth: 0.05, duration: 1.8 }); a.flood.speed = 1.35; });
 await hold(1.6);
 await click('.timebar:not(.hidden) .play', null, 0.8);
@@ -226,7 +226,7 @@ await click('.tb-btn', 'Eras', 0.9);
 await hold(0.4);
 for (const k of [0, 1, 2, 5, 7]) {
   await click(`.timebar:not(.hidden) .ticks button:nth-child(${k + 1})`, null, 0.45);
-  await js(() => { const f = window.__pakciv.stage.flight; if (f) f.duration = 1.2; });
+  await js(() => { const f = window.__livingpakistan.stage.flight; if (f) f.duration = 1.2; });
   await hold(1.0);
 }
 await click('.tb-btn', 'Eras', 0.6);
@@ -237,7 +237,7 @@ chapter('District Duel', 'Any two districts, head to head');
 await click('.tb-btn', 'Duel', 0.8);
 await hold(0.3);
 await click('.duel-chip', 'Faisalabad', 0.8);
-await js(() => { const f = window.__pakciv.stage.flight; if (f) f.duration = 1.4; });
+await js(() => { const f = window.__livingpakistan.stage.flight; if (f) f.duration = 1.4; });
 await zoomOn(`.duel-chips`, 1.35, null, -40, 260);
 await moveTo([W - 260, 640], 1.2);
 await hold(2.0);
@@ -268,10 +268,10 @@ for (const ch of 'Mohenjo') { await page.keyboard.type(ch); await step(3); }
 await hold(0.5);
 await page.keyboard.press('Enter'); await step(1);
 unzoom();
-await js(() => { const f = window.__pakciv.stage.flight; if (f) f.duration = 1.8; });
+await js(() => { const f = window.__livingpakistan.stage.flight; if (f) f.duration = 1.8; });
 await hold(2.0);
 await click('.tb-btn', 'Surprise', 0.9);
-await js(() => { const f = window.__pakciv.stage.flight; if (f) f.duration = 1.6; });
+await js(() => { const f = window.__livingpakistan.stage.flight; if (f) f.duration = 1.6; });
 await zoomOn('.surp', 1.3);
 await hold(2.2);
 unzoom();
@@ -288,7 +288,7 @@ unzoom();
 await page.keyboard.press('Escape'); await step(1);
 
 // 12 · outro --------------------------------------------------------------------------------------------------------
-await js(() => { const a = window.__pakciv; a.setLens('terrain'); a.setMood('night'); a.setLayer('corridors', true); a.home(); a.stage.flight.duration = 2.4; });
+await js(() => { const a = window.__livingpakistan; a.setLens('terrain'); a.setMood('night'); a.setLayer('corridors', true); a.home(); a.stage.flight.duration = 2.4; });
 await moveTo([W - 40, H - 40], 1.0);
 log.outro = { f: frame, n: Math.round(4.2 * FPS) };
 await hold(4.4);

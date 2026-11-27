@@ -9,11 +9,18 @@ export class Tours {
     this.app = app;
     this.menu = el('div', { class: 'tour-menu glass modal hidden' });
     this.narr = el('div', { class: 'narr glass hidden' });
-    app.hud.append(this.menu, this.narr);
+    // the one control cinema mode leaves on screen
+    this.exitBtn = el('button', { class: 'cinema-exit', title: 'Exit (Esc)', onclick: () => this.stop() }, ['✕']);
+    app.hud.append(this.menu, this.narr, this.exitBtn);
     this.tours = this._define();
-    this.menu.append(el('h3', { text: '🎬 Chronicles of Pakistan' }),
+    this.menu.append(
+      el('div', { class: 'tour-head' }, [
+        el('h3', { text: '🎬 Chronicles of Pakistan' }),
+        el('button', { class: 'tb-btn on', title: 'Play every tour end to end, on a loop, with the interface out of the way',
+          onclick: () => this.playAll() }, ['▶ Play all']),
+      ]),
       el('div', { class: 'tour-grid' }, this.tours.map((t, k) => el('button', { class: 'tour-card', onclick: () => this.run(k) }, [el('b', { text: `${t.icon} ${t.title}` }), el('span', { text: t.sub })]))),
-      el('div', { class: 'src-note', style: { marginTop: '10px' }, text: 'Tours fly the camera, switch lenses and lighting, and narrate with numbers read from the datasets in the Almanac. Esc to stop · → / ← to step.' }));
+      el('div', { class: 'src-note', style: { marginTop: '10px' }, text: `Tours fly the camera, switch lenses and lighting, and narrate with numbers read from the datasets in the Almanac. Play all runs the ${this.tours.length} of them back to back on a loop with the interface hidden. Esc to stop · → / ← to step.` }));
     window.addEventListener('keydown', (e) => {
       if (!this.active) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); this.next(); }
@@ -166,6 +173,25 @@ export class Tours {
   // ---------------------------------------------------------------- player
   openMenu() { this.stop(false); this.menu.classList.toggle('hidden'); }
 
+  /**
+   * Play every tour end to end on a loop, with the interface out of the way.
+   * Nothing is left on screen but the one exit control, so this suits a
+   * screen in a room, or a recording.
+   */
+  playAll() {
+    this.menu.classList.add('hidden');
+    this.loopAll = true;
+    this.loopAt = 0;
+    document.body.classList.add('cinema');
+    this.run(0);
+  }
+
+  /** Next tour in the loop, wrapping at the end. run() leaves loopAll alone. */
+  _nextInLoop() {
+    this.loopAt = (this.loopAt + 1) % this.tours.length;
+    this.run(this.loopAt);
+  }
+
   async run(k) {
     this.menu.classList.add('hidden');
     this.app.eras?.hide(); this.app.select(null);
@@ -178,7 +204,11 @@ export class Tours {
     const a = this.active; if (!a) return;
     a.i = i;
     const steps = a.tour.steps;
-    if (i < 0 || i >= steps.length) return this.stop();
+    if (i < 0 || i >= steps.length) {
+      // in cinema the end of a tour is the start of the next one, forever
+      if (this.loopAll && i >= steps.length) return this._nextInLoop();
+      return this.stop();
+    }
     const token = Symbol(); a.token = token;
     let st;
     try { st = steps[i](); } catch (e) { console.warn('tour step failed', e); return this.next(); }
@@ -237,6 +267,9 @@ export class Tours {
   stop(goHome = true) {
     if (!this.active) return;
     this.active = null; this.paused = false;
+    // whether it was ✕, Esc, or the menu, cinema ends here
+    this.loopAll = false;
+    document.body.classList.remove('cinema');
     this.narr.classList.add('hidden'); document.body.classList.remove('touring');
     this.app.lines.focusCorridor(null);
     this.app.focusOn(null);

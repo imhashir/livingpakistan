@@ -1,7 +1,7 @@
 // First-time Welcome / Getting Started modal + an interactive spotlight walkthrough of every major feature.
 import { el, fmt } from './dom.js';
 
-const STORE_KEY = 'pakciv.welcome.v1';
+const STORE_KEY = 'livingpakistan.welcome.v1';
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export class Guide {

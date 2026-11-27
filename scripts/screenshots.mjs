@@ -13,7 +13,7 @@ const errors = [];
 page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(`[${m.type()}] ${m.text()}`); });
 page.on('pageerror', (e) => errors.push(`[pageerror] ${e.message}`));
 await page.goto(url, { waitUntil: 'load' });
-await page.waitForFunction(() => window.__pakciv_ready === true, null, { timeout: 120000 }).catch(() => {});
+await page.waitForFunction(() => window.__livingpakistan_ready === true, null, { timeout: 120000 }).catch(() => {});
 if (js) { await page.evaluate(js); }
 await page.waitForTimeout(+wait);
 await page.screenshot({ path: out });

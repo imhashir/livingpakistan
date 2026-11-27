@@ -1,4 +1,4 @@
-# PakCiv — build progress log
+# living pakistan — build progress log
 
 Newest entries at the top. Screenshots live in `previews/`.
 
@@ -10,7 +10,7 @@ Newest entries at the top. Screenshots live in `previews/`.
   earlier entries said 25.)
 - **Optimized screenshots** in `docs/images/`: 16 WebP images at 1200×750, 108–204 KB each (vs 1–1.5 MB PNGs);
   every image link in the README verified to exist.
-- **96-second product demo video** (`previews/pakciv-demo.mp4`, git-ignored to keep the repo lean — regenerate with
+- **96-second product demo video** (`previews/livingpakistan-demo.mp4`, git-ignored to keep the repo lean — regenerate with
   `npm run video:record && npm run video:compose`). Chapters: Arabian Sea → K2 flight, relief sweep + Day/Golden/Night,
   rivers & glowing corridors, tile card & Lahore City View, lenses (mother tongue, literacy, density, modelled GDP) with
   legend brushing, 2022 flood surge playback, Era Time-Machine, District Duel, Explorer brushing, Search + Surprise me,
@@ -24,7 +24,7 @@ Newest entries at the top. Screenshots live in `previews/`.
   `moov` before `mdat` (+faststart); check frames at 0:14 / 0:30 / 0:47 / 1:20 inspected; 0 console errors during capture;
   `npm run verify` on the rebuilt production bundle → 0 errors / warnings / failed requests.
 
-**Screenshots** — `docs/images/*.webp` (README); video: `previews/pakciv-demo.mp4` (local only)
+**Screenshots** — `docs/images/*.webp` (README); video: `previews/livingpakistan-demo.mp4` (local only)
 
 ## 03 · First-time Welcome & interactive walkthrough (2026-11-27)
 **Built**

@@ -1,8 +1,8 @@
 {
-  "name": "pakciv",
+  "name": "livingpakistan",
   "private": true,
   "version": "1.0.0",
-  "description": "PakCiv — Pakistan as a 3D Civilization-style data atlas, built from real public data",
+  "description": "living pakistan — Pakistan as a 3D Civilization-style data atlas, built from real public data",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,8 +10,8 @@
     "preview": "vite preview --port 4173",
     "shots": "node scripts/screenshots.mjs",
     "verify": "node scripts/verify-prod.mjs",
-    "video:record": "node scripts/video/record.mjs /tmp/pakciv-video/raw",
-    "video:compose": ".venv/bin/python scripts/video/compose.py /tmp/pakciv-video/raw previews/pakciv-demo.mp4"
+    "video:record": "node scripts/video/record.mjs /tmp/livingpakistan-video/raw",
+    "video:compose": ".venv/bin/python scripts/video/compose.py /tmp/livingpakistan-video/raw previews/livingpakistan-demo.mp4"
   },
   "license": "MIT",
   "dependencies": {

@@ -63,7 +63,7 @@ INFO = {
                    "https://en.wikipedia.org/api/rest_v1/page/summary/"],
     "license": "Wikidata CC0; Wikipedia text CC BY-SA 4.0",
     "used_for": ["Culture lens pins (shrine / craft / cricket)", "City View badges"],
-    "caveats": ("Curated list from the PakCiv brief, not a ranking. Shrine points are the shrine's Wikidata item "
+    "caveats": ("Curated list from the living pakistan brief, not a ranking. Shrine points are the shrine's Wikidata item "
                 "where one exists, otherwise the town of the shrine (facts.coord_from) and so are approximate. "
                 "Craft pins mark the hub town, not a workshop, and are included only when the cited Wikipedia "
                 "article mentions the craft (facts.evidence holds the sentence); unverified crafts are dropped. "

@@ -1,12 +1,12 @@
-# PakCiv — End-to-End Build Brief for Claude Code
+# living pakistan — End-to-End Build Brief for Claude Code
 
 ## Mission
-Build **PakCiv**: a Civilization-style interactive hex-grid data atlas of Pakistan, inspired by Andrej Karpathy's [usaciv](https://karpathy.ai/usaciv/) (from [this X post](https://x.com/karpathy/status/2125779541952246039)).
+Build **living pakistan**: a Civilization-style interactive hex-grid data atlas of Pakistan, inspired by Andrej Karpathy's [usaciv](https://karpathy.ai/usaciv/) (from [this X post](https://x.com/karpathy/status/2125779541952246039)).
 
-You own this **end to end**: deep research, downloading and parsing real public datasets, designing creative Pakistan-specific capabilities that go beyond a plain clone, building the full data pipeline + interactive web app, verifying everything visually with headless browser screenshots, and committing & pushing your progress continuously to `origin main` (`https://github.com/imhashir/pakciv`).
+You own this **end to end**: deep research, downloading and parsing real public datasets, designing creative Pakistan-specific capabilities that go beyond a plain clone, building the full data pipeline + interactive web app, verifying everything visually with headless browser screenshots, and committing & pushing your progress continuously to `origin main` (`https://github.com/imhashir/livingpakistan`).
 
 ## Reference Material Already on Disk
-- `docs/pakciv-data-sources.md` — a verified audit of all 31 sources in `usaciv` (`https://karpathy.ai/usaciv/data/sources.json` & `https://karpathy.ai/usaciv/usaciv-source.zip`) mapped to Pakistan and global datasets, with URLs, formats, gaps, and v1 recommendations.
+- `docs/livingpakistan-data-sources.md` — a verified audit of all 31 sources in `usaciv` (`https://karpathy.ai/usaciv/data/sources.json` & `https://karpathy.ai/usaciv/usaciv-source.zip`) mapped to Pakistan and global datasets, with URLs, formats, gaps, and v1 recommendations.
 - Feel free to inspect `https://karpathy.ai/usaciv/` and `https://karpathy.ai/usaciv/usaciv-source.zip` directly for architectural inspiration, UX polish, Almanac/source-attribution standards, and Canvas 2D hex rendering patterns.
 
 ## Core Design Principles
@@ -24,11 +24,11 @@ You own this **end to end**: deep research, downloading and parsing real public 
 ## Workflow, Git & Visual Progress Requirements
 1. **Commit & push frequently** to `origin main` (`git add`, `git commit`, `git push`) at every meaningful milestone (data pipeline setup, dataset downloads/cleaning, hex grid builder, core map render, lenses, City View, Explorer, polish, etc.). Keep large raw rasters/downloads out of git via `.gitignore` (commit scripts, processed compact JSON/topojson/hex data, and docs).
 2. **Capture visual progress screenshots** in `previews/` (e.g., `previews/01-hex-terrain.png`, `previews/02-cities-lenses.png`, `previews/03-city-view-explorer.png`, `previews/04-final-polish.png`) using Playwright/Chromium or a headless browser against the running local dev server at 1280×800 or 1440×900.
-3. **Write a short `PROGRESS.md` log** whenever you hit a major milestone or save a new screenshot in `previews/`, noting what was built, which datasets were integrated, and which screenshot to inspect — so the PakCiv coordinator bot can immediately share visual updates with Hashir.
+3. **Write a short `PROGRESS.md` log** whenever you hit a major milestone or save a new screenshot in `previews/`, noting what was built, which datasets were integrated, and which screenshot to inspect — so the living pakistan coordinator bot can immediately share visual updates with Hashir.
 4. **Verify before finishing:** Make sure the production build / static bundle runs cleanly with zero console errors, all lenses and panels work, and every source is cited in the in-app Almanac.
 
 ## Creative Pakistan-Specific Expansion (From Hashir — Push Beyond a Clone)
-Hashir explicitly asked to **be creative and add exciting, unmistakably Pakistani features** that make PakCiv feel alive, culturally resonant, and addictive to explore (always backed by real datasets/facts, never fabricated numbers):
+Hashir explicitly asked to **be creative and add exciting, unmistakably Pakistani features** that make living pakistan feel alive, culturally resonant, and addictive to explore (always backed by real datasets/facts, never fabricated numbers):
 1. **Civilization Eras / Historical Timeline Scrubber (5,000+ Years of Civilization):** An optional era overlay or toggle highlighting where ancient & historical civilizations flourished on the exact same hexes — Indus Valley (Mohenjo-daro, Harappa, Mehrgarh), Gandhara (Taxila, Takht-i-Bahi), Mughal Heartland (Lahore, Multan, Thatta, Rohtas), British Canal Colonies (Lyallpur/Faisalabad, Sargodha, Sukkur Barrage), and Modern Pakistan (Islamabad, Gwadar, CPEC).
 2. **The Indus Lifeblood Simulation / Water Cascade:** Show the Indus + 5 Punjab rivers (Jhelum, Chenab, Ravi, Sutlej, Beas) + Kabul River flowing from the Karakoram/Himalayan glaciers down through major dams & barrages (Tarbela, Mangla, Chashma, Taunsa, Guddu, Sukkur, Kotri) into the world's largest contiguous irrigation network — with an interactive highlight of the Indus Water Treaty (Western vs Eastern rivers) and how irrigation drives Food yields across the Punjab & Sindh plains vs arid Balochistan/Thar.
 3. **Glacier-to-Sea Elevation & Climate Journey ("0m to 8,611m"):** Highlight Pakistan's extraordinary vertical diversity — Arabian Sea mangroves (Indus Delta), Thar & Cholistan deserts, fertile Indus alluvium, Potohar Plateau, Suleiman/Kirthar ranges, and the junction of the Himalayas, Karakoram, and Hindu Kush (5 of the world's 14 eight-thousanders: K2, Nanga Parbat, Gasherbrum I, Broad Peak, Gasherbrum II, plus Siachen/Baltoro/Biafo glaciers).
@@ -46,7 +46,7 @@ Hashir explicitly asked to **be creative and add exciting, unmistakably Pakistan
 - **Entirely Three.js-based renderer** (WebGL via `three` — true 3D/2.5D hex-grid map with elevation relief from 0m Arabian Sea to 8,611m K2, extruded/layered hex tiles, rivers, roads/corridors, 3D city/wonder markers, smooth orbit/pan/zoom camera, raycasting hover/click, and crisp HUD overlays). Do NOT build a flat 2D Canvas renderer; use Three.js throughout.
 
 ## Visual & Interactive Ambition — Go All-Out (From Hashir)
-Hashir wants PakCiv to be **visually jaw-dropping, deeply interactive, and genuinely addictive** — no holding back, no sterile GIS look, push Three.js and UX craft to the max:
+Hashir wants living pakistan to be **visually jaw-dropping, deeply interactive, and genuinely addictive** — no holding back, no sterile GIS look, push Three.js and UX craft to the max:
 - **Rich 3D Civ-Board Craft in Three.js:**
   - Dramatic vertical exaggeration slider (from subtle Civ-board relief to breathtaking 0m Arabian Sea → 8,611m K2 Karakoram wall) with snow-capped 3D mountain ridges, shimmering animated Arabian Sea & Indus river shaders, glowing nightlight city skylines, miniature 3D architectural silhouettes/icons for Wonders (Badshahi Mosque, Minar-e-Pakistan, Faisal Mosque, Mohenjo-daro stupa, K2 peak, Tarbela Dam, Gwadar Port), and subtle atmospheric haze / golden-hour directional lighting (plus a Day / Golden Hour / Nightlights lighting toggle!).
   - Animated flowing river currents along the Indus & Punjab five rivers, moving glowing caravan/trade-route pulses along GT Road, KKH, CPEC, and ML-1, and animated flood-surge wave playback on the 2022 Mega-Flood lens.
