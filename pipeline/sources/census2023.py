@@ -18,7 +18,6 @@ Output: data/interim/census2023.json
 """
 from __future__ import annotations
 
-import datetime as dt
 import re
 import sys
 
@@ -34,7 +33,7 @@ PROVINCES = {  # file stem -> province name in the COD frame
     "islamabad": "Islamabad",
 }
 TABLES = (1, 5, 9, 11, 12)
-LANDING = "https://www.pbs.gov.pk/census-2023/"
+LANDING = "https://www.pbs.gov.pk/census/"  # PBS census landing page (Census 2023 results and tables)
 LIST_URL = ("https://www.pbs.gov.pk/wp-content/uploads/2020/07/"
             "LIST-OF-STATICTICAL-TABLES-OF-POPULATION-AND-HOUSEING-CENSUS-2023.pdf")
 VINTAGE = "Census 2023 (reference date 1 Mar 2023)"
@@ -135,6 +134,14 @@ SUFFIXES = {"DISTRICT", "TEHSIL", "TALUKA", "SUBDIVISION", "DIVISION"}
 PROVINCE_ROWS = {"PAKISTAN", "PUNJAB", "SINDH", "KHYBERPAKHTUNKHWA", "BALOCHISTAN", "ISLAMABAD"}
 
 
+def pretty(raw: str) -> str:
+    """'KARACHI WEST DISTRICT' -> 'Karachi West'; 'LEHRI SUB-DIVISION' -> 'Lehri sub-division'."""
+    s = re.sub(r"\s+", " ", raw).strip()
+    s = re.sub(r"\s*DISTRICT$", "", s, flags=re.I)
+    s = s.title().replace("Sub-Division", "sub-division")
+    return s
+
+
 def norm(s: str) -> str:
     return re.sub(r"[^A-Z]", "", s.upper())
 
@@ -179,8 +186,12 @@ def pdf_lines(path) -> list[tuple[int, list[str]]]:
                 ln.sort(key=lambda w: w["x0"])
                 toks: list[list] = []
                 for w in ln:
-                    if toks and w["x0"] - toks[-1][1] < 1.5:
-                        toks[-1][0] += w["text"]
+                    gap = w["x0"] - toks[-1][1] if toks else 99
+                    if gap < 1.5:
+                        # keep a space between words of a name; digits split into runs are glued back together
+                        glue = " " if gap > 0.3 and not (toks[-1][0][-1:].isdigit() or w["text"][:1] in "0123456789,.") \
+                            else ""
+                        toks[-1][0] += glue + w["text"]
                         toks[-1][1] = w["x1"]
                     else:
                         toks.append([w["text"], w["x1"]])
@@ -218,9 +229,8 @@ class Entity:
 
 
 def parse(path, ncols: int, min_cols: int | None = None, header_check=None) -> list[Entity]:
-    """Generic PBS table parser. Table 1 style (name + numbers on one line) and block style (name line, then
-    section/label lines with numbers) are both handled. Each entity keeps the first row seen for each
-    (section, label) key; the numeric tail of a row is the last `ncols` numeric tokens."""
+    """Table 1 style parser: each area is one line (name + `ncols` numbers) followed by RURAL / URBAN lines with
+    `min_cols` numbers. Long names wrap: text line above a nameless number line, suffix ("DISTRICT") below."""
     min_cols = min_cols or ncols
     lines = pdf_lines(path)
     ents: list[Entity] = []
@@ -262,26 +272,26 @@ def parse(path, ncols: int, min_cols: int | None = None, header_check=None) -> l
             label, nums = label + nums[: len(nums) - ncols], nums[len(nums) - ncols:]
         lab = norm(" ".join(label))
         new_name = None
-        if True:  # entity rows carry ncols numbers, RURAL/URBAN rows min_cols
-            if lab in ("RURAL", "URBAN") and len(nums) == min_cols:
-                if cur is not None and lab not in cur.rows:
-                    cur.rows[lab] = nums
-                buf = []
-                continue
-            if len(nums) != ncols:
-                raise ValueError(f"{path.name}: unexpected row {toks}")
-            if lab:
-                new_name = " ".join(label)
-            else:  # wrapped name: text line(s) above + suffix line below
-                new_name = " ".join(buf)
-                if i < len(lines) and lines[i][0] == pi:
-                    nl, nn = _split(lines[i][1])
-                    if not nn and norm(" ".join(nl)) in SUFFIXES or (nl and new_name.endswith("-")):
-                        new_name += " " + " ".join(nl)
-                        i += 1
+        # entity rows carry ncols numbers, RURAL/URBAN rows carry min_cols
+        if lab in ("RURAL", "URBAN") and len(nums) == min_cols:
+            if cur is not None and lab not in cur.rows:
+                cur.rows[lab] = nums
             buf = []
-            cur = Entity(new_name)
-            cur.rows["_"] = nums
+            continue
+        if len(nums) != ncols:
+            raise ValueError(f"{path.name}: unexpected row {toks}")
+        if lab:
+            new_name = " ".join(label)
+        else:  # wrapped name: text line(s) above + suffix line below
+            new_name = " ".join(buf)
+            if i < len(lines) and lines[i][0] == pi:
+                nl, nn = _split(lines[i][1])
+                if not nn and norm(" ".join(nl)) in SUFFIXES or (nl and new_name.endswith("-")):
+                    new_name += " " + " ".join(nl)
+                    i += 1
+        buf = []
+        cur = Entity(new_name)
+        cur.rows["_"] = nums
         if cur.kind == "district":
             district = cur.base
         elif cur.kind == "sub":
@@ -349,13 +359,9 @@ def _hdr_words(hdr) -> list[str]:
 
 def check_religion_hdr(hdr, path):
     w = _hdr_words(hdr)
-    pos = []
-    for h in RELIGION_HDR:
-        idx = [i for i, x in enumerate(w) if x.startswith(h)]
-        if not idx:
+    for h in RELIGION_HDR:  # presence only (multi-line header); column order is sanity-checked numerically
+        if not any(x.startswith(h) for x in w):
             raise ValueError(f"{path.name}: religion header {h} missing: {w}")
-        pos.append(idx[0])
-    # header words are emitted line by line, so only check presence; column order is verified numerically below
 
 
 def check_lang_hdr(hdr, path):
@@ -503,6 +509,7 @@ def main() -> dict:
     census_prov: dict[str, str] = {}
     subs: dict[tuple[str, str], dict] = {}
     prov_tot: dict[tuple[int, str], dict] = {}
+    census_raw: dict = {}
     for t, (parser, getv) in extract.items():
         for stem, prov in PROVINCES.items():
             ents = parser(raw[f"table_{t}_{stem}.pdf"])
@@ -512,9 +519,13 @@ def main() -> dict:
             for base, e in d.items():
                 census.setdefault(base, {}).update(getv(e))
                 census_prov[base] = prov
+                if t == 1:
+                    census_raw[base] = pretty(e.raw)
             for (par, sname), e in s.items():
                 if any(par == a and sname == b for a, b, _ in SUB_MOVES):
                     subs.setdefault((par, sname), {}).update(getv(e))
+                    if t == 1:
+                        census_raw[(par, sname)] = pretty(e.raw)
             for pname, e in p.items():
                 if stem != "islamabad":
                     prov_tot[(t, pname)] = getv(e)
@@ -540,20 +551,24 @@ def main() -> dict:
                            (11, lambda v: v["_lang_total"], "_lang_total"), (12, lambda v: v["pop10"], "pop10"),
                            (5, lambda v: v["pop_under15"], "pop_under15")):
             ref = prov_tot.get((t, "NAT:" + pn)) or prov_tot.get((t, pn))
-            if ref is None:
-                check(f"T{t} {prov}: province total available", False)
+            if ref is None:  # Table 5 national file only prints Pakistan; checked at national level below
+                check(f"T{t} {prov}: province total available", t == 5)
                 continue
             got = psum(fn, prov)
             check(f"T{t} {prov}: sum of districts == PBS province total ({key})", got == ref[key],
                   f"{got:,} vs {ref[key]:,}")
 
-    # ---- growth formula: find the period PBS uses, verify it reproduces PBS district rates
-    # 6th census reference date 15 Mar 2017 -> 7th census reference date 1 Mar 2023
-    years = (dt.date(2023, 3, 1) - dt.date(2017, 3, 15)).days / 365.25
-    errs = [abs(round(growth_rate(v["pop"], v["pop_2017"], years), 2) - v["_growth"])
-            for v in census.values() if v.get("_growth") is not None and v["pop_2017"]]
-    check("growth formula reproduces PBS district rates (max abs err <= 0.02 pp)", max(errs) <= 0.02,
-          f"max err {max(errs):.3f} over {len(errs)} districts")
+    # ---- growth formula. PBS does not state the exact intercensal period it uses; the compound-rate period is
+    # fitted to the published district rates (all 1:1 districts) and only used for merged / derived districts.
+    gv = [(v["pop"], v["pop_2017"], v["_growth"]) for v in census.values()
+          if v.get("_growth") is not None and v["pop_2017"]]
+
+    def max_err(y):
+        return max(abs(round(growth_rate(p, p17, y), 2) - g) for p, p17, g in gv)
+
+    years = min((5.9 + i / 1000 for i in range(201)), key=lambda y: (round(max_err(y), 4), abs(y - 6.0)))
+    check(f"growth formula (compound, {years:.3f} yr) reproduces PBS district rates within 0.01 pp",
+          max_err(years) <= 0.0101, f"max err {max_err(years):.3f} over {len(gv)} districts")
 
     # ---- religion / language column order sanity: Muslim is the largest religion everywhere
     check("religion: column parse sane (muslim largest in every district)",
@@ -573,7 +588,7 @@ def main() -> dict:
             raise ValueError(f"{base} -> {pc} crosses provinces")
         acc[pc] = add(acc.get(pc, {}), v)
         acc[pc]["age_total"] = acc[pc].get("age_total", 0) + v["_age_total"]
-        members.setdefault(pc, []).append(base.title() if base != "ISLAMABAD" else "Islamabad")
+        members.setdefault(pc, []).append(census_raw[base])
         if len([b for b in census if pcode_for(b) == pc]) == 1:  # 1:1 -> keep PBS-published rates as-is
             acc[pc]["growth"] = v["_growth"]
             acc[pc]["hh_size"] = v["_hh_size"]
@@ -589,9 +604,8 @@ def main() -> dict:
         for pc in (src, dest):
             acc[pc].pop("growth", None)
             acc[pc].pop("hh_size", None)
-        members[src] = [m if m != par.title() else f"{par.title()} (excl. {sname.title().replace('Subdivision', 'SD')})"
-                        for m in members[src]]
-        members.setdefault(dest, []).append(f"{sname.title().replace('Subdivision', 'SD')} (of {par.title()})")
+        members[src] = [m if m != census_raw[par] else f"{m} (excl. {census_raw[(par, sname)]})" for m in members[src]]
+        members.setdefault(dest, []).append(f"{census_raw[(par, sname)]} (of {census_raw[par]})")
     for pc, v in acc.items():
         if len(members[pc]) > 1:
             v.pop("growth", None)
@@ -610,7 +624,7 @@ def main() -> dict:
     # ---- national
     nat_acc: dict = {}
     for v in acc.values():
-        nat_acc = add(nat_acc, v)
+        nat_acc = add(nat_acc, {k: x for k, x in v.items() if k not in ("growth", "hh_size")})
     national = finish(nat_acc, years)
     n1 = prov_tot[(1, "NAT:PAKISTAN")]
     check("national pop == PBS 241,499,431", national["pop"] == 241_499_431, f"{national['pop']:,}")
@@ -618,7 +632,7 @@ def main() -> dict:
     check("national urban+rural == pop", national["pop_urban"] + national["pop_rural"] == national["pop"])
     for t, key in ((9, "pop_detailed"), (11, "_lang_total"), (12, "pop10"), (12, "literate"), (5, "pop_under15")):
         ref = prov_tot.get((t, "NAT:PAKISTAN"))
-        got = national.get(key, nat_acc.get(key))
+        got = sum(national["language"].values()) if key == "_lang_total" else national.get(key)
         check(f"T{t} national {key} == PBS national row", ref and got == ref[key],
               f"{got:,} vs {ref[key]:,}" if ref else "no national row")
     national["growth_pbs"] = n1["_growth"]
@@ -657,7 +671,6 @@ def main() -> dict:
 
     # ---- report
     bad = [c for c in checks if not c[1]]
-    shown = [c for c in checks if not c[0].startswith(("T", "every", "growth")) or not c[1]]
     print(f"census2023: {len(districts)} COD districts with data, {len(missing)} without ({', '.join(missing)})")
     for name, ok, det in checks:
         if not ok or name.startswith(("national", "religion", "language", "growth", "(info)", "every", "T1 ")):

@@ -1,0 +1,3190 @@
+{
+ "sources": [
+  {
+   "id": "airports",
+   "title": "Airports (OurAirports) with PCAA annual traffic",
+   "publisher": "OurAirports (public domain); Pakistan Civil Aviation Authority, Statistics Branch",
+   "vintage": "OurAirports snapshot at retrieval; PCAA FY 2024-25 (July 2024 - June 2025)",
+   "url": "https://ourairports.com/data/",
+   "files_urls": [
+    "https://davidmegginson.github.io/ourairports-data/airports.csv",
+    "https://pcaawebadmin.pcaa.gov.pk/media/xaehjqwn/major-traffic-flows-by-airports-during-the-year-2024-25.pdf"
+   ],
+   "license": "OurAirports: public domain; PCAA statistics: published government data (cite PCAA)",
+   "used_for": [
+    "airport points",
+    "airport icon size by annual passengers"
+   ],
+   "caveats": "Selection = OurAirports large_airport + medium_airport + small_airport with scheduled_service=yes; medium_airport includes PAF air bases (flag military=true by name), which carry no civil traffic. Traffic joined by ICAO code (then IATA) to the PCAA FY 2024-25 table; airports absent from the PCAA table have null traffic (not zero). PCAA counts are for airports it operates; ISB 'BBIAP Chaklala' (old Islamabad airport / Nur Khan) is listed separately from Islamabad International (OPIS).",
+   "files": [
+    {
+     "name": "airports.csv",
+     "url": "https://davidmegginson.github.io/ourairports-data/airports.csv",
+     "bytes": 12764821,
+     "sha256": "87a8ff07a823702153d4e5d4caa72148633812fb8c9a9cd81fca610ff3c112bf",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "major-traffic-flows-by-airports-during-the-year-2024-25.pdf",
+     "url": "https://pcaawebadmin.pcaa.gov.pk/media/xaehjqwn/major-traffic-flows-by-airports-during-the-year-2024-25.pdf",
+     "bytes": 91167,
+     "sha256": "c16f740b489784ddf44b252f5347bb7c5e4c740718f75272d977f6e78981adb4",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "census2023",
+   "title": "7th Population & Housing Census 2023: district population, growth, religion, mother tongue, literacy",
+   "publisher": "Pakistan Bureau of Statistics",
+   "vintage": "Census 2023 (reference date 1 Mar 2023)",
+   "url": "https://www.pbs.gov.pk/census-2023/",
+   "files_urls": [
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_punjab_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_sindh_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_kp_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_balochistan_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_islamabad.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_national.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_punjab_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_sindh_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_kp_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_balochistan_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_islamabad.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_national.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_punjab_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_sindh_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_kp_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_balochistan_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_islamabad.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_national.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_punjab_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_sindh_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_kp_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_balochistan_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_islamabad.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_national.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_punjab_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_sindh_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_kp_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_balochistan_districts.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_islamabad.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_national.pdf",
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/LIST-OF-STATICTICAL-TABLES-OF-POPULATION-AND-HOUSEING-CENSUS-2023.pdf"
+   ],
+   "license": "Public government statistics",
+   "used_for": [
+    "Population / density / urbanisation lens",
+    "Population growth 2017-2023",
+    "Religion and mother-tongue composition",
+    "Literacy (10+) by sex",
+    "Age structure (under 15, 60+)"
+   ],
+   "caveats": "First digital census (field work Mar-May 2023, reference date 1 Mar 2023). Table 1 population includes head-count-only restricted areas; religion, language, age and literacy (Tables 5-12) cover only fully enumerated population, ~0.4% less nationally, so their totals differ slightly from Table 1. Census 2023 districts are summed onto the COD-AB 2022 frame: Keamari is merged into West Karachi (Karachi district boundaries were redrawn after 2018, so the Karachi split is approximate); Surab = Shaheed Sikandarabad; Lehri = Lehri sub-division (Sibi) + Bhag sub-division (Kachhi), with Sibi and Kachhi reduced accordingly. Growth for merged/derived districts is recomputed from summed 2017 and 2023 counts. Household counts are not published in these tables (only average size). No PBS Census 2023 district tables for Azad Kashmir or Gilgit-Baltistan (left null).",
+   "files": [
+    {
+     "name": "table_11_balochistan_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_balochistan_districts.pdf",
+     "bytes": 3596501,
+     "sha256": "c075918d67e31e3ed52394733c5af40365416653f6e3b4ed593986db1583fb45",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_11_islamabad.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_islamabad.pdf",
+     "bytes": 45805,
+     "sha256": "63459ce9ca735f364625d1518b89e58d62c773b1c1f9d4a5809df8d5a25ddffd",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_11_kp_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_kp_districts.pdf",
+     "bytes": 3436846,
+     "sha256": "45283d41922c19750077a6de2cc7a99ff380da46a967cf52d9bcf384b7c98175",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_11_national.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_national.pdf",
+     "bytes": 128902,
+     "sha256": "b74c5e37d943b28f625467ff3af2afd73f1ef79573169c9ddd026a2994d5c6f4",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_11_punjab_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_punjab_districts.pdf",
+     "bytes": 3538413,
+     "sha256": "403c9fd8e4a4de5221710707e49f6a7779086cd6f0f55515df06ecba7c949133",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_11_sindh_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_11_sindh_districts.pdf",
+     "bytes": 3230815,
+     "sha256": "3a52141bc3c350e1cad94dd38c004ad60b5d3eb273979d0c193bd778aeedb0c7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_12_balochistan_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_balochistan_districts.pdf",
+     "bytes": 9970868,
+     "sha256": "8620f7dded6096aab3fefa76e76a0a22deb77fa5d8cb7a2c43db6bd9a6ccccb2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_12_islamabad.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_islamabad.pdf",
+     "bytes": 48502,
+     "sha256": "5f8f0c1d3b9a6e49ad2b425906eadf7c4b473c2f590873d2e2f7ee1958d2e56d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_12_kp_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_kp_districts.pdf",
+     "bytes": 3470903,
+     "sha256": "0d5a3a44770adc3318a767d3ce4a9f06666588f188ea3efa83875b559844c278",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_12_national.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_national.pdf",
+     "bytes": 129612,
+     "sha256": "b8ce11380593e8c93955d400675743a67ebaff632aa19385c1f1da39d78cff73",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_12_punjab_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_punjab_districts.pdf",
+     "bytes": 3626093,
+     "sha256": "488871ae85eff385e3b5751598d0103b691a37795a586da22f0a7fb5d0c9b302",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_12_sindh_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_12_sindh_districts.pdf",
+     "bytes": 3262429,
+     "sha256": "a8ff80470a8768f2f3bba717e806a31a78281b5b95ea233f07a3a7c6b6064561",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_1_balochistan_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_balochistan_districts.pdf",
+     "bytes": 592795,
+     "sha256": "e119ee4fab9ab5371101fcbc7613b2914eddef959184c67f3471ce18f3d1a269",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_1_islamabad.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_islamabad.pdf",
+     "bytes": 17456,
+     "sha256": "8deb2282dd70fc564a863c26c7a0adbd7651379aade08dbcc7f8279426423da3",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_1_kp_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_kp_districts.pdf",
+     "bytes": 562894,
+     "sha256": "6005edb53117b1f319471ea15646b58ee3b99e0b0e18070766928cdbf79404a5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_1_national.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_national.pdf",
+     "bytes": 30118,
+     "sha256": "24f513c1ed61b72e5fdf223cfad3d0c6dbf1b1a52da3e9612e6f15208ed75af4",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_1_punjab_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_punjab_districts.pdf",
+     "bytes": 571387,
+     "sha256": "a6d71fcdff9e766bf679b0f084600c2d255028b7be659b048c29351d1731650d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_1_sindh_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_sindh_districts.pdf",
+     "bytes": 517605,
+     "sha256": "765b0627293a312e6a68ba9a602e55c3af57e459b5fd9fc8a04fcabff4b63f58",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_5_balochistan_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_balochistan_districts.pdf",
+     "bytes": 2895720,
+     "sha256": "c8617738b707a15a7ad515298eafa2f5d0e39ff5f5b8b30d43ada5470bc46822",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_5_islamabad.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_islamabad.pdf",
+     "bytes": 26249,
+     "sha256": "3750a4f48c8fc23f8c621b1b81f8825160ccaa704ea9114dc36c18ec83d595d1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_5_kp_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_kp_districts.pdf",
+     "bytes": 2733545,
+     "sha256": "617e072c8076ed88029e10120907a854376d9c9f32d52179656a72e138f7baad",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_5_national.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_national.pdf",
+     "bytes": 27111,
+     "sha256": "b7b38b56c31c294019a704c78ad3535c852d1f6141db42cbf6ecff214278cc71",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_5_punjab_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_punjab_districts.pdf",
+     "bytes": 2823585,
+     "sha256": "2051b991844666c693ff9b2498ba25e6d9f90693ac5e559d7f1ab9cdc1288027",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_5_sindh_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_5_sindh_districts.pdf",
+     "bytes": 2587626,
+     "sha256": "3622c8ca022e08bf25fcfadff147c330e08ae1c99b15af2ff834b24a790c0bf4",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_9_balochistan_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_balochistan_districts.pdf",
+     "bytes": 2698658,
+     "sha256": "7eebf9fc405f4b31f54cc72f3912edd97133f07b2233cb05a7133ad63ac19793",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_9_islamabad.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_islamabad.pdf",
+     "bytes": 36012,
+     "sha256": "254e1bfe0b03bffc72431af31594fff204d2a4068ff1319ea46a55b5708ae1df",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_9_kp_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_kp_districts.pdf",
+     "bytes": 2255958,
+     "sha256": "c8d1c596a244ec743ef838be15bf6876e891cf4332b7e21d824145af5aecd030",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_9_national.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_national.pdf",
+     "bytes": 90490,
+     "sha256": "58fe59437546dd8c5e23a1b722aab7b3abb39024562877b1980a15a907ed8edb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_9_punjab_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_punjab_districts.pdf",
+     "bytes": 2592933,
+     "sha256": "bc8cbc1378478c54f5b50b837e1fb9d1dea916df2b9124c6df15475b63ae756e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "table_9_sindh_districts.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_9_sindh_districts.pdf",
+     "bytes": 2399774,
+     "sha256": "330eed69974d9f02f62151ef603c6a0a039b50195ff0ac70b01b97ae49ab8c4c",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "cities",
+   "title": "Major cities: location, Census 2023 urban-locality population, district",
+   "publisher": "Pakistan Bureau of Statistics (population); Wikidata contributors (coordinates); OCHA COD-AB (districts)",
+   "vintage": "7th Population and Housing Census 2023 (PBS); Wikidata P625 retrieved at build time",
+   "url": "https://www.pbs.gov.pk/digital-census/detailed-results",
+   "files_urls": [
+    "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_2_national.pdf",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q8660.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q11739.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q173985.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q93230.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q243322.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q185453.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1640079.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1113311.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q185458.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1362.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q855997.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q643883.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q318156.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q868631.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q696605.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q972756.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q989297.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1026616.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q999076.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q929062.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q523778.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1251261.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q993859.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q989283.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q968211.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q31356.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1017637.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1017651.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q2657702.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1260929.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1253663.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1251234.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1020490.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1250083.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1195983.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1253395.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1249888.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q2977093.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q301627.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q170315.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1252806.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q580533.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q461307.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q609024.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q976955.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q2579925.json",
+    "https://www.wikidata.org/wiki/Special:EntityData/Q1017696.json"
+   ],
+   "license": "PBS public release (cite Pakistan Bureau of Statistics); Wikidata CC0",
+   "used_for": [
+    "city markers and labels",
+    "city population ranking",
+    "capital symbols",
+    "city -> district join"
+   ],
+   "caveats": "pop_2023 sums PBS urban localities listed in pop_components: the city's Metropolitan/Municipal Corporation (all tehsil parts) plus named adjoining cantonments where they exist (Lahore, Rawalpindi, Gujranwala, Multan, Hyderabad incl. Qasimabad MC, Peshawar, Quetta, Sargodha, Sialkot, Bahawalpur, Mardan, Okara, Kohat, D.I. Khan, Abbottabad). Karachi = all 42 urban localities of the 7 Karachi Division census districts. Suburban towns with their own MC/TC (e.g. Rohri, Muridke, Taxila, Kotri for Hyderabad) are not added; Wah Cantonment is its own city, separate from Rawalpindi. AJK and GB are not covered by PBS Census 2023 locality tables, so Muzaffarabad, Mirpur, Gilgit and Skardu have null pop_2023 (AJK P&DD publishes only district-level projections). Coordinates are Wikidata's city point (often the historic centre), not a centroid. pcodes uses the COD-AB 2022 frame, in which Keamari is part of West Karachi. Kotri's Wikidata point falls inside COD-AB Hyderabad (PK706) although PBS places Kotri MC in Jamshoro district (Indus-bank boundary edge case).",
+   "files": [
+    {
+     "name": "table_2_national.pdf",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_2_national.pdf",
+     "bytes": 599630,
+     "sha256": "e4c557d82f52b84aac7ba0bbb979c67aa78774eabeabf9f5704d506ddb728dbf",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1017637.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1017637.json",
+     "bytes": 29798,
+     "sha256": "a77537b8c99705ee041ec8b679945b33d48719d61f19ae527ff71325f9cf3abf",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1017651.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1017651.json",
+     "bytes": 26648,
+     "sha256": "997df5d26cb45d50297f6fdcf41d0b29ccf5339a2d88fc1a7dae6939fd7ebbea",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1017696.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1017696.json",
+     "bytes": 25924,
+     "sha256": "b4b5b3245e16b2da910e66029b0ed9ba5dddc5e5300ccb45905b77707c023f50",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1020490.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1020490.json",
+     "bytes": 27927,
+     "sha256": "52112837cbb1bb376ac33bb4bf93a5595241a67c4ec17f50d127b5223bd0f84d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1026616.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1026616.json",
+     "bytes": 34254,
+     "sha256": "12c181ce3e94f109cb146a470310859eb27ee36446b866d5956fc4bb9b77eb9d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1113311.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1113311.json",
+     "bytes": 82743,
+     "sha256": "134b2f4251f381db7a1479ba2a22199f9a8244fe162009c0df11b6266b49dc64",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q11739.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q11739.json",
+     "bytes": 124234,
+     "sha256": "359ae2316e0ce8a7b530b925256310012a5afffbba6b480d1d91d7944f905143",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1195983.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1195983.json",
+     "bytes": 24570,
+     "sha256": "3868d84ca607c4a2f9b42034be2950a0ef4248af029165e4b74a0cf802e834a1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1249888.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1249888.json",
+     "bytes": 32939,
+     "sha256": "d9a0018db1cfc4e8b7eb969c1e7e6989529dabfe7f8fe724a34f1b3ada4a026f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1250083.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1250083.json",
+     "bytes": 16044,
+     "sha256": "e69cf92e8126c765e83b21108efd996f7128cf96635f9fb23a8af462edef261b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1251234.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1251234.json",
+     "bytes": 18013,
+     "sha256": "a32ee0e13729383ae5cc21ade6f16998149d03e2e92268a11844f0f2a83c9e81",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1251261.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1251261.json",
+     "bytes": 16097,
+     "sha256": "9a534ac2ed1f2de94a1b2a637fb51ab51c9d3ed565b4bd74006ef1da4bb4d498",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1252806.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1252806.json",
+     "bytes": 30625,
+     "sha256": "8e77f005c11828deebfd156abae4a33f14aa653a531ec204c1bf1beb7d19cdd8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1253395.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1253395.json",
+     "bytes": 23358,
+     "sha256": "bac288d7b3a2d10610f132ec34a3fcb813790f969b9ec3d3e7d58a2b34d62cbb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1253663.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1253663.json",
+     "bytes": 22194,
+     "sha256": "b9447308b23c15502b1c14297fa8de925c136dca3ddc009e47e738e0b98694ec",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1260929.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1260929.json",
+     "bytes": 15771,
+     "sha256": "97de885fe1dd102c5ada3c2affc8c65cc81b4a8429ecf8a0d3ef8c1d5a1e454c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1362.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1362.json",
+     "bytes": 120120,
+     "sha256": "00d2826b0cea221b9ec414370a0ffa37d722deaaa4dfc08d856848c5087ce860",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q1640079.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1640079.json",
+     "bytes": 70919,
+     "sha256": "b8357bb225846e12d3dc41b2f5faec220a742dc530a934f31381656f51d79503",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q170315.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q170315.json",
+     "bytes": 45889,
+     "sha256": "b67ba0c70237f9c408215e8d43bd11396ba44417c3a10f730902a9794c76eda1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q173985.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q173985.json",
+     "bytes": 72676,
+     "sha256": "d11371b80c6a99565e9a2c60760d350a9428bd130b8db961222091b3e6e17799",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q185453.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q185453.json",
+     "bytes": 64032,
+     "sha256": "fc69e72330cbf8a451ee002ace8ef1aaa2b07412dc0fe9d9c0c561dc6a4dc798",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q185458.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q185458.json",
+     "bytes": 69013,
+     "sha256": "47eec65a47b5fd548adc7f01710ad4ffb1d4ba5cf99b79315f97334b35df1163",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q243322.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q243322.json",
+     "bytes": 54862,
+     "sha256": "3d41739065a360a0b8867ca32e086079869caa3248a9c1b8d675d6321909ea39",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q2579925.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q2579925.json",
+     "bytes": 25987,
+     "sha256": "8b49f9e36fde87f6e67196523163ba982871951c7635b721e517966696049867",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q2657702.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q2657702.json",
+     "bytes": 18153,
+     "sha256": "a76d3ebd491dd3cb8eff5240bff559f317c1b8787ac370fb99c974db26b5988c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q2977093.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q2977093.json",
+     "bytes": 21029,
+     "sha256": "4ca7cd6c398033d586ea7913a799afb86a64e4464d00d58629e7704cf6fed85a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q301627.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q301627.json",
+     "bytes": 29935,
+     "sha256": "957347e8880f31910d94e0cb5f1f7524bade4dc645df4e9b4c870e0af9ef2514",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q31356.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q31356.json",
+     "bytes": 27597,
+     "sha256": "f324761609dab90fce479ff02b0ce7d149cc3f68b411fc662514093d9dbba4f6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q318156.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q318156.json",
+     "bytes": 47161,
+     "sha256": "051a75f0513008e57d759feb8dabc32750fde8aadce5810c0a5002c56d0658b9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q461307.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q461307.json",
+     "bytes": 39082,
+     "sha256": "ebcf87bdc4dc58cdb0b0070da9bc058014dfab82adc0b9b810888e4ac61e4355",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q523778.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q523778.json",
+     "bytes": 35697,
+     "sha256": "ac0a1fe89556979a5f81e8a05f09053beba1f6948d4df1e2bd1c910e9b7fce53",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q580533.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q580533.json",
+     "bytes": 42335,
+     "sha256": "70835bd50a4610f69617a072b75cadbb74b872c764e0e8bb49c405c5cc3266a7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q609024.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q609024.json",
+     "bytes": 36883,
+     "sha256": "d203dbe53e0291548d926b6c9f5667e368cf5afcd130988849c44bba8e4af8c5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q643883.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q643883.json",
+     "bytes": 58908,
+     "sha256": "7573cfbb5bb84701f18775fb793e3e7ed77d1785f91225ecb653f9af59e74d4e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q696605.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q696605.json",
+     "bytes": 36051,
+     "sha256": "fd1cd36911e3f8954aec0f6064bfda13d17bb3707145b47453e12e9746855b74",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q855997.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q855997.json",
+     "bytes": 40413,
+     "sha256": "b6f83feb838d36fc6b24ba5f7cc21c4fc6d03f6ede285c483e20fcd466d7d421",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q8660.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q8660.json",
+     "bytes": 144949,
+     "sha256": "4234ed80219cbdd461cf5959d6bc9f52a11af009655934216ab36f90ac239dd3",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q868631.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q868631.json",
+     "bytes": 37094,
+     "sha256": "37f6e923d4b6fd692cb0aa1dfcd19d22189734e86eedaab65d5e9ff793dfcf53",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q929062.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q929062.json",
+     "bytes": 39062,
+     "sha256": "1926742a7f7bdcf8a52bf78927b49fa56a637dc3db46b12bd0d53aca27ad37c6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q93230.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q93230.json",
+     "bytes": 79204,
+     "sha256": "21bc3672a29e89230daf52ed8c02e0e1733c4866a58c4c9a54dd2edda7488cf0",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q968211.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q968211.json",
+     "bytes": 26195,
+     "sha256": "ee362e2e3ca61445886aaf90673b5b96d4f89b17d297fb6f648703cf35c709f8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q972756.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q972756.json",
+     "bytes": 31876,
+     "sha256": "a37e8570b8c667319bc852d0f42e8d04116d4c1b06a27bec59e0db5f39bf6a5b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q976955.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q976955.json",
+     "bytes": 28033,
+     "sha256": "7207383f2e9308cbd7d1d012a1f155f4c5e28f0caec48c238d4045bcbb278567",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q989283.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q989283.json",
+     "bytes": 27288,
+     "sha256": "53bfbe58ec6331f366f0628f129633c1d8e8888c3a17ef322e0ca233e100712a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q989297.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q989297.json",
+     "bytes": 29609,
+     "sha256": "9dce6766ed9864b47daaa99e84e641d3a3eb1eabae6aac33aaacd5d320fd7b8d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q993859.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q993859.json",
+     "bytes": 29702,
+     "sha256": "762348386ba45fbdc92590d9fc4ad7f28abd137e8d347937baeb11eadc68c437",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_Q999076.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q999076.json",
+     "bytes": 39676,
+     "sha256": "019f9af3c076512068bf6339bd2be747d8ae2d88764fde37b6c0d470142ecce7",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "cod_ab",
+   "title": "Pakistan subnational administrative boundaries (COD-AB)",
+   "publisher": "OCHA / HDX",
+   "vintage": "2022 frame (valid 2022-09-09), HDX revision 2026-08-14",
+   "url": "https://data.humdata.org/dataset/cod-ab-pak",
+   "license": "CC BY-IGO (HDX)",
+   "used_for": [
+    "District & province borders",
+    "The 160-district frame every table joins to"
+   ],
+   "caveats": "Boundaries follow the UN/OCHA convention and are not an endorsement of any boundary claim. Post-2022 district splits are folded into their 2022 parents.",
+   "files": [
+    {
+     "name": "pak_admin_boundaries.geojson.zip",
+     "url": "https://data.humdata.org/dataset/a64d1ff2-7158-48c7-887d-6af69ce21906/resource/c6521e04-75e1-41be-8e02-0554a424d9f4/download/pak_admin_boundaries.geojson.zip",
+     "bytes": 29097223,
+     "sha256": "dc56da20dc578b01617f219f13a37e3be3beea78018adc902a6dee9d08dee45c",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "copernicus_dem",
+   "title": "Copernicus DEM GLO-90 (digital surface model)",
+   "publisher": "European Space Agency / Copernicus, via AWS Open Data Registry",
+   "vintage": "GLO-90 2021 release (TanDEM-X acquisitions 2011–2015)",
+   "url": "https://registry.opendata.aws/copernicus-dem/",
+   "files_urls": [
+    "https://copernicus-dem-90m.s3.amazonaws.com/tileList.txt"
+   ],
+   "license": "Copernicus DEM licence (free use with attribution) © DLR e.V. 2010-2014 and © Airbus 2014-2018",
+   "used_for": [
+    "Hex elevation (mean / max)",
+    "Relief classes (flat, hills, mountains, peaks)",
+    "3D tile heights",
+    "Coast / sea mask"
+   ],
+   "caveats": "A surface model: heights include buildings and canopy. 90 m pixels slightly under-read the sharpest summits; the hex 'max' is the highest 90 m pixel in the hex.",
+   "files": [
+    {
+     "name": "tiles_used.json",
+     "url": "https://copernicus-dem-90m.s3.amazonaws.com/tileList.txt",
+     "bytes": 12804,
+     "sha256": "63af12010c99feb50ec19ba88d42ccec4e63843d4495d6beb61f6cdb4911e871",
+     "retrieved": "2026-11-27"
+    }
+   ]
+  },
+  {
+   "id": "crops",
+   "title": "Agricultural Census 2024: crop area by district (Table 5)",
+   "publisher": "Pakistan Bureau of Statistics (PBS)",
+   "vintage": "Agricultural Census 2024 (district tables released 2025)",
+   "url": "https://www.pbs.gov.pk/agriculture-census/",
+   "files_urls": [
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Table_5_District.xls",
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Table_5_District-1.pdf"
+   ],
+   "license": "PBS public release (cite Pakistan Bureau of Statistics)",
+   "used_for": [
+    "Food yield (crop area)",
+    "dominant crop per district"
+   ],
+   "caveats": "Private farms only; total cropped area counts both Rabi and Kharif seasons. Crop areas are derived from PBS's published percentage shares (1 decimal) x total cropped area, so each is accurate to about +/-0.05% of the district's cropped area. 'Other' includes jowar, barley, tobacco, oilseeds, pulses, vegetables and orchards, yet published shares often sum to <100% (e.g. Ziarat 29.8%, Killa Abdullah 38.3%); the gap is reported as unlisted_area_ha. Census-reported areas are well above Crop Reporting Service / Agricultural Statistics estimates (national cropped area sums to ~33.5 Mha, wheat ~14.5 Mha), so use them for relative crop mix, not as official crop-area statistics. Because Rabi wheat is counted, wheat is the 'dominant' crop almost everywhere. No production figures (prod_t null). PBS reports 'Cholistan Area' as a separate unit (desert tracts of Bahawalpur/Bahawalnagar/Rahim Yar Khan); it is kept unassigned. Keamari is summed into West Karachi, Surab = Shaheed Sikandarabad. No AJK/GB tables.",
+   "files": [
+    {
+     "name": "Table_3_District.xls",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Table_3_District.xls",
+     "bytes": 438784,
+     "sha256": "7a0a9ea582363a5b95c3f2941e0fc702a53d6fe8fb785f548ca4d3af941712b7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "Table_4_District.xls",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Table_4_District.xls",
+     "bytes": 580608,
+     "sha256": "c85254882b21fabd24841db581b447fbb664425d26d73a3c96ca41090c41bfb6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "Table_5_District.xls",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Table_5_District.xls",
+     "bytes": 419840,
+     "sha256": "2fc90b0ceb80d4aecf1f47af4eee6b3e5aeabd7d90a940d75b97b8005ce398ca",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "culture",
+   "title": "Cultural mosaic: Sufi shrines, craft hubs and cricket grounds",
+   "publisher": "Wikidata / Wikipedia (curated list)",
+   "vintage": "Wikidata/Wikipedia as retrieved 2026-11",
+   "url": "https://www.wikidata.org/",
+   "files_urls": [
+    "https://query.wikidata.org/sparql",
+    "https://en.wikipedia.org/w/api.php (extracts)",
+    "https://en.wikipedia.org/api/rest_v1/page/summary/"
+   ],
+   "license": "Wikidata CC0; Wikipedia text CC BY-SA 4.0",
+   "used_for": [
+    "Culture lens pins (shrine / craft / cricket)",
+    "City View badges"
+   ],
+   "caveats": "Curated list from the PakCiv brief, not a ranking. Shrine points are the shrine's Wikidata item where one exists, otherwise the town of the shrine (facts.coord_from) and so are approximate. Craft pins mark the hub town, not a workshop, and are included only when the cited Wikipedia article mentions the craft (facts.evidence holds the sentence); unverified crafts are dropped. Stadium capacity is the current English Wikipedia infobox value (Wikidata P1083 kept alongside; the two can disagree after renovations). Arbab Niaz Stadium appears under its current enwiki title, Imran Khan Cricket Stadium.",
+   "files": [
+    {
+     "name": "wikidata_culture.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Farticle%20%3Fitem%20%3Fcoord%20%3Fdesc%20%3Fcapacity%20%3Finception%20WHERE%20%7B%0A%20%20VALUES%20%3Farticle%20%7B%20%3Chttps%3A//en.wikipedia.org/wiki/Abdullah_Shah_Ghazi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Ajrak%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Bari_Imam%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Bugti_Stadium%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Chiniot%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Clifton%2C_Karachi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Daraza%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Data_Darbar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Gaddafi_Stadium%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Gujrat%2C_Pakistan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Hala%2C_Sindh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Hyderabad%2C_Pakistan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Imran_Khan_Cricket_Stadium%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Iqbal_Stadium%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Islamabad%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Karachi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Kasur%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Multan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Multan_Cricket_Stadium%3E%20%3Chttps%3A//en.wikipedia.org/wiki/National_Stadium%2C_Karachi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Pakpattan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Peshawar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Qissa_Khwani_Bazaar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rahman_Baba%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rawalpindi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rawalpindi_Cricket_Stadium%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sachal_Sarmast%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sehwan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shrine_of_Baba_Farid%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shrine_of_Bahauddin_Zakariya%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shrine_of_Lal_Shahbaz_Qalandar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shrine_of_Shah_Abdul_Latif_Bhittai%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sialkot%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Tomb_of_Shah_Rukn-e-Alam%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Truck_art_in_South_Asia%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Wazirabad%3E%20%7D%0A%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%20schema%3AisPartOf%20%3Chttps%3A//en.wikipedia.org/%3E%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP1083%20%3Fcapacity%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP571%20%3Finception%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%7D",
+     "bytes": 21419,
+     "sha256": "0aed530196a17d55e41cda93acfb9bb28b17b43b4cb527e1a06fd14563cff1d5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikipedia_summaries.json",
+     "url": "https://en.wikipedia.org/api/rest_v1/page/summary/{title}",
+     "bytes": 22265,
+     "sha256": "bd75ac46d2935eb3ddb13236f6decd074e029d4d314d5e46a3c6646fa35340ca",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Bugti_Stadium.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Bugti_Stadium",
+     "bytes": 4526,
+     "sha256": "a80dbfd1a78b52b8af52cae49775b210e308e2b20a4ecc67dfa8fd5ab76269a8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Gaddafi_Stadium.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Gaddafi_Stadium",
+     "bytes": 45474,
+     "sha256": "905ac1a57e07c075123d7cc181c610a3cd055052bfa7e8c7234b60ba25c68712",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Imran_Khan_Cricket_Stadium.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Imran_Khan_Cricket_Stadium",
+     "bytes": 17016,
+     "sha256": "2580b8c3d4b20ecb736e798f5e44b38d50abb6c865651fadeedef777abb930f5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Iqbal_Stadium.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Iqbal_Stadium",
+     "bytes": 14306,
+     "sha256": "b2127ce294173a660606d39356130e9f3c1374fcdf10766015b196f3f2263efd",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Multan_Cricket_Stadium.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Multan_Cricket_Stadium",
+     "bytes": 13959,
+     "sha256": "b1974ebd3892f2f9f17b1f5b87954a3835fda61110be7b32db2b46315408737b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_National_Stadium_Karachi.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=National_Stadium%2C_Karachi",
+     "bytes": 43218,
+     "sha256": "659da45a7f24f032c24ba10a91710bd932822dcd6c6c5c7a53610a430dcc3889",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Rawalpindi_Cricket_Stadium.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Rawalpindi_Cricket_Stadium",
+     "bytes": 28117,
+     "sha256": "2ca0bd42ce493c4fdcdebf6a4c8b5efc4c3bd8585003460de0d9a2b96363ec89",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Ajrak.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Ajrak",
+     "bytes": 5203,
+     "sha256": "a89102b4830da974105b17f34b2afa4fb62840c56392818fec98fd8dd47a0440",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Chiniot.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Chiniot",
+     "bytes": 9077,
+     "sha256": "e5bd5d33cdae8c6221e24113e20cb3730384dbeadf959345db80f31903cbbccd",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Gujrat_Pakistan.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Gujrat%2C%20Pakistan",
+     "bytes": 12023,
+     "sha256": "0a4cd95737064d712fe32761c597d4063b4baa6d5fe895180e6cbc582e3d7d54",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Hala_Sindh.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Hala%2C%20Sindh",
+     "bytes": 1776,
+     "sha256": "f0bb7ed55c8acfe7f05446c7a0609c69205e19e492a6d5ca1f8d6196602685dc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Hyderabad_Pakistan.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Hyderabad%2C%20Pakistan",
+     "bytes": 29037,
+     "sha256": "6d237e3b510619250de494a3fc0238af3654dd2826e9ec00346bf3f9d6372b6f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Kashi_Kari.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Kashi%20Kari",
+     "bytes": 1287,
+     "sha256": "641adef5f1bcef6fbc7debea89d4b4e8f12263fdee83878d346b03b3d0281f6c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Kasur.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Kasur",
+     "bytes": 10094,
+     "sha256": "962eba73c2e49e0be061a026160bc050b7f2b3cd46a78d373de1ea4a0ec8e008",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Multan.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Multan",
+     "bytes": 36827,
+     "sha256": "7796d3303ca7e73f4cca013f23db7a3f089a909a64d42462f269b0f9ed818afa",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Pakistani_craft.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Pakistani%20craft",
+     "bytes": 4049,
+     "sha256": "4a8f48688301a9a1fc2f5639d44fb10b348d86286d5a8d0f10ecb249b3a0c634",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Qashani.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Qashani",
+     "bytes": 1578,
+     "sha256": "57b22d900857d14d2b5a813d721e4bbcc3856b0b336d744fb0f64f22c87d2e22",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Qissa_Khwani_Bazaar.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Qissa%20Khwani%20Bazaar",
+     "bytes": 2248,
+     "sha256": "f3fa81d5c0dbfb2e295a346870210a33cc80fe1e33622f139d306908708eb2e5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Sialkot.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Sialkot",
+     "bytes": 27857,
+     "sha256": "2466d259ee51523bf3edcffa04758401f5292cdc85a6d2f6e35c65769a36f783",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Truck_art_in_South_Asia.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Truck%20art%20in%20South%20Asia",
+     "bytes": 7798,
+     "sha256": "67477c8fce086f196858e10ee6d2001f94d536db54e00a391bb817948a134d40",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_text_Wazirabad.json",
+     "url": "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1&redirects=1&format=json&titles=Wazirabad",
+     "bytes": 4092,
+     "sha256": "151cef7fd29580f55b3d3854db47e2c1e9af2e43bf7ddd1ef0ddad963272dad2",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "econ_census",
+   "title": "Economic Census 2023: establishments and workforce by PSIC section",
+   "publisher": "Pakistan Bureau of Statistics (PBS)",
+   "vintage": "Economic Census of Pakistan 2023 (results released 2024-25)",
+   "url": "https://www.pbs.gov.pk/pakistan-bureau-of-statistics-economic-statistics-production/",
+   "files_urls": [
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/PUNJAB-DISTRICTS-PSIC-wise-1.xlsx",
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/SINDH-DISTRICTS-PSIC-WISE.xlsx",
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/KPK-DISTRICTPSIC-WISE.xlsx",
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/BALOCHISTAN-DISTRICTPSIC-WISE.xlsx",
+    "https://www.pbs.gov.pk/wp-content/uploads/2020/07/EC_data_in_excel-1.xlsx"
+   ],
+   "license": "PBS public release (cite Pakistan Bureau of Statistics)",
+   "used_for": [
+    "Jobs / workforce lens",
+    "industry-district specialisation (PSIC section shares)",
+    "Food (farm workforce)"
+   ],
+   "caveats": "Workplace-based count of establishments (shops, offices, factories, schools, mosques, cattle farms) and persons working in them; major PSIC sections only. Section 'X' is PBS's unclassified 'Others'. No district tables for Azad Kashmir or Gilgit-Baltistan. EC districts are summed onto COD-AB 2022 districts (e.g. Keamari into West Karachi, Surab = Shaheed Sikandarabad). Lehri has no separate EC table. A few Punjab district blocks omit sections that are zero.",
+   "files": [
+    {
+     "name": "BALOCHISTAN-DISTRICTPSIC-WISE.xlsx",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/BALOCHISTAN-DISTRICTPSIC-WISE.xlsx",
+     "bytes": 38332,
+     "sha256": "aa058db8ec96c279986e37b2dcf1f32af99853d66885c7aa5d05f03bc6419fe0",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "EC_data_in_excel-1.xlsx",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/EC_data_in_excel-1.xlsx",
+     "bytes": 29344,
+     "sha256": "34605da24230f5ac7e659f97da9dc90c97a48e4d805777617c36649672dc2200",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "KPK-DISTRICTPSIC-WISE.xlsx",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/KPK-DISTRICTPSIC-WISE.xlsx",
+     "bytes": 38944,
+     "sha256": "c8ab971efd63300f51931bf0d0939478717094d5e632d3c8d7e5893b899ffb9c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "PUNJAB-DISTRICTS-PSIC-wise-1.xlsx",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/PUNJAB-DISTRICTS-PSIC-wise-1.xlsx",
+     "bytes": 42417,
+     "sha256": "a1cd488d35dfa5be81806f6d28139f1e23ff4921f3b30702614d37d430ed8e67",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "SINDH-DISTRICTS-PSIC-WISE.xlsx",
+     "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/SINDH-DISTRICTS-PSIC-WISE.xlsx",
+     "bytes": 37261,
+     "sha256": "2d6536fdee12ca867246178a0c0cf49f2d738c4404b5fb39bde514e67365996d",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "eras",
+   "title": "Civilisation eras and era-defining sites of Pakistan",
+   "publisher": "Wikipedia (English) and Wikidata contributors",
+   "vintage": "Wikipedia/Wikidata as retrieved 2026-11",
+   "url": "https://en.wikipedia.org/wiki/History_of_Pakistan",
+   "files_urls": [
+    "https://query.wikidata.org/sparql",
+    "https://en.wikipedia.org/api/rest_v1/page/summary/{title}",
+    "https://en.wikipedia.org/w/index.php?action=raw&title={title}"
+   ],
+   "license": "Wikipedia text CC BY-SA 4.0; Wikidata CC0",
+   "used_for": [
+    "timeline scrubber eras",
+    "era site markers (Wonders/Almanac)"
+   ],
+   "caveats": "Era boundaries are conventional and overlap (e.g. Mehrgarh runs into the Early Harappan; Mughal rule's nominal end in 1857 postdates the Sikh/British takeover of Punjab and Sindh). Each era boundary year was checked against the cited Wikipedia article text; 'Sikh & British' starts with the Sikh Empire (1799). Archaeological dates are approximate and contested (Mehrgarh's earliest occupation is given as 7000 BCE or 5250 BCE). A site's year is its founding/construction/completion/event year as described in facts.year_note; century-only dates are placed at the century midpoint. Sites with no verifiable year have year null. Coordinates are Wikidata P625 (one representative point; facts.coord_src says otherwise).",
+   "files": [
+    {
+     "name": "wikidata_sites_2878f0bf.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Farticle%20%3Fitem%20%3Fcoord%20%3Fdesc%20%3Finception%20%3Fopening%20WHERE%20%7B%0A%20%20VALUES%20%3Farticle%20%7B%20%3Chttps%3A//en.wikipedia.org/wiki/Mehrgarh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mohenjo-daro%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Harappa%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Kot_Diji%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rehman_Dheri%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Amri%2C_Sindh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Chanhudaro%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Ganweriwal%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Bhir_Mound%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sirkap%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Jaulian%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Takht-i-Bahi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Pushkalavati%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Butkara_Stupa%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shahbaz_Garhi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Banbhore%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Multan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mansura%2C_Sindh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Tomb_of_Shah_Rukn-e-Alam%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Makli_Necropolis%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rohtas_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Lahore_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Hiran_Minar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Tomb_of_Jahangir%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Wazir_Khan_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shalamar_Gardens%2C_Lahore%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Badshahi_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Samadhi_of_Ranjit_Singh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Frere_Hall%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Faisalabad%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Lower_Chenab_Canal%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sargodha%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Clock_Tower%2C_Faisalabad%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sukkur_Barrage%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Kotri_Barrage%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Islamabad%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Guddu_Barrage%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mangla_Dam%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Minar-e-Pakistan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Tarbela_Dam%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Faisal_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Gwadar_Port%3E%20%7D%0A%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%20schema%3AisPartOf%20%3Chttps%3A//en.wikipedia.org/%3E%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP571%20%3Finception%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20wdt%3AP1619%20%3Fopening%20.%20%7D%0A%7D",
+     "bytes": 26735,
+     "sha256": "b8048b2b79f04ccdc15a47b1cf4cb23de20f14942c321bd972df2fe9b5628e6b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikipedia_summaries.json",
+     "url": "https://en.wikipedia.org/api/rest_v1/page/summary/{title}",
+     "bytes": 33588,
+     "sha256": "8189e58087be45e3e1e2500a911efe194793b3609a24d2e406becd68080623d7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Amri_Sindh.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Amri%2C_Sindh",
+     "bytes": 7002,
+     "sha256": "0642727c280b9804449744cba20736e6c2fb9e18a46c84b901d7464c9ca2308a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Arab_conquest_of_Sindh.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Arab_conquest_of_Sindh",
+     "bytes": 31053,
+     "sha256": "8f6ceccdd7b5330c1caf675852ee5ad83d797fd68a61ab143018a76c41e00586",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Badshahi_Mosque.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Badshahi_Mosque",
+     "bytes": 24800,
+     "sha256": "8d6c9870a7032f74b29daa388e8a18d28700705b0feba856e9800e4b3016c3e8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Banbhore.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Banbhore",
+     "bytes": 10630,
+     "sha256": "0e9c4d773619a554bcb55dd7798f1957c4c3c8b1b9da2249e5c64315be60b805",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Bhir_Mound.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Bhir_Mound",
+     "bytes": 20490,
+     "sha256": "bba9cd0513d8770cd1fb617a9f248c2e75ee3c984a3f14d86201a9ac6c96da3e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Butkara_Stupa.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Butkara_Stupa",
+     "bytes": 8381,
+     "sha256": "d0dbe96208f7ba19609c8e74db8ac7029dd43076e8ca4bdc1ef4ee8c84fe9917",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Chanhudaro.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Chanhudaro",
+     "bytes": 12117,
+     "sha256": "ce78adef743449d7e9e98d779b15f2341e78c40eb7fbcde870b1b192887a3ffc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Clock_Tower_Faisalabad.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Clock_Tower%2C_Faisalabad",
+     "bytes": 7030,
+     "sha256": "376979135d87e2c9483ca34493389e02b2fb1dee2a7bafe8c809d55c4350c86a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Delhi_Sultanate.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Delhi_Sultanate",
+     "bytes": 136653,
+     "sha256": "05bc9f9c6bf73def233b9c1318ecad4c95ebaf92a15a7113b15c1da2a95d9622",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Derawar_Fort.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Derawar_Fort",
+     "bytes": 12821,
+     "sha256": "a4ba89aea048bae56be66b4cfcae073119c42de2b46a493ccf25e9420648e07c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Faisal_Mosque.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Faisal_Mosque",
+     "bytes": 19956,
+     "sha256": "696c9250f2b9e4dbd4915519bc4fe1e0a5fbacbb1e4abfd0d30512c55b05dc78",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Faisalabad.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Faisalabad",
+     "bytes": 111926,
+     "sha256": "bfbdf76ab088e2aaa764bd3ddbc625d4b2f3d39cef9b080b443a1bb9a4e12e19",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Frere_Hall.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Frere_Hall",
+     "bytes": 10878,
+     "sha256": "cb0b5ebf7ab34834892d8d7c12a71993b4b99699bec2fca758ad2c503e7bcf04",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Gandhara.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Gandhara",
+     "bytes": 122246,
+     "sha256": "794a67cd8a5883c46c06f328b7b76df27f85f8d5f2eca1c905300f2b8b164dd3",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Ganweriwal.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Ganweriwal",
+     "bytes": 24623,
+     "sha256": "b9e6916ab63caad573106d33ea84da4c8d8cd2aeee30a7a66fd094d40f66a159",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Ghaznavid_Empire.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Ghaznavid_Empire",
+     "bytes": 74247,
+     "sha256": "cddbf5fb0085df611653b13f525582d55816f2321879a98caff4737c0d3639db",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Ghaznavid_dynasty.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Ghaznavid_dynasty",
+     "bytes": 30,
+     "sha256": "2787d8ba1ca617c226898ea0aac118b2e338ab7f94ba9275056c10322cbe2506",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Ghaznavids.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Ghaznavids",
+     "bytes": 63,
+     "sha256": "ccb096eefd2ddfda8e777aed93c8b90081afedba670058e1924c070d07cb9067",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Guddu_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Guddu_Barrage",
+     "bytes": 8277,
+     "sha256": "7784264b111654cbf94425da890b740eee6ff57aaf72711b4598b381e499421b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Gwadar_Port.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Gwadar_Port",
+     "bytes": 97982,
+     "sha256": "0d22f505cdb7189ea3d2d1a8ed37ff9d286be110705b7c034c2eb291163fc670",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Habbari_Emirate.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Habbari_Emirate",
+     "bytes": 16474,
+     "sha256": "bcb5dd8d27f8394c35bbc84f6c7e7b80e6e08d2c2ee6ab5ffbfac1552617f4bc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Harappa.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Harappa",
+     "bytes": 47051,
+     "sha256": "9373d6d8879b8c4576fae3e4801f28458467d8b07747257470345a6c4ccfd862",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Hiran_Minar.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Hiran_Minar",
+     "bytes": 10402,
+     "sha256": "6375c4760278d97363228e5ac30fe1fc146929a31defcf975b54911d2016b032",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Hund_Khyber_Pakhtunkhwa.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Hund%2C_Khyber_Pakhtunkhwa",
+     "bytes": 13933,
+     "sha256": "8cb2a1f13c6f8464368878c4268255d256d8acd43d1a24f0f543347e7411cf0a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Indus_Valley_Civilisation.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Indus_Valley_Civilisation",
+     "bytes": 197176,
+     "sha256": "89c363a676a40751b7f8ebd3a9a56f75ecbec3a8d8aa2bc80efb67b95e8dd42d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Islamabad.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Islamabad",
+     "bytes": 99688,
+     "sha256": "eb88bab0cd7682a6937428b0af68a992248b1ada6078e8619b35630006945334",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Jaulian.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Jaulian",
+     "bytes": 9212,
+     "sha256": "c6beecce6d89604edf836b21a510b46d7ba7a0180b4756ddb0fafe84dbc1b5b4",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Kot_Diji.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Kot_Diji",
+     "bytes": 14992,
+     "sha256": "9ae591d4234a649d612c1104bcfdf1f1365a591479c65e88e8c8cc4af5f672f6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Kotri_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Kotri_Barrage",
+     "bytes": 2542,
+     "sha256": "561919e8c40e06ecfb18500b19eddccb6759f49567a4a1ff6d9875a1ca3b17d7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Lahore_Fort.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Lahore_Fort",
+     "bytes": 51504,
+     "sha256": "7adbbdae1e6124eb1df145fd329f24e00ffbe4989333de96ad2e2b8bd7b92c45",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Lower_Chenab_Canal.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Lower_Chenab_Canal",
+     "bytes": 2643,
+     "sha256": "2479bbd33f41129e9ed54423191a9e49dc127f018ffdbdaf2ae0be431b252235",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Makli_Necropolis.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Makli_Necropolis",
+     "bytes": 16707,
+     "sha256": "c6b6dd95f6e85d40887779c762aaaeae1c5bfa6f1904a218fcb640120b8d47aa",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mangla_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Mangla_Dam",
+     "bytes": 22741,
+     "sha256": "e7bb8949b92949c3b17a0702680532e801c97a01b807d649ea1378b461ff02fb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mansura_Sindh.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Mansura%2C_Sindh",
+     "bytes": 13864,
+     "sha256": "4c88465a1ab315f0042a0bd6f5b8b2abc455869f9666bb8bc87aefa58f1ea219",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mehrgarh.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Mehrgarh",
+     "bytes": 55305,
+     "sha256": "57c806c616c988500058da142835d41f40d4918cf2590c4179478b7176a593fb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Minar_e_Pakistan.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Minar-e-Pakistan",
+     "bytes": 17233,
+     "sha256": "2a9234746b3108886b4367648724beccf2cffe5d60c26914f5a6738306f0e6b8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mohenjo_daro.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Mohenjo-daro",
+     "bytes": 45703,
+     "sha256": "639c60890e011781a65021320fa74c732d31f29e7bce583bd79f60a5bfd46424",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mughal_Empire.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Mughal_Empire",
+     "bytes": 158741,
+     "sha256": "b2e2a58dfbd28dd1cbccd6bc8a245bce0e88b8a0a771307c59b9547c4fd68609",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Muhammad_bin_Qasim.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Muhammad_bin_Qasim",
+     "bytes": 112,
+     "sha256": "e5d0db3efcb7a94794083d78e14d3134e6fa5d128bf7059eddb191f55ae93efc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Muhammad_ibn_Qasim.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Muhammad_ibn_Qasim",
+     "bytes": 112,
+     "sha256": "e5d0db3efcb7a94794083d78e14d3134e6fa5d128bf7059eddb191f55ae93efc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Multan.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Multan",
+     "bytes": 98954,
+     "sha256": "ae112f221fc4f75831f0ef583f5b419b346ee3ab5bfbbc78da96b5f1ffd3c979",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Pakistan.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Pakistan",
+     "bytes": 369738,
+     "sha256": "3f755d842a31819bd113e2674ea6fb5e808a3d3122302b818cf0c4d636f8c09d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Punjab_Province_British_India.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Punjab_Province_%28British_India%29",
+     "bytes": 178262,
+     "sha256": "45e6c48d4ef17a601456a3845a0c7c756b170aedc6f1f9e69077c2c209e0301d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Pushkalavati.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Pushkalavati",
+     "bytes": 29862,
+     "sha256": "f1a074a8296bcf90eda398bf255ed89b903f67efc298f754a530cebb08f0a54e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Rehman_Dheri.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Rehman_Dheri",
+     "bytes": 11318,
+     "sha256": "f62b1303278e1fd298ddcfbc7c8d27fb56cb87bf70907acf46aff6505dfe53c8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Rohtas_Fort.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Rohtas_Fort",
+     "bytes": 26790,
+     "sha256": "139d4a35f1bee305ad1e5268e50a3a89d2470337b81c6436f93ed7d00eb2e2bb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Samadhi_of_Ranjit_Singh.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Samadhi_of_Ranjit_Singh",
+     "bytes": 17881,
+     "sha256": "bd3042f5c2fb942c87728e6dcd12da90c4ff72ab08c1f6e6b363e3b3a5181a8f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sargodha.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Sargodha",
+     "bytes": 57820,
+     "sha256": "384537ddb82aee399828f6ac7af6183f87cfd49a832a82095a502a2cac37b307",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Shahbaz_Garhi.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Shahbaz_Garhi",
+     "bytes": 5770,
+     "sha256": "2ce5eae82856026a54804fe3f90c04828f5b41ea43e6c70cd1c9b5b023f59a54",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Shalamar_Gardens_Lahore.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Shalamar_Gardens%2C_Lahore",
+     "bytes": 17712,
+     "sha256": "05f94be5db3830c79bd2fcf77daae272c88894c1912a87e718a8dbaa4a84aaf5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sikh_Empire.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Sikh_Empire",
+     "bytes": 99011,
+     "sha256": "7142f286819d2cd5e56685db6aaed2d68487c0688489c042c764371061210b43",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sirkap.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Sirkap",
+     "bytes": 13614,
+     "sha256": "cafef7fd520439903fb5d007bcb8d355f861026f035ad9f866904964d8839f6d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sukkur_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Sukkur_Barrage",
+     "bytes": 8723,
+     "sha256": "42ec01d3ea4733e1b2acbd3fa1a55ac0e2c3d4998f1b26cb295f72ca497b4e61",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Takht_i_Bahi.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Takht-i-Bahi",
+     "bytes": 12152,
+     "sha256": "9d91b45280fae924c3ef2e3a682f00530dae541b03cf67480e85434e0765c7ee",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Tarbela_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Tarbela_Dam",
+     "bytes": 30181,
+     "sha256": "123f400f43cc25a063b522bb9259538b36b9c3c3c0061831db2d4c7453ea8cd8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Taxila.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Taxila",
+     "bytes": 72246,
+     "sha256": "d523444974eb3af9477d57ef002b8f52a2913c77e8ff355de5f6796e4131169f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Tomb_of_Bibi_Jawindi.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Tomb_of_Bibi_Jawindi",
+     "bytes": 6705,
+     "sha256": "b99d0da255421aad0bf842e4a533beaf9fca8a01649b66550e85180c63099e8b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Tomb_of_Jahangir.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Tomb_of_Jahangir",
+     "bytes": 20561,
+     "sha256": "73097264c9c5e7cc8a63b18ec1155ae70c4d04dd06542800c62299a6f8bf7ee1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Tomb_of_Shah_Rukn_e_Alam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Tomb_of_Shah_Rukn-e-Alam",
+     "bytes": 10263,
+     "sha256": "42cd011e9d909332ca38508ae255eff62b2e26af0bfd784f403c34a6a1e49ffe",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Uch.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Uch",
+     "bytes": 31867,
+     "sha256": "9b3969dc8a272e4392c7ecbaf6da5edda19b1e787cc0e11a68d44c970b4a0917",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Umayyad_conquest_of_Sindh.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Umayyad_conquest_of_Sindh",
+     "bytes": 112,
+     "sha256": "67f526bc1b29e3527c8fd88a105b87262813cc067143a77f519fae9936702434",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Wazir_Khan_Mosque.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Wazir_Khan_Mosque",
+     "bytes": 33999,
+     "sha256": "1f02b4fe959a38c6651dd025295a646fe96a20cb3cc3a96b2542926b40440525",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "esa_worldcover",
+   "title": "ESA WorldCover 10 m 2021 v200",
+   "publisher": "European Space Agency (ESA WorldCover consortium), AWS Open Data",
+   "vintage": "2021 (v200)",
+   "url": "https://esa-worldcover.org/en",
+   "files_urls": [
+    "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/"
+   ],
+   "license": "CC BY 4.0 — © ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021)",
+   "used_for": [
+    "Terrain type per hex",
+    "Farmland / Forest / Desert / Glacier / Built-up lenses"
+   ],
+   "caveats": "Read from the COG 1/16 overview (~160 m), then aggregated to 20 km hexes: small orchards, villages and narrow canals are blurred into their surroundings.",
+   "files": [
+    {
+     "name": "tiles_used.json",
+     "url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_{tile}_Map.tif",
+     "bytes": 440,
+     "sha256": "3d45cdf06142dc06d58573254735972591dd623ce0d2ee7aa7c808f2b8cec736",
+     "retrieved": "2026-11-27"
+    }
+   ]
+  },
+  {
+   "id": "gdp_grid",
+   "title": "Gridded GDP (PPP), MODELLED -- Kummu et al.",
+   "publisher": "Kummu, Kosonen & Masoumzadeh Sayyar (Aalto University), Scientific Data 12:178 (2025); Zenodo v4",
+   "vintage": "2024 band of the 1990-2024 dataset (Zenodo record 18429133, published 2026-03-13)",
+   "url": "https://zenodo.org/records/18429133",
+   "files_urls": [
+    "https://zenodo.org/api/records/18429133/files/rast_gdpTot_1990_2024_30arcsec.tif/content"
+   ],
+   "license": "CC-BY-4.0",
+   "used_for": [
+    "Gold yield (modelled GDP) for hexes and districts"
+   ],
+   "caveats": "MODELLED, NOT OFFICIAL. Pakistan has no official district GDP; this grid downscales reported national/provincial GDP per capita to admin-2 units and multiplies by gridded population, so it mostly mirrors where people live, scaled by provincial income. 30 arc-second (~0.9 km) cells; district totals sum cells whose centres fall inside COD-AB 2022 polygons. Units: 2021 international dollars (PPP).",
+   "files": [
+    {
+     "name": "gdpTot_2024_30arcsec_pak.tif",
+     "url": "https://zenodo.org/api/records/18429133/files/rast_gdpTot_1990_2024_30arcsec.tif/content (band gdp_2024, window (60.3, 23.2, 78.2, 37.4))",
+     "bytes": 5573807,
+     "sha256": "bbbd6316dbf24f6104c1da0f6d762c5234a63fde6d81ba128a114a2803e96cbc",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "hazards",
+   "title": "Natural hazards of Pakistan: earthquakes, faults, heat, glacial floods, 2022 floods, EM-DAT",
+   "publisher": "USGS ComCat; GEM Foundation; CRED EM-DAT via HDX; NDMA Pakistan; World Bank/GoP PDNA; WMO; UNDP/GCF; Wikipedia/Wikidata",
+   "vintage": "ComCat 1900-2026-11; EM-DAT profile 2026-11-25; NDMA SITREP 158 (18 Nov 2022); PDNA Oct 2022",
+   "url": "https://earthquake.usgs.gov/earthquakes/search/",
+   "files_urls": [
+    "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=1900-01-01&endtime=now&minmagnitude=4.5&minlatitude=23&maxlatitude=37.5&minlongitude=60.5&maxlongitude=78&orderby=time-asc",
+    "https://raw.githubusercontent.com/GEMScienceTools/gem-global-active-faults/master/geojson/gem_active_faults_harmonized.geojson",
+    "https://data.humdata.org/dataset/982bb9ef-b909-4cf2-8a73-ac97b519339c/resource/5326989b-f8f7-446b-8d57-4054b6aa523e/download/emdat-country-profiles_pak_2026_11_25.xlsx",
+    "https://web.archive.org/web/20230106162810/http://cms.ndma.gov.pk/storage/app/public/situation-reports/November2022/N2n1eEarMt6q6Rb8ZYwn.pdf",
+    "https://thedocs.worldbank.org/en/doc/4a0114eb7d1cecbbbf2f65c5ce0789db-0310012022/original/Pakistan-Floods-2022-PDNA-Main-Report.pdf",
+    "https://web.archive.org/web/20231218172054/https://public-old.wmo.int/en/media/press-release/wmo-verifies-3rd-and-4th-hottest-temperature-recorded-earth",
+    "https://www.greenclimate.fund/sites/default/files/document/funding-proposal-fp018-undp-pakistan.pdf",
+    "https://www.greenclimate.fund/project/fp018",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11369478/",
+    "https://www.dawn.com/news/1688466",
+    "https://query.wikidata.org/sparql",
+    "https://en.wikipedia.org/"
+   ],
+   "license": "USGS public domain; GEM GAF CC BY-SA 4.0; EM-DAT (CRED/UCLouvain) non-commercial with attribution; NDMA/PDNA/GCF public reports; Wikipedia CC BY-SA; Wikidata CC0",
+   "used_for": [
+    "Hazards layer: earthquake dots and fault lines",
+    "Disaster Almanac (notable quakes, 2022 floods)",
+    "Surprise Me: heat records (Jacobabad, Turbat, Mohenjo-daro)",
+    "GLOF sites in GB/KP",
+    "EM-DAT summary charts"
+   ],
+   "caveats": "ComCat completeness varies hugely over time (pre-1973 entries are mostly ISC-GEM M~5.5+); the box includes Afghanistan, Iran, India and Tajikistan, pcode is set only for points inside Pakistan. Death tolls of historic quakes are ranges from Wikipedia infoboxes and differ between sources (Wikidata values are given separately). Heat records mix WMO-verified (Turbat) and PMD/Wikipedia station values; Wikipedia climate boxes give monthly extremes without dates. The EM-DAT HDX profile only covers 2000 onwards; damage is as published (USD, original and CPI-adjusted). GLOF sites are a short, referenced list, not an inventory (ICIMOD inventory not openly downloadable). Faults are simplified at ~0.01 deg and are not suitable for site hazard assessment.",
+   "files": [
+    {
+     "name": "dawn_1688466_hassanabad_bridge.html",
+     "url": "https://www.dawn.com/news/1688466",
+     "bytes": 224821,
+     "sha256": "2090e36b80b310aa3c3383be6c930a284fc45f0a6ea96d1412a106d6474c9c11",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "emdat-country-profiles_pak_2026_11_25.xlsx",
+     "url": "https://data.humdata.org/dataset/982bb9ef-b909-4cf2-8a73-ac97b519339c/resource/5326989b-f8f7-446b-8d57-4054b6aa523e/download/emdat-country-profiles_pak_2026_11_25.xlsx",
+     "bytes": 13621,
+     "sha256": "1d2f44f62b3d02e1757a77d459bf4fac6462fc2b50d2806af9fe3553cc0864f4",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "gcf_fp018.html",
+     "url": "https://www.greenclimate.fund/project/fp018",
+     "bytes": 277661,
+     "sha256": "6c2244de37f35055ca42a7ab43335a223be4003668fbcbf011d2dcc59e0964a5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "gcf_fp018_funding_proposal.pdf",
+     "url": "https://www.greenclimate.fund/sites/default/files/document/funding-proposal-fp018-undp-pakistan.pdf",
+     "bytes": 1331295,
+     "sha256": "9612f45e2a464fb8d698df971a6123aa20ec7bb16b46b4c7f65056ad101ddf12",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "gem_active_faults_harmonized.geojson",
+     "url": "https://raw.githubusercontent.com/GEMScienceTools/gem-global-active-faults/master/geojson/gem_active_faults_harmonized.geojson",
+     "bytes": 10622730,
+     "sha256": "37babb516edfac22b5ae91744495d8546b3ae4676b4d4f68cc77da8222df20e1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "ndma_sitrep158_2022-11-18.pdf",
+     "url": "https://web.archive.org/web/20230106162810id_/http://cms.ndma.gov.pk/storage/app/public/situation-reports/November2022/N2n1eEarMt6q6Rb8ZYwn.pdf",
+     "bytes": 93889,
+     "sha256": "b31aef1392a87a96bfe1b1d9498f36223f3d19c06e150c6bddbfcc8f56fe1695",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "pdna_2022_main_report.pdf",
+     "url": "https://thedocs.worldbank.org/en/doc/4a0114eb7d1cecbbbf2f65c5ce0789db-0310012022/original/Pakistan-Floods-2022-PDNA-Main-Report.pdf",
+     "bytes": 6794371,
+     "sha256": "aba303195badd442b7f5af3f8a6a34200ccad80d34c6000d934afa5e6a249418",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "pmc_shishper_heliyon_2024.html",
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11369478/",
+     "bytes": 171453,
+     "sha256": "7e0f00d816cd739bc73b598ca6db1d9e6a2f6e236f7c555c51610ebd49a52793",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "usgs_comcat_m45_1900_now.csv",
+     "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=1900-01-01&endtime=now&minmagnitude=4.5&minlatitude=23&maxlatitude=37.5&minlongitude=60.5&maxlongitude=78&orderby=time-asc",
+     "bytes": 810199,
+     "sha256": "5dee129a3c598e7655cd511f39d1cdc37b7c464c51a7bc8bf091e8258d536bd9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_glof_places.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Farticle%20%3Fitem%20%3Fcoord%20%3Fdesc%20%20WHERE%20%7B%0A%20%20VALUES%20%3Farticle%20%7B%20%3Chttps%3A//en.wikipedia.org/wiki/Hassanabad%2C_Hunza%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Bagrot_Valley%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Buni%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Attabad_Lake%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Chitral%3E%20%7D%0A%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%20schema%3AisPartOf%20%3Chttps%3A//en.wikipedia.org/%3E%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%20%20%0A%7D",
+     "bytes": 2699,
+     "sha256": "3f4c44407f5c0cb52df1f8f3f86bd9f2482546b6d5f1200aeed41d700470d704",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_heat_cities.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Farticle%20%3Fitem%20%3Fcoord%20%3Fdesc%20%20WHERE%20%7B%0A%20%20VALUES%20%3Farticle%20%7B%20%3Chttps%3A//en.wikipedia.org/wiki/Jacobabad%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sibi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Turbat%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mohenjo-daro%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Dadu%2C_Sindh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Larkana%3E%20%7D%0A%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%20schema%3AisPartOf%20%3Chttps%3A//en.wikipedia.org/%3E%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%20%20%0A%7D",
+     "bytes": 3335,
+     "sha256": "25e3999583d83e60917e9df8b4fe8c5b81c4512229630d46191bdff6e624a49b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_notable_quakes.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Farticle%20%3Fitem%20%3Fcoord%20%3Fdesc%20%3Fdeaths%20%3Fmag%20%3Fdate%20%3Finjured%20WHERE%20%7B%0A%20%20VALUES%20%3Farticle%20%7B%20%3Chttps%3A//en.wikipedia.org/wiki/1935_Quetta_earthquake%3E%20%3Chttps%3A//en.wikipedia.org/wiki/1945_Balochistan_earthquake%3E%20%3Chttps%3A//en.wikipedia.org/wiki/1974_Pattan_earthquake%3E%20%3Chttps%3A//en.wikipedia.org/wiki/2005_Kashmir_earthquake%3E%20%3Chttps%3A//en.wikipedia.org/wiki/2013_Balochistan_earthquakes%3E%20%3Chttps%3A//en.wikipedia.org/wiki/October_2015_Hindu_Kush_earthquake%3E%20%7D%0A%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%20schema%3AisPartOf%20%3Chttps%3A//en.wikipedia.org/%3E%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP1120%20%3Fdeaths%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20wdt%3AP2528%20%3Fmag%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20wdt%3AP585%20%3Fdate%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20wdt%3AP1339%20%3Finjured%20.%20%7D%0A%7D",
+     "bytes": 5291,
+     "sha256": "d6c2808f7454d58f70aa8bd2c53909017d602f6cc16fa86dc5438d151b58e85f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikipedia_summaries.json",
+     "url": "https://en.wikipedia.org/api/rest_v1/page/summary/{title}",
+     "bytes": 6861,
+     "sha256": "92bc5dce3925573c6a0fbcbcb2ac7a0fefc6685eb6e1c335af08968d72b79709",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wmo_press_2019.html",
+     "url": "https://web.archive.org/web/20231218172054/https://public-old.wmo.int/en/media/press-release/wmo-verifies-3rd-and-4th-hottest-temperature-recorded-earth",
+     "bytes": 72767,
+     "sha256": "2952b1453044f4f5bc3868bfc53f976c86d4c07b2d4940ac2cbc4c212f1e1175",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_1935_Quetta_earthquake.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=1935_Quetta_earthquake",
+     "bytes": 13322,
+     "sha256": "0f4bd3fe09aee92bc5cbb44753b2ed07338a23ee96c8670de923ef9cf06ec4e6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_1945_Balochistan_earthquake.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=1945_Balochistan_earthquake",
+     "bytes": 5739,
+     "sha256": "3d9b9c87b5dd2079722cd73d72b40d3ae8e277e030a584e6d3d9f027eaf568e0",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_1974_Pattan_earthquake.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=1974_Pattan_earthquake",
+     "bytes": 5397,
+     "sha256": "6fc2a433dd980de85a5f6238d8649c6cf2487593e2ae577b7f3868750371cb6d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_2005_Kashmir_earthquake.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=2005_Kashmir_earthquake",
+     "bytes": 56430,
+     "sha256": "2345b8cd0bf94d2bcc280d21301567689a5b9830c87d32a6ab168637251e3cb7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_2013_Balochistan_earthquakes.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=2013_Balochistan_earthquakes",
+     "bytes": 22253,
+     "sha256": "c122b46a7df2de0a2c418847e3f51b973ce4cbfbf39f98062d6030dc0f2fc1c6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_2022_Pakistan_floods.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=2022_Pakistan_floods",
+     "bytes": 106426,
+     "sha256": "e8a28e8d0bf145e66ba7cd01829796a32400465c7a274a8882f4d229adef5be9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Attabad_Lake.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Attabad_Lake",
+     "bytes": 15111,
+     "sha256": "2b52f60de290243ab59b383973ed1101df932581ca53253376162e78b3278367",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Bagrot_Valley.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Bagrot_Valley",
+     "bytes": 10107,
+     "sha256": "532518f4ec648f323ef97f5725eeee455b8ebcf1d388579fb15766ce456a3b53",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Climate_of_Pakistan.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Climate_of_Pakistan",
+     "bytes": 19124,
+     "sha256": "d76ef8cf1251eb991ec8e727a92873a7bfcdc75714292ca93c30a281b316f386",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Dadu_Sindh.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Dadu%2C_Sindh",
+     "bytes": 10199,
+     "sha256": "419404cf602ed837028378496e6a4ae6059a6802d096f5589b7205f090723f7a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Hassanabad_Hunza.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Hassanabad%2C_Hunza",
+     "bytes": 5539,
+     "sha256": "3e5b943bdc8dcc0a8677481f847d60b069f001bc2906877a0fd5855e3827feca",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Jacobabad.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Jacobabad",
+     "bytes": 26893,
+     "sha256": "3a991ae27126d5619e7cb6e05ac582404995dfed5a7f9c5e860c97777ce318a2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Larkana.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Larkana",
+     "bytes": 26732,
+     "sha256": "2f4f817b8e649aa00456cfa1a6a4986f632345f390fc9e3212126339c7834ca6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_List_of_extreme_weather_records_in_Pakistan.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=List_of_extreme_weather_records_in_Pakistan",
+     "bytes": 68202,
+     "sha256": "102bf78c9f631fd2c79e0dfb87e76e595a585644c133e77f3a2c8f58916847d8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mohenjo_daro.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Mohenjo-daro",
+     "bytes": 45703,
+     "sha256": "639c60890e011781a65021320fa74c732d31f29e7bce583bd79f60a5bfd46424",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_October_2015_Hindu_Kush_earthquake.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=October_2015_Hindu_Kush_earthquake",
+     "bytes": 22593,
+     "sha256": "2f160142b06a42105ecfd6c86d015307c54b79dfda39d45b2c5cf431a04cebc9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sibi.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Sibi",
+     "bytes": 37037,
+     "sha256": "1e86c8c40f39f6a9528d75f9220756762fedd6891023965c483558857d0771c5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Turbat.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Turbat",
+     "bytes": 11299,
+     "sha256": "371d4dac42c4f8177d6e816ef565f9092dd624458eec34bbba7576c469dce152",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "mpi",
+   "title": "Multidimensional Poverty Index (MPI) by district",
+   "publisher": "Ministry of Planning, Development & Special Initiatives (Planning Commission), with UNICEF/UNDP and OPHI",
+   "vintage": "PSLM 2019-20 (MPI Report 2019-20, published 2024); fallback PSLM 2014-15 (report 2016)",
+   "url": "https://ophi.org.uk/Publications/National-MPI/Pakistan-MPI-2019%E2%80%9320",
+   "files_urls": [
+    "https://ophi.org.uk/sites/default/files/2025-01/Pakistan_MPI_2019%E2%80%9320_%282024%29.pdf",
+    "https://pc.gov.pk/uploads/report/Multidimensional-Poverty-in-Pakistan.pdf"
+   ],
+   "license": "Government of Pakistan publication (cite MoPD&SI / OPHI)",
+   "used_for": [
+    "Poverty lens (MPI, headcount H, intensity A)",
+    "City View prosperity row"
+   ],
+   "caveats": "Official national MPI (15 indicators; poor if deprived in >=1/3 weighted indicators). District estimates from PSLM samples have wide confidence intervals (e.g. Kohlu, Sherani). 2019-20 does not cover AJK, Gilgit-Baltistan or a few Balochistan districts; four of those use 2014-15 values (field year='2014-15') and are not strictly comparable. Districts split after the survey inherit the parent's value (inherited_from). H and A are percentages.",
+   "files": [
+    {
+     "name": "GoGetSSLRSADVSSLCA2.crt",
+     "url": "http://crt.sectigo.com/GoGetSSLRSADVSSLCA2.crt",
+     "bytes": 1570,
+     "sha256": "b5286796dadf16521de41772ab2fdb5818729971b5274721146c6e8172befe07",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "Multidimensional-Poverty-in-Pakistan.pdf",
+     "url": "https://pc.gov.pk/uploads/report/Multidimensional-Poverty-in-Pakistan.pdf",
+     "bytes": 19173999,
+     "sha256": "6813be06fa297e8d0fa7e17585aff6d0a0733f18d7021d561ed782cb0c99e3c2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "Pakistan_MPI_2019-20_2024.pdf",
+     "url": "https://ophi.org.uk/sites/default/files/2025-01/Pakistan_MPI_2019%E2%80%9320_%282024%29.pdf",
+     "bytes": 12643274,
+     "sha256": "2ead59320fef933874ebbed908e31358e19dfd0974eef88db0e6cd0d65f6523a",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "natural_earth",
+   "title": "Natural Earth 1:10m land, lakes and countries (v5.1)",
+   "publisher": "Natural Earth",
+   "vintage": "v5.1.x",
+   "url": "https://www.naturalearthdata.com/",
+   "license": "Public domain",
+   "used_for": [
+    "Coastline / sea mask",
+    "Neighbouring countries (fog of war)",
+    "Lakes"
+   ],
+   "caveats": "1:10m generalisation; Pakistan's own outline comes from COD-AB.",
+   "files": [
+    {
+     "name": "ne_10m_admin_0_countries.zip",
+     "url": "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_admin_0_countries.zip",
+     "bytes": 4930492,
+     "sha256": "ce1ac7036499a0edd641fbc093cd209a98f96a49d2eca8480aaacad35138a7f6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "ne_10m_glaciated_areas.zip",
+     "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_glaciated_areas.zip",
+     "bytes": 1644604,
+     "sha256": "de6ff396ab7eee8cbe2146030cc29278ef67c468e5675c748b1372e241ecbbff",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "ne_10m_lakes.zip",
+     "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_lakes.zip",
+     "bytes": 2349685,
+     "sha256": "0803a06f9c3cb4671d89b68c48b142aad9366ba40f665245e12a913fbc61722a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "ne_10m_land.zip",
+     "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_land.zip",
+     "bytes": 3269070,
+     "sha256": "e547d749445eaa0964aba76738090ec88f5e63c4585122170f98c67a7ea922dc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "ne_10m_rivers_lake_centerlines.zip",
+     "url": "https://naciscdn.org/naturalearth/10m/physical/ne_10m_rivers_lake_centerlines.zip",
+     "bytes": 2079507,
+     "sha256": "ded71b01870855ccfe19b51f2ec14c9bb48fae23c0e9f3c11974d426433b5c38",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "ports",
+   "title": "Seaports and harbours",
+   "publisher": "US NGA (World Port Index, Pub 150); Natural Earth; Finance Division, Govt of Pakistan (Pakistan Economic Survey 2024-25); Wikidata",
+   "vintage": "WPI copy of 2024-05 (RIMES mirror); cargo FY 2023-24 (PES 2024-25)",
+   "url": "https://msi.nga.mil/Publications/WPI",
+   "files_urls": [
+    "https://ckan.rimes.int/dataset/ef461b79-7a50-4ffc-8327-31d71a690c6b/resource/23538e38-830f-4df1-b69d-4469fa6ee7af/download/updatedpub150.csv",
+    "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_ports.zip",
+    "https://finance.gov.pk/survey/chapter_25/13_Transport_and_Communication.pdf"
+   ],
+   "license": "WPI: US Government work (public domain); Natural Earth: public domain; PES: government publication (cite); Wikidata: CC0",
+   "used_for": [
+    "port points",
+    "port icon size by cargo tonnage"
+   ],
+   "caveats": "WPI lists only three Pakistani ports (Karachi, Muhammad Bin Qasim, Gwadar). The official NGA server returned 503, so the CSV is a 2024-05 copy hosted by RIMES CKAN. Minor harbours (Pasni fish harbour — placed at the Pasni town point because the harbour item has no coordinates, Ormara naval base, Keti Bandar, Gadani ship-breaking) are placed from Wikidata coordinates and have no tonnage. Cargo is total imports+exports for FY 2023-24 (July-June) from the Pakistan Economic Survey 2024-25; Gwadar's figure appears only as an unreadable chart in that PDF and is left null. Port points lie on water, so pcode falls back to the nearest district within ~10 km (pcode_method='nearest').",
+   "files": [
+    {
+     "name": "PES_2024-25_ch13_Transport_and_Communication.pdf",
+     "url": "https://finance.gov.pk/survey/chapter_25/13_Transport_and_Communication.pdf",
+     "bytes": 1331186,
+     "sha256": "781d921b300decbc1c0040d75eeb490241284d22caa527884897c156e92c2efa",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "UpdatedPub150.csv",
+     "url": "https://ckan.rimes.int/dataset/ef461b79-7a50-4ffc-8327-31d71a690c6b/resource/23538e38-830f-4df1-b69d-4469fa6ee7af/download/updatedpub150.csv",
+     "bytes": 3510244,
+     "sha256": "299ad0963f07a0354b42997825aa30ac360c936537bc3a1a2091b379de397a9f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "ne_10m_ports.zip",
+     "url": "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_ports.zip",
+     "bytes": 51824,
+     "sha256": "1824cccd897a6c2ad546abbaf1f3545d51cff4bddfbda40244a1ad1ab1e4371d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q1842361.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1842361.json",
+     "bytes": 13050,
+     "sha256": "231c8dd5f1c32533e1bf578de34c417db5a8e4a933d66206744c252451c144ee",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q2977064.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q2977064.json",
+     "bytes": 14433,
+     "sha256": "b353163fbd1fecbe650cce36d53c4f00c7a9b5816795e5943739ca45f82f8c37",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q336325.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q336325.json",
+     "bytes": 5405,
+     "sha256": "2a64b465db8999bbc1917268ed9b94cd1c71f698e232f64cb39bbdd8cbd417f2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q4160323.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q4160323.json",
+     "bytes": 6011,
+     "sha256": "9eff94a5e914a12940b8c1f7ce44171585a5ab949014905d21cc1588c761cac9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q6395400.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q6395400.json",
+     "bytes": 9065,
+     "sha256": "fbabf998bd87982aee8adb8f9e2fdff4c8fd24ded71206caf5a8420a50b3eb8f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7142246.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7142246.json",
+     "bytes": 1816,
+     "sha256": "96c9ff2932ac65482a29ac6d200f92ae9f409c79896d547911b9dd3fc1e0c22e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q715199.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q715199.json",
+     "bytes": 13565,
+     "sha256": "a2a1e5033005bf50703671b809b66c81b26daf6300f8900108cd406e9989a8a5",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "power_plants",
+   "title": "Power plants (WRI Global Power Plant Database + curated post-2018 supplement)",
+   "publisher": "World Resources Institute et al. (GPPD v1.3.0); supplement: CPEC Authority, Wikidata, Wikipedia, OpenStreetMap",
+   "vintage": "GPPD v1.3.0 (2021); supplement checked 2026-11",
+   "url": "https://datasets.wri.org/dataset/globalpowerplantdatabase",
+   "files_urls": [
+    "https://raw.githubusercontent.com/wri/global-power-plant-database/master/output_database/global_power_plant_database.csv",
+    "https://cpec.gov.pk/energy",
+    "https://download.geofabrik.de/asia/pakistan-latest.osm.pbf"
+   ],
+   "license": "GPPD: CC BY 4.0; Wikidata: CC0; Wikipedia: CC BY-SA 4.0; OSM: ODbL",
+   "used_for": [
+    "power plant points sized by capacity and coloured by fuel",
+    "district generation capacity"
+   ],
+   "caveats": "GPPD lists only 62 Pakistani plants and is stale (no Thar coal, Neelum-Jhelum, Karot, K-2/K-3, RLNG plants). A short supplement (rows with src_detail='supplement') adds major plants commissioned since ~2018, each with a reference URL; Tarbela 4th/5th extensions are listed as separate rows on top of GPPD's 3,478 MW Tarbela figure. GPPD coordinates for some IPPs are approximate (several share one point). Small wind/solar IPPs after 2018 are not added. Capacity is nameplate MW as stated by the reference, not NEPRA dependable capacity.",
+   "files": [
+    {
+     "name": "cpec_energy.html",
+     "url": "https://cpec.gov.pk/energy",
+     "bytes": 41269,
+     "sha256": "e4628b9cb42cbefc932e59d8a57a0afad52839e4a17c7bdc3c355eb0ba65b561",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "global_power_plant_database.csv",
+     "url": "https://raw.githubusercontent.com/wri/global-power-plant-database/master/output_database/global_power_plant_database.csv",
+     "bytes": 11973385,
+     "sha256": "4b1f93e0fd93664f18684d9b05d0a52ed9658c6a8cf0d21ff2520791379ba7fc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "osm_power_plants.json",
+     "url": "https://download.geofabrik.de/asia/pakistan-latest.osm.pbf (power=plant features, bbox-centre of area)",
+     "bytes": 800601,
+     "sha256": "30aea31699b83f5e2e5f3aa4c70280aeccc396198b0c20d928a06cbef1c35b98",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q104854929.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q104854929.json",
+     "bytes": 5432,
+     "sha256": "6237b54d6d99bd62b85fc2ddfafb7192e407bd2477727a81d0659380cd7ecedd",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q113484892.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q113484892.json",
+     "bytes": 4055,
+     "sha256": "481fa278a4f40887e6908dcff43378cfe7726c6bf89ddee7104b21fba492ec97",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q113484907.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q113484907.json",
+     "bytes": 4096,
+     "sha256": "c966e704fda9b7973346c28e03cf01f78567de6163e5587d926eb52cb13ee7f9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q11960095.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q11960095.json",
+     "bytes": 6770,
+     "sha256": "c045c055ea414b130bfd55dc0dba321d1aa31b07f497e351abe50c4df3907fdb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q1274134.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1274134.json",
+     "bytes": 12874,
+     "sha256": "aaacd6629c91f1fda58319f72fde10c145fcccfb7f6325f08a351757f7aa166f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q14326986.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q14326986.json",
+     "bytes": 11557,
+     "sha256": "c95e4efc86a5fc807e1eea9a617e81633a4b036795a7d819d64d4ceb29d11121",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q1551258.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1551258.json",
+     "bytes": 24390,
+     "sha256": "1b21544abe086414b748db283e2c3f4105ac3aa2029d15f07e69d64fba165bb8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q24947725.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q24947725.json",
+     "bytes": 4932,
+     "sha256": "759cbb40687e33f9dd3cc0d110497cce0ec79d50d4941743f6ffe0890df364d5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q24947737.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q24947737.json",
+     "bytes": 8602,
+     "sha256": "07c96ed7f474f0465d1582ad62a67f1d55ed6a4508e991e5d1194f3c4cf98fbe",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q48732158.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q48732158.json",
+     "bytes": 4807,
+     "sha256": "3cea01cf9267ff79449310a115df91dd368a7945f3c6e2c28527b6ab4e653d03",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7710720.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7710720.json",
+     "bytes": 6169,
+     "sha256": "4d57f5f6cfe321fdf51dafe9116f8a64b054b9ee30180b8de84632042ed2f6d8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Balloki_Power_Plant.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Balloki_Power_Plant&action=raw",
+     "bytes": 6287,
+     "sha256": "403a63e9ef7bc6e784c2c46fb6332dc7f17be47cf72d29b19ae0ae33792cb5f5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Bhikki_Power_Plant.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Bhikki_Power_Plant&action=raw",
+     "bytes": 2198,
+     "sha256": "d735e2baf98ad5ee45faa7df7c0397118fa1ad1feeed752cf0fd7e882324bbbe",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Haveli_Bahadur_Shah_Power_Plant.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Haveli_Bahadur_Shah_Power_Plant&action=raw",
+     "bytes": 1817,
+     "sha256": "618a1040d3d08345f58442df92bf558345a0d32e40f75c90f8bc3e9610925f80",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Hubco_Coal_Power_Project.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Hubco_Coal_Power_Project&action=raw",
+     "bytes": 5687,
+     "sha256": "51500fda1045c2f40c13df6561d746f7658aaa69d8d763bf7b220e40942c3f5e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Karachi_Nuclear_Power_Complex.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Karachi_Nuclear_Power_Complex&action=raw",
+     "bytes": 45461,
+     "sha256": "d0284c26696ecb9ea4ba51cc04eee68a8ede7ae79da91bdff6ba61396c75e39d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Karot_Hydropower_Project.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Karot_Hydropower_Project&action=raw",
+     "bytes": 10333,
+     "sha256": "b5820cf7dceac8206d48676a19904da87eaa239929d6e9ad9b37ce2799f120c1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Neelum-Jhelum_Hydropower_Plant.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Neelum%E2%80%93Jhelum_Hydropower_Plant&action=raw",
+     "bytes": 21981,
+     "sha256": "78215db1a7da808767047e431fd00492bb36c502272d8195aad57fc2d0279fb6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Punjab_Thermal_Power_Plant.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Punjab_Thermal_Power_Plant&action=raw",
+     "bytes": 45,
+     "sha256": "e8d2107d8edb35c2109520222a9c6edca3add0b75999f3a4085f691e1a0afc6f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Suki_Kinari_Hydropower_Project.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Suki_Kinari_Hydropower_Project&action=raw",
+     "bytes": 12290,
+     "sha256": "eba50001ebce7c63b2c339a4aae3988d9641e008133c26a93d296835a8a0fb8b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Tarbela_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Tarbela_Dam&action=raw",
+     "bytes": 30181,
+     "sha256": "123f400f43cc25a063b522bb9259538b36b9c3c3c0061831db2d4c7453ea8cd8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Thar_Engro_Coal_Power_Project.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Thar_Engro_Coal_Power_Project&action=raw",
+     "bytes": 16291,
+     "sha256": "807342f61d844241e44712c7a303e7e0b4654c699006098b6d56da53a984de3f",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "transport",
+   "title": "OpenStreetMap Pakistan extract: roads, railways, canals, barrages",
+   "publisher": "OpenStreetMap contributors (extract by Geofabrik GmbH)",
+   "vintage": null,
+   "url": "https://download.geofabrik.de/asia/pakistan.html",
+   "files_urls": [
+    "https://download.geofabrik.de/asia/pakistan-latest.osm.pbf"
+   ],
+   "license": "ODbL 1.0 (Open Database License), (c) OpenStreetMap contributors",
+   "used_for": [
+    "motorway and national-highway lines",
+    "mainline/branch railway lines",
+    "large named irrigation canals",
+    "major rivers",
+    "barrage / dam / headworks locations"
+   ],
+   "caveats": "Crowd-sourced; completeness and ref tagging vary. Motorways are taken from M-<n> refs on motorway/trunk/primary ways plus highway=motorway ways with other or no refs; national highways from N-<n> refs on trunk/primary ways only (untagged or differently tagged sections are missing). Lines are simplified (~0.01 deg) and dual carriageways/double tracks collapsed, so lengths are approximate. Geofabrik's extract boundary includes AJK/Gilgit-Baltistan and slivers of neighbouring countries; features there have pcode null. Barrages/dams are name-matched points. Rivers are name-matched waterway=river ways (braided channels collapsed; only the part inside the extract, so trans-boundary rivers are truncated).",
+   "files": [
+    {
+     "name": "pakistan-latest.osm.pbf",
+     "url": "https://download.geofabrik.de/asia/pakistan-latest.osm.pbf",
+     "bytes": 158264062,
+     "sha256": "aa2fbafeb0b56eda41782c211e579b17c44e46080dac34f873821035875391d4",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "unesco",
+   "title": "UNESCO World Heritage Sites and Tentative List: Pakistan",
+   "publisher": "UNESCO World Heritage Centre",
+   "vintage": "WHC list as retrieved 2026-11",
+   "url": "https://whc.unesco.org/en/statesparties/pk",
+   "files_urls": [
+    "https://whc.unesco.org/en/list/xml/",
+    "https://whc.unesco.org/en/tentativelists/?action=listtentative&state=pk&order=states",
+    "https://query.wikidata.org/sparql"
+   ],
+   "license": "UNESCO WHC data (c) UNESCO, reuse with attribution; Wikidata CC0",
+   "used_for": [
+    "Wonders layer: World Heritage badges",
+    "Almanac heritage entries"
+   ],
+   "caveats": "Inscribed sites and criteria come from the WHC XML list. Tentative-list entries carry the year of submission, not inscription; their coordinates come from the WHC tentative-list page or Wikidata and may be null when neither gives a point. Serial properties are pinned at one representative point.",
+   "files": [
+    {
+     "name": "statesparty_pk.html",
+     "url": "https://whc.unesco.org/en/statesparties/pk",
+     "bytes": 198018,
+     "sha256": "c84c21888e5cf92b1b4e73ce7ddc7aac90d19042a8878e59a89dd3556fc3c847",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1277.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1277/",
+     "bytes": 110852,
+     "sha256": "6024405bf147fc6edd60d16f3ff900d65fcc3c2de0803c86887d1feffcc11446",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1278.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1278/",
+     "bytes": 110796,
+     "sha256": "409b9bdb4f625b91e3e3ef5759a3f2cd811ad50b93876ce8da22c379a1af931c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1279.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1279/",
+     "bytes": 112039,
+     "sha256": "43a39e0bf9390e8274c7b79cdf0a0dc6c8e61572a05e18af4ccb6276a4584ab2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1281.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1281/",
+     "bytes": 112127,
+     "sha256": "88d1f7f9ba7a265c1c0c6d8038482d07f86fe23d2b25b6548855d599ec839e77",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1284.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1284/",
+     "bytes": 110482,
+     "sha256": "8fcce1ea0cfd5cda186c8cc3866380fa41420ff5caaad597c19f6bba23f3990b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1286.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1286/",
+     "bytes": 110722,
+     "sha256": "31a66bd14ad4d3523716433800243ceb4a68185b8d6bb26b82810bd78ab875f9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1287.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1287/",
+     "bytes": 110588,
+     "sha256": "c4c398a3ee58e1daf9dc61073d209531dd58eb167458cd360f7195e24c9e1253",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1876.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1876/",
+     "bytes": 112794,
+     "sha256": "a673decc977c2344361514a6aee7a90c0c21beb8c515450d56932c135010a7ce",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1877.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1877/",
+     "bytes": 111808,
+     "sha256": "8d727077199b326b542818d814b09a289c535e6d57ba0aecde861081a5aa6a94",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1878.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1878/",
+     "bytes": 113627,
+     "sha256": "e0defb94fe9069190d70b7bb945970e7be36ca0dcded654e7b9471495599dd49",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1879.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1879/",
+     "bytes": 111589,
+     "sha256": "9db731ef5993b63ee1c9195dfd7e881b0825ca871ceab56f24ee3465122788c5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1880.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1880/",
+     "bytes": 110693,
+     "sha256": "b40ba0c4beba6ab3b91531c77441c8210b6b5a19d84d80085f06fda083a0865f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1881.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1881/",
+     "bytes": 110695,
+     "sha256": "b345b56fed4c616d47d12cd77f4528692604917e09573740a288f365dc951e13",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1882.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1882/",
+     "bytes": 111416,
+     "sha256": "0a43f48a40d19d0d55bf43cd1994b76721d43d8542dd93e76b94a4eeec97787c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1883.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1883/",
+     "bytes": 111600,
+     "sha256": "260b0eba938fe9bcbfb7f23ce37cf77ea81ffcf808a97bf8914a49e7ab2c06d9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1884.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1884/",
+     "bytes": 111166,
+     "sha256": "a964205e204efea206ba05fbd7c118a41067a1e199842e3fa290cf3355629918",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_1885.html",
+     "url": "https://whc.unesco.org/en/tentativelists/1885/",
+     "bytes": 112359,
+     "sha256": "552b426a9c485182c2b4511f1386d5fa9886b582fd57f5dcf157f73fd319a9a2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6108.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6108/",
+     "bytes": 120207,
+     "sha256": "6c0d3a00a2767cc0bb3dadefb02c419f455bef0f3174eb0c5e2bbd879c2364ff",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6109.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6109/",
+     "bytes": 118594,
+     "sha256": "cd3afd65f00ca63c33b24a9c05dd21cb9bb8929c3d13510accc8f40573a28087",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6110.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6110/",
+     "bytes": 122133,
+     "sha256": "ddda658b21d0522167851179520563eef8b5c4547aad6fb5d551c1282d48246a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6111.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6111/",
+     "bytes": 119106,
+     "sha256": "55d753728f3900889992de70af5afa4e4164c2360706edfa2f0cee68394f4348",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6112.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6112/",
+     "bytes": 119632,
+     "sha256": "93712fa708d419317bffbb59457556890288bffc01ee0302151505757a83d0b2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6115.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6115/",
+     "bytes": 118355,
+     "sha256": "4036c966f56f9eed85bdc49fe1ac7339be3207ecb39b857f580a15a208b8e9b3",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6116.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6116/",
+     "bytes": 117915,
+     "sha256": "5a175e833b2d2cd418e4172baf72a58a31d12df82095815c450fc648f4d5d1fd",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6118.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6118/",
+     "bytes": 121565,
+     "sha256": "02f7f4a22ef96ca93823c2748e66b227ad2af54a8eb6cbaa21fa06f4c476d302",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6965.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6965/",
+     "bytes": 139406,
+     "sha256": "ba37a7d068740cc0a8f097cd03d34e699f6773bcc08b54b8695497681854ef13",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6968.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6968/",
+     "bytes": 123031,
+     "sha256": "a4ca88e8cbc20a4423ab40f820e5fa44ea8e5c400a5e9fbbf58ffb0768c7bef6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6969.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6969/",
+     "bytes": 122458,
+     "sha256": "3c97aa9f0a2f4772d99abf657834e01393d50309f83e4d949489a764d445df02",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_6970.html",
+     "url": "https://whc.unesco.org/en/tentativelists/6970/",
+     "bytes": 126063,
+     "sha256": "3e2e162a6d5a1d1387b5a44eae54eede8f5ef9beee1b447d674b3ad924e9ba05",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7024.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7024/",
+     "bytes": 115122,
+     "sha256": "38600d85dc478328adb7a89c39628b6dba0ce387d55de85add6642bc0a8bc646",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7025.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7025/",
+     "bytes": 124619,
+     "sha256": "253a3afb311f7daab5b10b7a63b376d0389f56b58b21d294682aaee714933ede",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7026.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7026/",
+     "bytes": 115000,
+     "sha256": "acc0924a947807ba2e68521b532dc2344bfaa758dd00380aa600e04a43addcd2",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7027.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7027/",
+     "bytes": 117054,
+     "sha256": "4a9b164c8420f7613e86af28992a9753d3b129e658b0bcbeedf299dc35bb54c5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7034.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7034/",
+     "bytes": 126790,
+     "sha256": "5e044172ec5d77b6143a6c6fae021fc8796df8de433301f8ac11e283ca1d1b43",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7035.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7035/",
+     "bytes": 126401,
+     "sha256": "9becc4a4e1cc9a26614374f2bc48169ec4f5211daab99af91208c4bbdf467e5f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7036.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7036/",
+     "bytes": 125997,
+     "sha256": "a786f12631d9e6238da3c3c0b45ddf802bd9891453be775b11f61eabb3ed7c87",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_7037.html",
+     "url": "https://whc.unesco.org/en/tentativelists/7037/",
+     "bytes": 124786,
+     "sha256": "7be6238d8533b0545b60bac510725d2aea10b1d6f077ef1fdc3141a62e7dfbcb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "tentative_pk.html",
+     "url": "https://whc.unesco.org/en/tentativelists/?action=listtentative&state=pk&order=states",
+     "bytes": 149482,
+     "sha256": "ffce84513d8a9b46cefd0d4fec968c34d4e677afe7cc947e25fc3c6bd2d6470b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "whc-sites.xml",
+     "url": "https://whc.unesco.org/en/list/xml/",
+     "bytes": 2501661,
+     "sha256": "77bcc8dfe4785052e7c569701c12ad539bc407fef17ef4d1ca3cddf25e5561b3",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_tentative_enwiki.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Farticle%20%3Fitem%20%3Fcoord%20%3Fdesc%20%20WHERE%20%7B%0A%20%20VALUES%20%3Farticle%20%7B%20%3Chttps%3A//en.wikipedia.org/wiki/Badshahi_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Baltit_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Banbhore%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Bhamala_Stupa%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Central_Karakoram_National_Park%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Chaukhandi_tombs%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Deosai_National_Park%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Derawar_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Gor_Khatri%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Harappa%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Hingol_National_Park%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Hiran_Minar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Kalash_Valleys%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Khewra_Salt_Mine%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Kot_Diji%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mansehra_Rock_Edicts%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mehrgarh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Nagarparkar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Ranigat%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Ranikot_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rawat_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rehman_Dheri%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Sethi_House%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shah_Jahan_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shahbaz_Garhi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Tomb_of_Jahangir%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Tomb_of_Shah_Rukn-e-Alam%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Umarkot_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Wazir_Khan_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Ziarat%3E%20%7D%0A%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%20schema%3AisPartOf%20%3Chttps%3A//en.wikipedia.org/%3E%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%20%20%0A%7D",
+     "bytes": 14807,
+     "sha256": "cd3fd6a728d69058b840cf937142c276b2c42f9a2de2af822a3e352570ce0e80",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_whs_pk.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3FitemLabel%20%3Fwhs%20%3Fcoord%20WHERE%20%7B%0A%20%20%3Fitem%20wdt%3AP757%20%3Fwhs%20%3B%20wdt%3AP17%20wd%3AQ843%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%7D",
+     "bytes": 14526,
+     "sha256": "342a50ef67db5de8287f78e20ad829e11f9e51fb72510b7ae03ea7352f1a5f07",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "universities",
+   "title": "Universities and tech hubs (OpenAlex research output)",
+   "publisher": "OpenAlex (OurResearch); coordinates from Wikidata",
+   "vintage": "OpenAlex snapshot as retrieved 2026-11",
+   "url": "https://openalex.org/",
+   "files_urls": [
+    "https://api.openalex.org/institutions?filter=country_code:PK,type:education&sort=works_count:desc&per-page=100",
+    "https://query.wikidata.org/sparql"
+   ],
+   "license": "OpenAlex CC0; Wikidata CC0",
+   "used_for": [
+    "University wonders / Science yield badges",
+    "Tech-hub cluster pins"
+   ],
+   "caveats": "RULE: the top 15 Pakistani education institutions by OpenAlex works_count (all-time indexed publications), taking at most 2 per city (OpenAlex geo.city); lower-ranked ones in a full city are skipped. Research output is a proxy for prominence, not enrolment, quality or R&D spend; medical colleges and multi-campus systems are counted as OpenAlex groups them. Tech-hub tag is a curated list of engineering/computing flagships (NUST, LUMS, FAST-NUCES, GIKI, COMSATS, PIEAS, UET, NED, ITU, MUET, Air University) shown even outside the top 15. Coordinates are Wikidata P625 campus points; where missing or more than 25 km from the OpenAlex city, the Wikipedia coordinate, else the OpenAlex city centroid (facts.coord_src); if that centroid is itself >25 km from the COD-AB centroid of the same-named district, the district centroid is used.",
+   "files": [
+    {
+     "name": "openalex_pk_education.json",
+     "url": "https://api.openalex.org/institutions?filter=country_code:PK,type:education&sort=works_count:desc&per-page=100",
+     "bytes": 2370725,
+     "sha256": "d78f6af779c338556f9c5e7a2500f7ae70f106b6c98874668caa25063ba185ab",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_universities.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Fitem%20%3Fcoord%20%3Finception%20%3Fdesc%20WHERE%20%7B%0A%20%20VALUES%20%3Fitem%20%7B%20wd%3AQ13139758%20wd%3AQ15055136%20wd%3AQ15260719%20wd%3AQ1549932%20wd%3AQ16057940%20wd%3AQ1661751%20wd%3AQ1961570%20wd%3AQ2047109%20wd%3AQ3694742%20wd%3AQ3696003%20wd%3AQ3918532%20wd%3AQ4690953%20wd%3AQ4698242%20wd%3AQ4842499%20wd%3AQ5013372%20wd%3AQ5557604%20wd%3AQ5588732%20wd%3AQ6809808%20wd%3AQ6979241%20wd%3AQ7125592%20wd%3AQ7335593%20wd%3AQ7895024%20wd%3AQ7895378%20wd%3AQ7895477%20wd%3AQ7896271%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP571%20%3Finception%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%7D",
+     "bytes": 16253,
+     "sha256": "cc29867e640889a5aa5d5020a5d60ef4e69f4e39a7954c5454f4e5adf0d3948a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikipedia_summaries.json",
+     "url": "https://en.wikipedia.org/api/rest_v1/page/summary/{title}",
+     "bytes": 14447,
+     "sha256": "f619c943d8c45a54619e283c2a0e06819fca02079926683de726eb499638abf5",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "unosat_flood",
+   "title": "UNOSAT satellite-detected flood water, Pakistan 2022 (VIIRS extent + weekly flood evolution by district)",
+   "publisher": "UNITAR-UNOSAT (via HDX)",
+   "vintage": "Cumulative extent 1 Jul – 31 Aug 2022; weekly evolution Aug – Dec 2022 (release 3 Jan 2023)",
+   "url": "https://data.humdata.org/dataset/satellite-detected-water-extents-between-01-and-29-august-2022-over-pakistan",
+   "files_urls": [
+    "https://data.humdata.org/dataset/f685e623-a539-4af0-92ff-19b737ec95b3/resource/fa89ec39-8dd0-4abe-b97e-0a3d9e9627a5/download/viirs_20220701_20220831_floodextent_pak.zip",
+    "https://unosat.org/static/unosat_filesystem/3470/Preliminary%20Satellite%20Derived%20Flood%20Evolution%20Assessment%2C%20Islamic%20Republic%20of%20Pakistan-31Dec2022.csv"
+   ],
+   "license": "UNOSAT products: free for humanitarian and non-commercial use with attribution",
+   "used_for": [
+    "2022 Mega-Flood lens (share of each hex's land under water)",
+    "Flood-surge playback (weekly)",
+    "District flood exposure"
+   ],
+   "caveats": "Satellite analysis, not field validated. Cloud cover hides some water in some weeks. The playback spreads each district's weekly flooded area over that district's cumulative footprint hexes — the weekly *district totals* are UNOSAT's; their placement inside a district is approximate. Includes permanent water bodies only where UNOSAT counted them as flood water.",
+   "files": [
+    {
+     "name": "UNOSAT_Population_Exposure_FL20220808PAK_20220825_20220831_20220901_20220907_Updated14Sep2022.xlsx",
+     "url": "https://unosat.org/static/unosat_filesystem/3350/UNOSAT_Population_Exposure_FL20220808PAK_20220825_20220831_20220901_20220907_Updated14Sep2022.xlsx",
+     "bytes": 187104,
+     "sha256": "6953eceb793b6741a2d1b18fb50106c256cf653f8272f37f15ae99ae6399f27e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "flood_evolution_31Dec2022.csv",
+     "url": "https://unosat.org/static/unosat_filesystem/3470/Preliminary%20Satellite%20Derived%20Flood%20Evolution%20Assessment%2C%20Islamic%20Republic%20of%20Pakistan-31Dec2022.csv",
+     "bytes": 716411,
+     "sha256": "86ea5a5095184f2299053f37059391c1b051253522f89d941c407447258f1761",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "viirs_20220701_20220831_floodextent_pak.zip",
+     "url": "https://data.humdata.org/dataset/f685e623-a539-4af0-92ff-19b737ec95b3/resource/fa89ec39-8dd0-4abe-b97e-0a3d9e9627a5/download/viirs_20220701_20220831_floodextent_pak.zip",
+     "bytes": 1151993,
+     "sha256": "3d9f6633b550cd003914014b36929fd1e851223620f350a005a8199122f5a6f2",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "water_infra",
+   "title": "Indus Basin dams, barrages and headworks",
+   "publisher": "Wikidata; English Wikipedia (infoboxes citing WAPDA / Punjab & Sindh Irrigation Depts); OpenStreetMap (location cross-check)",
+   "vintage": "references retrieved 2026-11",
+   "url": "https://www.wikidata.org/",
+   "files_urls": [
+    "https://www.wikidata.org/wiki/Special:EntityData/<QID>.json",
+    "https://en.wikipedia.org/w/index.php?title=<article>&action=raw"
+   ],
+   "license": "Wikidata: CC0; Wikipedia: CC BY-SA 4.0; OSM: ODbL",
+   "used_for": [
+    "dam / barrage / headworks points",
+    "irrigation (aqueduct) and hydropower yields",
+    "Indus Waters Treaty western/eastern river lens"
+   ],
+   "caveats": "The list of structures is curated; every numeric fact is parsed from the cited Wikipedia infobox (or Wikidata) and is null when the reference doesn't give it. design_discharge_cusecs is the spillway / flood design discharge given in the infobox, not canal command capacity. Storage values are the infobox's design figures (often original, before sedimentation). Year = infobox 'opening' (null for structures under construction). Where the Wikidata point is more than 5 km from the named OSM structure (or missing), the OSM point is used (coord_src).",
+   "files": [
+    {
+     "name": "wd_Q1030262.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1030262.json",
+     "bytes": 35404,
+     "sha256": "331c641f895bcb4335c4e4811468e083a9027410c7aeea2ccb43897e7ad5b273",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q1140572.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1140572.json",
+     "bytes": 12243,
+     "sha256": "645380380f276ae3d0b3dbf43560a360addfe1fbb434d10482dc4096e669895d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q1286541.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1286541.json",
+     "bytes": 24441,
+     "sha256": "0dff1b77b6b22cbec2ffbd2e7bb45a3221fda648b019ad3395db3993a472fc72",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q14326986.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q14326986.json",
+     "bytes": 11557,
+     "sha256": "c95e4efc86a5fc807e1eea9a617e81633a4b036795a7d819d64d4ceb29d11121",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q15229594.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q15229594.json",
+     "bytes": 10125,
+     "sha256": "079e61f12db25d15c7a61441265633629587aa5247021c209e449b6ea6a86100",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q15265320.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q15265320.json",
+     "bytes": 2465,
+     "sha256": "3004fa10f9f836c7f392c06f8f098f6304715cc084a374725694d786a9415add",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q1551258.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q1551258.json",
+     "bytes": 24390,
+     "sha256": "1b21544abe086414b748db283e2c3f4105ac3aa2029d15f07e69d64fba165bb8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q171675.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q171675.json",
+     "bytes": 47605,
+     "sha256": "845d3309b3bd012816a6d59a9b4924e58cc4997ff7afa4c7957d84d8c638e123",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q214874.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q214874.json",
+     "bytes": 58089,
+     "sha256": "2d5f8c0640bc6f757fbd3890c0d540b61dab6e06b66278f2e398d777e9f5277a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q216875.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q216875.json",
+     "bytes": 63517,
+     "sha256": "23b4577db960fb095201174e411d5da45dbfcf12d6cb7ea6ae0592c31aa52276",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q2665231.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q2665231.json",
+     "bytes": 17876,
+     "sha256": "9373fdaae0d93f478aad3b08c834650b9fa3dd868ff8d09ccef005d401d3dd99",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q317899.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q317899.json",
+     "bytes": 38675,
+     "sha256": "11a5195f88c1a2a83f6158a1fe5332e53d3093387cc2dc719c59e69c096a502e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q3248039.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q3248039.json",
+     "bytes": 9504,
+     "sha256": "04b13f8e529e439aa6c36eaf31dc41467b969091fd230e84503119cab0f7fb62",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q3445691.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q3445691.json",
+     "bytes": 10324,
+     "sha256": "58f0e4977f1e5da181a7d46ffc2f21ba774a9083f8e17b0b235dd0b4c5043ddb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q3696512.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q3696512.json",
+     "bytes": 19300,
+     "sha256": "ce1e305088016c15d549fc93adbfcb62ab59481d052a760f3b14b9038143fea9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q4851833.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q4851833.json",
+     "bytes": 5945,
+     "sha256": "8284153e383c729015d0116cc14264707555bad115e60b1262a8b9763baf167c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q5087276.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q5087276.json",
+     "bytes": 13417,
+     "sha256": "0c908d3b144077fc6272b7c71c9eb8dd9fac556a6689b214ce119d1341cafe70",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q5257957.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q5257957.json",
+     "bytes": 7256,
+     "sha256": "8ac69301637e778f89238b686f83a3ac0e1c4ba9dc711cb2f734a1213b3f8939",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q5268374.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q5268374.json",
+     "bytes": 9722,
+     "sha256": "df9496dea0f585e441944270a6d90561f3f7f25dcab1ab1a227a165489c9407f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q5268427.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q5268427.json",
+     "bytes": 5518,
+     "sha256": "2eb60ff2dc7f3d3620ad15aba78305868d70078630fc08ec00d637ac26a428a5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q5614557.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q5614557.json",
+     "bytes": 7412,
+     "sha256": "92d114c3dbb88cb3b1872e911379f6488fafccf953ebe2ed29b966ca92cbe280",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q6081656.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q6081656.json",
+     "bytes": 6007,
+     "sha256": "106ee30eae32e9b2ebde37900d65aafbac8090973356642511dc370bbb07c0c7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q6400350.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q6400350.json",
+     "bytes": 5175,
+     "sha256": "a5c2e8c10b617b67d8cb53ed1d30e5cb445e0b302a0d21e656bf74ec90436573",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q6434241.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q6434241.json",
+     "bytes": 14162,
+     "sha256": "dd40ed54b70f12b813d5c7d892eaf599e27ad9e21a044b016c4453f1e3a6964e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q6754700.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q6754700.json",
+     "bytes": 9692,
+     "sha256": "7ed87a8d629a31b89226cdde5e04903e143ab0a8c116ab055521fcf453461f01",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q6872871.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q6872871.json",
+     "bytes": 4718,
+     "sha256": "337aadb42160bdb6b15406978ab3405561bd28970ce5ca25a4940d69c59459c5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q6935710.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q6935710.json",
+     "bytes": 5948,
+     "sha256": "146f18719a66590c48aae02daa891d258091307d5bd4d751d165917ef234334d",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7265774.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7265774.json",
+     "bytes": 2073,
+     "sha256": "e915dfa581a68e356ca01d38cd4b310ebc87197b6518cb7b2ea60210de7f6514",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7295323.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7295323.json",
+     "bytes": 7068,
+     "sha256": "8f727c771d4127b216a73222d8f952a923276f93c5f4f204be7e42de0aa985fc",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7348.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7348.json",
+     "bytes": 90898,
+     "sha256": "3e6f5760b0db8a56433336d54e426efaf5c0096ae4b2c91065023552abdc35a1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7395853.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7395853.json",
+     "bytes": 2904,
+     "sha256": "a555071ab6f2b2efe157ecb4e372ddba8c58047ed4acc3c3d49647c536432077",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7492805.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7492805.json",
+     "bytes": 10258,
+     "sha256": "a186ce2c0931d7001290f23c940247f380699a0f5a8cf183cfce13a331de71e9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7517934.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7517934.json",
+     "bytes": 9644,
+     "sha256": "5a9ee1bdb9957c03f2142d7a4227d73a320f5ef98d9b76fa9bc40fb1fe70a799",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7635874.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7635874.json",
+     "bytes": 10700,
+     "sha256": "b4e139686b148798e641f9b5deb651202cb6ee273579947d9f0e2e976123f7c7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7636149.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7636149.json",
+     "bytes": 2993,
+     "sha256": "13625bc2ac80131565e062edd7b1ec26844fb0908ebf4960121702707548657f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q7970870.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q7970870.json",
+     "bytes": 15145,
+     "sha256": "ef6269e32f394b23dab0681e930b62b7c480d5f1ed11679d7e655613ade3ba34",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q8515.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q8515.json",
+     "bytes": 42829,
+     "sha256": "80430bfe666a13e3caa08d7b6dae5dcf3a5f9310f956b3aba564682cd2ea9cc8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wd_Q889382.json",
+     "url": "https://www.wikidata.org/wiki/Special:EntityData/Q889382.json",
+     "bytes": 3184,
+     "sha256": "67905e5cf5d1e42b268a76e104638daa486b78a4a75cd05d69de2bdcce53356f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Balloki_Headworks.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Balloki_Headworks&action=raw",
+     "bytes": 5424,
+     "sha256": "75222c91f2ca5c0e9862ca76ddc23453c31ec68d4f49e44c1e9868fa9272a13f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Chashma_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Chashma_Barrage&action=raw",
+     "bytes": 4969,
+     "sha256": "221b9ef0a5042915187cad6e705021cf11d0c6602040d1ff2e2696a2f424ee0c",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Diamer-Bhasha_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Diamer-Bhasha_Dam&action=raw",
+     "bytes": 24081,
+     "sha256": "64fff3bb0ddffd8ea004bf025cff644f2a0698196c5a4b486e15983f0eebbd4e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Ghazi-Barotha_Hydropower_Project.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Ghazi-Barotha_Hydropower_Project&action=raw",
+     "bytes": 10559,
+     "sha256": "52b74093978b4a447820dde359d3a9baacab4b9ccebf54f10ad9b00c7c51535f",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Guddu_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Guddu_Barrage&action=raw",
+     "bytes": 8277,
+     "sha256": "7784264b111654cbf94425da890b740eee6ff57aaf72711b4598b381e499421b",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Hub_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Hub_Dam&action=raw",
+     "bytes": 78,
+     "sha256": "494af68306fb86b2898567b835b3a34d9a1d8f61f93e7c0178aaba443a443992",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Hub_Dam_Reservoir.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Hub_Dam_Reservoir&action=raw",
+     "bytes": 7113,
+     "sha256": "2bab48342698ee301fb336b50f31dd5c6bc80ab544c9e8d0d36a02b82af940d1",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Indus_Waters_Treaty.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Indus_Waters_Treaty&action=raw",
+     "bytes": 89491,
+     "sha256": "2c45d2768dfa4c526ac96bc3b0d5b80629ade65f2420fd2559ab179e7b154558",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Islam_Headworks.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Islam_Headworks&action=raw",
+     "bytes": 6605,
+     "sha256": "ad0a25456380cee05bff64de8533a2271fdbe6bc54f87ee4d0dbca47d8b0a2be",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Jinnah_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Jinnah_Barrage&action=raw",
+     "bytes": 4540,
+     "sha256": "4a2a0a93b7df2e12f3e65505b0917d5251922ed260a82dd21cc682dab1ff126a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Khanki_Headworks.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Khanki_Headworks&action=raw",
+     "bytes": 6276,
+     "sha256": "cfb6416bf4c12a8e8491cb0204925c37761d3dc70f2b485cf5dbfd1b285e392a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Khanpur_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Khanpur_Dam&action=raw",
+     "bytes": 6450,
+     "sha256": "cb327c43af72f5e209a0bcc224b0c5e86619d40a2f29a71f4f5bdf97db88bf12",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Kotri_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Kotri_Barrage&action=raw",
+     "bytes": 2542,
+     "sha256": "561919e8c40e06ecfb18500b19eddccb6759f49567a4a1ff6d9875a1ca3b17d7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mangla_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Mangla_Dam&action=raw",
+     "bytes": 22741,
+     "sha256": "e7bb8949b92949c3b17a0702680532e801c97a01b807d649ea1378b461ff02fb",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Marala_Headworks.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Marala_Headworks&action=raw",
+     "bytes": 9587,
+     "sha256": "d33b76ea33fa13ee31a508d75b4d67c272f500e8e5b84bb86e2d4cd191d59c34",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mirani_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Mirani_Dam&action=raw",
+     "bytes": 11122,
+     "sha256": "ae0dbb53768a3befa3530b9b7728235e1ca8bd31e4aa3cc6aa7484576f82b7c7",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Mohmand_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Mohmand_Dam&action=raw",
+     "bytes": 9235,
+     "sha256": "2b315c3eb70ddc01e92a6f7034d613c12b8c8dfacb834c27c5af6d119129ffcd",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Neelum-Jhelum_Hydropower_Plant.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Neelum%E2%80%93Jhelum_Hydropower_Plant&action=raw",
+     "bytes": 21981,
+     "sha256": "78215db1a7da808767047e431fd00492bb36c502272d8195aad57fc2d0279fb6",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Panjnad_Headworks.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Panjnad_Headworks&action=raw",
+     "bytes": 6829,
+     "sha256": "697451a2f840662406c8097e7170b6a6feaa4a71192399dcb6876a54d5467fb5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Rasul_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Rasul_Barrage&action=raw",
+     "bytes": 3817,
+     "sha256": "5dba1c15932e9d0411a850ad47ff85dbbff0225f84c8286a9b66656c7eb229c4",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Rawal_Lake.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Rawal_Lake&action=raw",
+     "bytes": 8244,
+     "sha256": "3cac18e97fa2a2f5481470588e61de2c7cbed1a30170f45776fc1ca7463688ef",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sabakzai_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Sabakzai_Dam&action=raw",
+     "bytes": 2340,
+     "sha256": "04d17299fed479b355c0402f3eb3d0bf96975de61c1b7b24f8149f60330cc75a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Simly_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Simly_Dam&action=raw",
+     "bytes": 4392,
+     "sha256": "41dfff8fc35e8219937a95d2a05337e36fcffbd25b887f7427dddf4b49b70718",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sukkur_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Sukkur_Barrage&action=raw",
+     "bytes": 8723,
+     "sha256": "42ec01d3ea4733e1b2acbd3fa1a55ac0e2c3d4998f1b26cb295f72ca497b4e61",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Sulemanki_Headworks.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Sulemanki_Headworks&action=raw",
+     "bytes": 7310,
+     "sha256": "27aeff94d0efe0cb804e911bb132cf83396aaba0b73ac7de3652e5deeb382681",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Tarbela_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Tarbela_Dam&action=raw",
+     "bytes": 30181,
+     "sha256": "123f400f43cc25a063b522bb9259538b36b9c3c3c0061831db2d4c7453ea8cd8",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Tonsa_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Tonsa_Barrage&action=raw",
+     "bytes": 5802,
+     "sha256": "7bf7abd8a98474a3417763b5e4f42872125027ab2d05d46a1c1cab8b31ce0db5",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Trimmu_Barrage.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Trimmu_Barrage&action=raw",
+     "bytes": 5886,
+     "sha256": "b1dcf5099a3a1d88dddbc2a4d44164ea321279dfe68a34d687cfc6b956b5c092",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Warsak_Dam.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?title=Warsak_Dam&action=raw",
+     "bytes": 5939,
+     "sha256": "8ad301376e06960b4e4d3ee20e31fa387fe3dac0ac9ee3eb876a5efa3a682639",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "wonders",
+   "title": "Natural & cultural wonders and national parks",
+   "publisher": "Wikidata / Wikipedia (curated list); UNEP-WCMC & IUCN Protected Planet (WDPCA)",
+   "vintage": "Wikidata/Wikipedia as retrieved 2026-11; WDPCA v5 (HDX unep_wdpca_pak)",
+   "url": "https://www.protectedplanet.net/en/country/PAK",
+   "files_urls": [
+    "https://query.wikidata.org/sparql",
+    "https://en.wikipedia.org/api/rest_v1/page/summary/",
+    "https://hub.arcgis.com/api/download/v1/items/8664a0d82205448e942c1189775846be/geojson?layers=1&where=ISO3+%3D+%27PAK%27&redirect=true&spatialRefId=4326",
+    "https://services5.arcgis.com/Mj0hjvkNtV7NRhA7/arcgis/rest/services/WDPCA_v5/FeatureServer/0/query?where=iso3%3D%27PAK%27+AND+desig_eng+LIKE+%27National+Park%25%27&outFields=site_id%2Cname_eng%2Cdesig_eng%2Ciucn_cat%2Crep_area%2Cstatus_yr%2Crealm&returnGeometry=true&outSR=4326&geometryPrecision=4&f=geojson"
+   ],
+   "license": "Wikidata CC0; Wikipedia text CC BY-SA 4.0; WDPCA (c) UNEP-WCMC & IUCN, non-commercial terms",
+   "used_for": [
+    "Wonders layer (natural & cultural)",
+    "Surprise-Me outliers",
+    "National parks list"
+   ],
+   "caveats": "PUBLISHED RULE: wonders are a curated, editorial list, not a ranking. Natural: all five 8,000 m peaks in Pakistan-administered territory (K2, Nanga Parbat, Gasherbrum I, Broad Peak, Gasherbrum II), plus Rakaposhi and Tirich Mir (highest of the Hindu Kush); four major Karakoram glaciers (Siachen, Baltoro, Biafo, Batura); and 19 signature landscapes (Deosai, Hingol incl. Princess of Hope & Kund Malir, Khunjerab Pass, Attabad, Saiful Muluk, Shandur, Indus Delta, Thar, Cholistan, Khewra, Fairy Meadows, Kalash valleys, Astola). Cultural: national symbols and Mughal/Sikh/colonial/princely monuments (most on UNESCO's Tentative List) plus Harappa and Mehrgarh, and Quaid-e-Azam Solar Park as a modern outlier. The six UNESCO World Heritage properties are in the unesco layer, not repeated here. Numeric facts are Wikidata values (units normalised); null when Wikidata has none. Siachen lies in a disputed area; Thar, Cholistan and the Indus Delta are extensive regions pinned at one Wikidata point (pcode may be null if that point is outside Pakistan). National parks: every WDPCA record designated 'National Park' (polygon or point layer) with reported area; WDPCA areas are as reported by the government and may differ from GIS areas.",
+   "files": [
+    {
+     "name": "wdpca_pak_layer0.csv",
+     "url": "https://hub.arcgis.com/api/download/v1/items/8664a0d82205448e942c1189775846be/csv?layers=0&where=ISO3+%3D+%27PAK%27&redirect=true",
+     "bytes": 158695,
+     "sha256": "ba57e12ed46a540b1770e435fc73d752dbf3933083ecafad175a85e90884c179",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wdpca_pak_layer1.csv",
+     "url": "https://hub.arcgis.com/api/download/v1/items/8664a0d82205448e942c1189775846be/csv?layers=1&where=ISO3+%3D+%27PAK%27&redirect=true",
+     "bytes": 44949,
+     "sha256": "261080f6c3dd0f6e08dc79bf9d4f4dca792ac10b5f4db0fa6ac61f8b8b9114a3",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wdpca_pak_layer1.geojson",
+     "url": "https://hub.arcgis.com/api/download/v1/items/8664a0d82205448e942c1189775846be/geojson?layers=1&where=ISO3+%3D+%27PAK%27&redirect=true&spatialRefId=4326",
+     "bytes": 364283,
+     "sha256": "ea82ae64de82f026759bc88ce051b5e8e678061298e3ba9df66209b4f0e2e76e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wdpca_pak_np_layer0.geojson",
+     "url": "https://services5.arcgis.com/Mj0hjvkNtV7NRhA7/arcgis/rest/services/WDPCA_v5/FeatureServer/0/query?where=iso3%3D%27PAK%27+AND+desig_eng+LIKE+%27National+Park%25%27&outFields=site_id%2Cname_eng%2Cdesig_eng%2Ciucn_cat%2Crep_area%2Cstatus_yr%2Crealm&returnGeometry=true&outSR=4326&geometryPrecision=4&f=geojson",
+     "bytes": 6524,
+     "sha256": "d262ae5f8b01cc1f4233515522979f236dfe80540518c53ce886466653a1ff2e",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wdpca_pak_np_layer1.geojson",
+     "url": "https://services5.arcgis.com/Mj0hjvkNtV7NRhA7/arcgis/rest/services/WDPCA_v5/FeatureServer/1/query?where=iso3%3D%27PAK%27+AND+desig_eng+LIKE+%27National+Park%25%27&outFields=site_id%2Cname_eng%2Cdesig_eng%2Ciucn_cat%2Crep_area%2Cgis_area%2Cstatus_yr%2Crealm&returnGeometry=true&outSR=4326&maxAllowableOffset=0.01&geometryPrecision=3&f=geojson",
+     "bytes": 7420,
+     "sha256": "b29d1338fe7e473fce5210b1ab5dd6f48ce8c3adc2cf22890606de640c1d3f4a",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikidata_wonders.json",
+     "url": "https://query.wikidata.org/sparql?format=json&query=SELECT%20%3Farticle%20%3Fitem%20%3Fcoord%20%3Fdesc%20%3Finception%20%3Felevation_m%20%3Flength_m%20%3Farea_m2%20%3Fprominence_m%20%3Fpower_w%20WHERE%20%7B%0A%20%20VALUES%20%3Farticle%20%7B%20%3Chttps%3A//en.wikipedia.org/wiki/K2%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Nanga_Parbat%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Gasherbrum_I%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Broad_Peak%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Gasherbrum_II%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Rakaposhi%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Terich_Mir%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Siachen_Glacier%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Baltoro_Glacier%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Biafo_Glacier%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Batura_Glacier%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Deosai_National_Park%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Hingol_National_Park%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Princess_of_Hope%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Kund_Malir%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Khunjerab_Pass%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Attabad_Lake%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Lake_Saiful_Muluk%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shandur_Pass%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Indus_River_Delta%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Thar_Desert%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Cholistan_Desert%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Khewra_Salt_Mine%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Fairy_Meadows%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Kalasha_Valleys%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Astola_Island%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Badshahi_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Faisal_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Minar-e-Pakistan%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Wazir_Khan_Mosque%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mazar-e-Quaid%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Shah_Jahan_Mosque%2C_Thatta%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Derawar_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Ranikot_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Altit_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Baltit_Fort%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Hiran_Minar%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Katas_Raj_Temples%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Noor_Mahal%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Quaid-e-Azam_Residency%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Harappa%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Mehrgarh%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Quaid-e-Azam_Solar_Park%3E%20%3Chttps%3A//en.wikipedia.org/wiki/Tharparkar%3E%20%7D%0A%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%20schema%3AisPartOf%20%3Chttps%3A//en.wikipedia.org/%3E%20.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP625%20%3Fcoord%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP571%20%3Finception%20.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20schema%3Adescription%20%3Fdesc%20.%20FILTER%28lang%28%3Fdesc%29%20%3D%20%22en%22%29%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fitem%20p%3AP2044/psn%3AP2044/wikibase%3AquantityAmount%20%3Felevation_m%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20p%3AP2043/psn%3AP2043/wikibase%3AquantityAmount%20%3Flength_m%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20p%3AP2046/psn%3AP2046/wikibase%3AquantityAmount%20%3Farea_m2%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20p%3AP2660/psn%3AP2660/wikibase%3AquantityAmount%20%3Fprominence_m%20.%20%7D%0AOPTIONAL%20%7B%20%3Fitem%20p%3AP2109/psn%3AP2109/wikibase%3AquantityAmount%20%3Fpower_w%20.%20%7D%0A%7D",
+     "bytes": 34535,
+     "sha256": "147ad77506b7652e94eb77edea04fbf6c3dbcc7783b9a6dd75da94745f5250e9",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wikipedia_summaries.json",
+     "url": "https://en.wikipedia.org/api/rest_v1/page/summary/{title}",
+     "bytes": 29045,
+     "sha256": "c784510a43d4938ba129ad066f31aa737c2eb4e86e01ff1ecae8eaf258e2f897",
+     "retrieved": "2026-11-26"
+    },
+    {
+     "name": "wp_Quaid_e_Azam_Solar_Park.wikitext",
+     "url": "https://en.wikipedia.org/w/index.php?action=raw&title=Quaid-e-Azam_Solar_Park",
+     "bytes": 35267,
+     "sha256": "8b98e616e109350f93b3a4d3683bc3b72c01fb2eb96da6c4c0fd61a429d03a64",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  },
+  {
+   "id": "worldpop",
+   "title": "WorldPop Global2 population 2025, Pakistan, constrained 1 km (R2025A v1)",
+   "publisher": "WorldPop, University of Southampton",
+   "vintage": "2025 (R2025A, alpha release)",
+   "url": "https://hub.worldpop.org/",
+   "license": "CC BY 4.0",
+   "used_for": [
+    "Spreading each district's Census 2023 population across its hexes",
+    "AJK & GB population (no census tables)"
+   ],
+   "caveats": "Modelled gridded population. For the 136 districts with Census 2023 tables, hex values are rescaled so each district sums to its census total; AJK and Gilgit-Baltistan show WorldPop 2025 directly.",
+   "files": [
+    {
+     "name": "pak_pop_2025_CN_1km_R2025A_UA_v1.tif",
+     "url": "https://data.worldpop.org/GIS/Population/Global_2015_2030/R2025A/2025/PAK/v1/1km_ua/constrained/pak_pop_2025_CN_1km_R2025A_UA_v1.tif",
+     "bytes": 3395684,
+     "sha256": "b14507273e202bee30465fd0a2913b71990504f3f1f2001cc28f7a703f7a6d2f",
+     "retrieved": "2026-11-26"
+    }
+   ]
+  }
+ ]
+}

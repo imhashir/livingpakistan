@@ -50,7 +50,10 @@ export class Board {
     if (w.water[cell] === 1 || w.water[cell] === 2) return -0.6 - Math.min(this.coastDist[cell], 10) * 0.55;
     const e = Math.max(w.elev[cell], 0);
     const base = w.water[cell] === 3 ? -0.3 : 0.6;
-    return base + (e / 1000) * this.exaggeration;
+    // foreign land sinks gradually into the fog of war
+    const foreign = w.owner[cell] === -2 || (w.owner[cell] === -3 && this.foreignDist[cell] > 0);
+    const sink = foreign ? Math.max(0.0, 1 - this.foreignDist[cell] / (this.FOG_HEX + 1)) : 1;
+    return foreign ? -7 + (base + 7 + (e / 1000) * this.exaggeration) * sink : base + (e / 1000) * this.exaggeration;
   }
   heightAt(x, z) { // world coords → top of the hex below
     const c = this.grid.cellAt(x - this.ox, z - this.oz);
@@ -186,7 +189,7 @@ export class Board {
     const w = this.world, list = [];
     for (const c of this.cells) {
       if (w.water[c] !== 0 || w.relief[c] < 1) continue;
-      const rise = w.elev_max[c] - Math.max(w.elev[c], 0);
+      const rise = (w.elev_max[c] - Math.max(w.elev[c], 0)) * (w.owner[c] === -2 ? Math.max(0, 1 - this.foreignDist[c] / 5) : 1);
       if (rise < 400) continue;
       const k = w.relief[c] >= 3 ? 3 : w.relief[c] >= 2 ? 2 : 1;
       for (let j = 0; j < k; j++) list.push([c, j, rise]);

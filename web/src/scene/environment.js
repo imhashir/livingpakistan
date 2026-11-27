@@ -120,17 +120,17 @@ export function createSky(scene) {
 export const MOODS = {
   day: {
     label: 'Day', sunDir: [-0.35, 0.85, 0.4], sunColor: 0xfff4e0, sunI: 2.6, hemiSky: 0xcfe6ff, hemiGround: 0x6d5a3e,
-    hemiI: 1.05, skyTop: 0x4f8fd0, skyHorizon: 0xd6e6ef, fog: 0xbcd3e3, fogNear: 1500, fogFar: 5200,
+    hemiI: 1.05, skyTop: 0x4f8fd0, skyHorizon: 0xd6e6ef, fog: 0xbcd3e3, fogNear: 2700, fogFar: 7500,
     deep: 0x0e3a5e, shallow: 0x2aa3b3, voidA: 0x3b3d3c, voidB: 0x77746a, night: 0, stars: 0, exposure: 1.0, bloom: 0.25,
   },
   golden: {
-    label: 'Golden hour', sunDir: [-0.85, 0.28, 0.35], sunColor: 0xffb067, sunI: 3.4, hemiSky: 0xffc9a0, hemiGround: 0x4a3426,
-    hemiI: 0.75, skyTop: 0x3f5f9a, skyHorizon: 0xffb27a, fog: 0xf0b98e, fogNear: 1200, fogFar: 4600,
+    label: 'Golden hour', sunDir: [-0.85, 0.3, 0.35], sunColor: 0xffc58f, sunI: 3.0, hemiSky: 0xd9d2ff, hemiGround: 0x4a3426,
+    hemiI: 0.95, skyTop: 0x3f5f9a, skyHorizon: 0xffb27a, fog: 0xf0b98e, fogNear: 2400, fogFar: 6500,
     deep: 0x173a5c, shallow: 0x3d8ea0, voidA: 0x3a2a24, voidB: 0x7d5a44, night: 0.12, stars: 0, exposure: 1.05, bloom: 0.45,
   },
   night: {
     label: 'Nightlights', sunDir: [0.4, 0.6, -0.3], sunColor: 0x8fa8ff, sunI: 0.35, hemiSky: 0x223355, hemiGround: 0x05070c,
-    hemiI: 0.35, skyTop: 0x02040b, skyHorizon: 0x0c1430, fog: 0x070b18, fogNear: 1300, fogFar: 5200,
+    hemiI: 0.35, skyTop: 0x02040b, skyHorizon: 0x0c1430, fog: 0x070b18, fogNear: 2600, fogFar: 7500,
     deep: 0x030a16, shallow: 0x0a2333, voidA: 0x020308, voidB: 0x0d1224, night: 1, stars: 1, exposure: 1.0, bloom: 1.1,
   },
 };

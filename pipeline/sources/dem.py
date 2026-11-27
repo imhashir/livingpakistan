@@ -76,7 +76,7 @@ def process():
     ts = tiles()
     print(f"{len(ts)} tiles")
     done = 0
-    with cf.ThreadPoolExecutor(16) as ex:
+    with cf.ThreadPoolExecutor(8) as ex:
         for name, lat, lon, a, tr in ex.map(_read, ts):
             h, wd = a.shape
             # Tiles above 50° are narrower; all ours are 1200 wide. Pixel centres in lon/lat:
