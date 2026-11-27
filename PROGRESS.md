@@ -2,6 +2,25 @@
 
 Newest entries at the top. Screenshots live in `previews/`.
 
+## 02 · Explore & Discover suite + production verification (2026-11-27)
+**Built**
+- **Chronicles of Pakistan** — 7 cinematic tours (K2 → Arabian Sea, Indus Food Machine, Industrial Belt, 5,000 Years of
+  Wonders, The 2022 Deluge, Tongues of the Indus, Caravans & Corridors); every caption number is computed from the data.
+- **2022 flood-surge playback** — UNOSAT weekly district extents (Aug → Dec 2022) animate rising water caps; live km²,
+  exposed people, NDMA deaths, PDNA damage. District headlines use the cloud-free weekly peak (the VIIRS monthly composite
+  also catches flooded rice paddies — documented in the Almanac). Worst hit: Jacobabad, Larkana, Jaffarabad, Shikarpur.
+- **Era Time-Machine** — 8 eras / 42 dated sites with light beams, era lighting and era-specific layers.
+- **District Duel** (radar of percentiles, crowns, data-derived verdict), **Explorer** (sortable table + scatter, log axes,
+  Pearson r, brushing linked to the 3D map), **Surprise me** (17 live-computed outliers), fuzzy **Search**, **Almanac**
+  (23 sources with file-level provenance: url, bytes, sha256, retrieval date).
+- Cinematic opening fly-in from K2, hover ring, lens-tinted mountains, label decluttering, shareable URL hash.
+- **Production build verified**: `npm run build && npm run verify` drives every lens, mood, layer, panel, era and tour
+  plus real mouse input against `vite preview` → **0 console errors, 0 warnings, 0 failed requests**.
+
+**Screenshots** — `previews/00-intro.png`, `04-lahore-wonders-closeup.png`, `05-flood-surge-playback.png`,
+`06-era-time-machine.png`, `07-district-duel.png`, `08-explorer.png`, `09-surprise-me.png`, `10-almanac.png`,
+`11-mother-tongue-lens.png`, `12-prod-build-after-sweep.png` (01–03 refreshed).
+
 ## 01 · 3D board, real data, lenses & lighting moods (2026-11-27)
 **Built**
 - Three.js/WebGL renderer (Vite static app): 3,409 Pakistan hexes (20 km corner-to-corner) as one `InstancedMesh` of

@@ -23,6 +23,10 @@ export class Board {
     this.exaggeration = 12;
     const n = this.grid.size;
     // Which cells get a prism: everything except open sea far from any land.
+    // true ocean = sea cells connected to the Arabian Sea (bottom-left corner); inland "sea" slivers become void
+    this.ocean = new Uint8Array(world.owner.length);
+    { const q = [this.grid.index(0, this.grid.rows - 1)]; this.ocean[q[0]] = 1;
+      for (let h = 0; h < q.length; h++) for (const j of this.grid.neighbours(q[h])) if (!this.ocean[j] && world.owner[j] === -1) { this.ocean[j] = 1; q.push(j); } }
     const dist = this._coastDistance();
     this.coastDist = dist;
     this.cells = [];
@@ -30,8 +34,8 @@ export class Board {
     this.foreignDist = this._foreignDistance();
     this.FOG_HEX = 7;
     for (let i = 0; i < n; i++) {
-      if (world.owner[i] === -1) { if (dist[i] <= 14) this.cells.push(i); }
-      else if (world.owner[i] >= 0 || this.foreignDist[i] <= this.FOG_HEX) this.cells.push(i);
+      if (world.owner[i] === -1) { if (dist[i] <= 14 && this.ocean[i]) this.cells.push(i); }
+      else if (world.owner[i] >= 0 || (this.foreignDist[i] <= this.FOG_HEX && !(world.owner[i] === -3 && this.foreignDist[i] > 2))) this.cells.push(i);
     }
     this.instanceOf = new Int32Array(n).fill(-1);
     this.cells.forEach((c, k) => { this.instanceOf[c] = k; });
@@ -74,7 +78,7 @@ export class Board {
   waterMask() {
     const g = this.grid, w = this.world, data = new Uint8Array(g.size * 4);
     for (let i = 0; i < g.size; i++) {
-      const sea = w.owner[i] === -1 || w.owner[i] === -3;
+      const sea = (w.owner[i] === -1 && this.ocean[i]) || (w.owner[i] === -3 && this.foreignDist[i] <= 2);
       data[i * 4] = sea ? 255 : 0; data[i * 4 + 3] = 255;
     }
     return data;

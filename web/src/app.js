@@ -52,6 +52,9 @@ export class App {
     const dens = data.cells.density;
     board.setGlow((c) => { const v = dens[c]; return v == null ? 0 : Math.max(0, Math.min(1.6, (Math.log10(Math.max(v, 1)) - 2.0) / 1.4)) ** 1.6; });
     this.lens = new LensEngine(this);
+    const rg = new THREE.RingGeometry(8.6, 10.2, 6, 1, Math.PI / 2); rg.rotateX(-Math.PI / 2);
+    this.hoverRing = new THREE.Mesh(rg, new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 1.8, 0.9), toneMapped: false, transparent: true, depthWrite: false }));
+    this.hoverRing.renderOrder = 14; this.hoverRing.visible = false; stage.scene.add(this.hoverRing);
     this.buildHud();
     this.inspector = new Inspector(this);
     this.search = new Search(this);
@@ -72,7 +75,36 @@ export class App {
       this.flood?.tick(t);
       this.eras?.tick(t);
     });
-    this._restoreHash();
+    if (location.hash.length > 1) this._restoreHash(); else this.intro();
+  }
+
+  intro() {
+    const N = this.atlas.nation;
+    const k2 = this.sites.sites.find((s) => s.name === 'K2');
+    const card = el('div', { class: 'intro' }, [
+      el('div', { class: 'intro-kicker', text: 'A strategy-map atlas built from real public data' }),
+      el('div', { class: 'intro-title', text: 'PAKCIV' }),
+      el('div', { class: 'intro-stats' }, [
+        el('span', {}, [el('b', { text: fmt.big(N.pop_census2023) }), ' people · Census 2023']),
+        el('span', {}, [el('b', { text: String(N.district_count) }), ' districts']),
+        el('span', {}, [el('b', { text: fmt.int(N.hex_count) }), ' hexes']),
+        el('span', {}, [el('b', { text: `0 → ${fmt.int(k2?.facts?.elevation_m)} m` }), ' sea to K2']),
+      ]),
+      el('div', { class: 'intro-hint', text: 'Drag to pan · right-drag to orbit · scroll to zoom · T for guided tours · / to search' }),
+    ]);
+    this.hud.append(card);
+    document.body.classList.add('intro-on');
+    if (k2) {
+      const p = this.sites.worldPos(k2);
+      this.stage.controls.target.set(p.x, p.y, p.z);
+      this.stage.camera.position.set(p.x + 120, p.y + 260, p.z + 420);
+    }
+    this.setMood('golden');
+    setTimeout(() => { this.home(); this.stage.flight && (this.stage.flight.duration = 4.5); }, 900);
+    setTimeout(() => { this.setMood('day'); }, 4200);
+    setTimeout(() => { card.classList.add('gone'); document.body.classList.remove('intro-on'); }, 5200);
+    setTimeout(() => card.remove(), 6500);
+    card.addEventListener('click', () => { card.classList.add('gone'); document.body.classList.remove('intro-on'); });
   }
 
   home(instant = false) {
@@ -245,7 +277,7 @@ export class App {
       this.pointer.set((e.clientX / dom.clientWidth) * 2 - 1, -(e.clientY / dom.clientHeight) * 2 + 1);
       this._pendingPick = [e.clientX, e.clientY];
     });
-    dom.addEventListener('pointerleave', () => { this.tip.classList.add('hidden'); });
+    dom.addEventListener('pointerleave', () => { this.tip.classList.add('hidden'); this.hoverRing.visible = false; });
     dom.addEventListener('pointerup', (e) => {
       if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
       this.pointer.set((e.clientX / dom.clientWidth) * 2 - 1, -(e.clientY / dom.clientHeight) * 2 + 1);
@@ -267,7 +299,10 @@ export class App {
       const site = this.sites.pick(this.raycaster);
       if (site) { this.showSiteTip(site, x, y); dom.style.cursor = 'pointer'; return; }
       const hit = this.board.pick(this.raycaster);
-      dom.style.cursor = hit && this.data.world.owner[hit.cell] >= 0 ? 'pointer' : '';
+      const own = hit && this.data.world.owner[hit.cell] >= 0;
+      dom.style.cursor = own ? 'pointer' : '';
+      this.hoverRing.visible = !!own;
+      if (own) { const [hx, hy, hz] = this.cellWorld(hit.cell); this.hoverRing.position.set(hx, hy + 0.5, hz); }
       if (!hit) { this.tip.classList.add('hidden'); return; }
       this.showTip(hit.cell, x, y);
     });
