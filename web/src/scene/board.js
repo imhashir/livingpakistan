@@ -205,12 +205,12 @@ export class Board {
         .replace('#include <begin_vertex>', `#include <begin_vertex>
           vWP2 = (modelMatrix * instanceMatrix * vec4(position, 1.0)).xyz;`);
       sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
-          uniform float uSnowY; uniform float uRockY; varying vec3 vWP2;`)
+          uniform float uSnowY; uniform float uRockY; uniform float uDim; varying vec3 vWP2;`)
         .replace('#include <color_fragment>', `#include <color_fragment>
           { float y = vWP2.y;
             vec3 rock = mix(diffuseColor.rgb, vec3(0.47, 0.43, 0.40), smoothstep(uRockY * 0.6, uRockY, y));
             float sn = smoothstep(uSnowY - 2.5, uSnowY + 1.5, y + 2.0 * sin(vWP2.x * 0.7) * cos(vWP2.z * 0.6));
-            diffuseColor.rgb = mix(rock, vec3(0.96, 0.97, 1.0), sn); }`);
+            diffuseColor.rgb = uDim > 0.5 ? diffuseColor.rgb : mix(rock, vec3(0.96, 0.97, 1.0), sn); }`);
     };
     const mesh = new THREE.InstancedMesh(geo, mat, Math.max(list.length, 1));
     mesh.castShadow = true; mesh.receiveShadow = true;
@@ -218,10 +218,11 @@ export class Board {
     this.peaks = mesh;
     this.scene.add(mesh);
     const col = new THREE.Color();
+    this.peakBase = [];
     list.forEach(([c], k) => {
       const t = w.terrain_names[w.terrain[c]];
       col.setHex(t === 'forest_mtn' ? 0x56704a : w.owner[c] === -2 ? 0x8f8a82 : 0x8b7458);
-      mesh.setColorAt(k, col);
+      mesh.setColorAt(k, col); this.peakBase.push(col.getHex());
     });
   }
 
@@ -282,6 +283,19 @@ export class Board {
       this.mesh.setColorAt(k, col);
     });
     this.mesh.instanceColor.needsUpdate = true;
+    this._tintPeaks(null);
+  }
+
+  _tintPeaks(colorOf) {
+    if (!this.peaks.instanceColor) return;
+    const col = new THREE.Color();
+    this.peakUniforms.uDim.value = colorOf ? 1 : 0;
+    this.peakList.forEach(([c], k) => {
+      const v = colorOf ? colorOf(c) : null;
+      if (v) col.copy(v).multiplyScalar(0.9); else col.setHex(colorOf && this.world.owner[c] >= -2 ? 0x55575c : this.peakBase[k]);
+      this.peaks.setColorAt(k, col);
+    });
+    this.peaks.instanceColor.needsUpdate = true;
   }
 
   paintLens(colorFn) {
@@ -296,6 +310,7 @@ export class Board {
       this.mesh.setColorAt(k, col);
     });
     this.mesh.instanceColor.needsUpdate = true;
+    this._tintPeaks((c) => (w.owner[c] >= 0 ? colorFn(c) : null));
   }
 
   setGlow(fn) {

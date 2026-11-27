@@ -26,6 +26,7 @@ export class Inspector {
 
   show(sel) {
     if (!sel) return this.hide();
+    if (this.app.duel?.root && !this.app.duel.root.classList.contains('hidden') && !this.app.duel.picking) this.app.duel.root.classList.add('hidden');
     let parts;
     if (sel.site?.kind === 'city') parts = this.cityView(sel.site);
     else if (sel.site) parts = this.siteCard(sel.site);
@@ -156,8 +157,8 @@ export class Inspector {
       rel.length ? this.sec('Faith', this.bars(rel.slice(0, 5).map(([k, v]) => [LABELS[k] || (k === 'muslim' ? 'Muslim' : k), (100 * v) / rtot]), (v) => (v < 1 ? v.toFixed(2) + '%' : v.toFixed(1) + '%'))) : '',
       this.sec('Citizens at work', this.citizens(d.workforce)),
       crops.length ? this.sec('Fields (Agricultural Census 2024)', this.bars(crops.map(([k, v]) => [LABELS[k] || k, (100 * v) / ctot])), this.src('crops')) : '',
-      d.flood_series ? this.sec('2022 mega-flood', this.kv([['Max flooded (Aug)', `${fmt.int(d.flood_series[0])} km²`], ['Share of district', d.flood_pct == null ? null : fmt.pct(d.flood_pct)],
-        ['People potentially exposed', fmt.int(d.flood_exposed)]]), this.sparkline(d.flood_series, periods), this.src('unosat_flood')) : '',
+      d.flood_series ? this.sec('2022 mega-flood', this.kv([['Weekly peak', `${fmt.int(d.flood_peak_km2)} km²`], ['Share of district', d.flood_pct == null ? null : fmt.pct(d.flood_pct)],
+        ['People potentially exposed', fmt.int(d.flood_exposed)], ['Aug monthly max (VIIRS)', `${fmt.int(d.flood_series[0])} km² · ${fmt.pct(d.flood_aug_pct)}`, 'Monthly composite; may include flooded rice paddies']]), this.sparkline(d.flood_series, periods), this.src('unosat_flood')) : '',
       this.sec('Terrain', this.kv([['Mean elevation', d.elev_mean == null ? null : `${fmt.int(d.elev_mean)} m`], ['Highest hex peak', d.elev_max == null ? null : `${fmt.int(d.elev_max)} m`], ['Quakes M4.5+ since 1902', String(d.quakes)]])),
       this.actions([['🎯 Fly here', () => app.flyToDistrict(di)], ['⚔️ Duel', () => app.duel.open?.(di)], ['📊 Explorer', () => app.explorer.open()]]),
     ];

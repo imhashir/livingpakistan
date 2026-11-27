@@ -234,8 +234,14 @@ def build():
             r["flood_series"] = fl["ext_km2"]
             r["flood_exposed_series"] = fl["exposed"]
             r["flood_max_km2"] = max(fl["ext_km2"]) if fl["ext_km2"] else None
-            r["flood_pct"] = round(100 * fl["ext_km2"][0] / fl["area_km2"], 2) if fl["area_km2"] else None
-            r["flood_exposed"] = fl["exposed"][0] if fl["exposed"] else None
+            # Headline = peak of UNOSAT's weekly windows (25 Aug onward). The 1–31 Aug monthly maximum (index 0) is kept
+            # separately: VIIRS monthly composites also catch deliberately flooded rice paddies (e.g. Sialkot).
+            wk = fl["ext_km2"][1:] or fl["ext_km2"]
+            kmax = max(range(len(wk)), key=lambda j: wk[j])
+            r["flood_pct"] = round(100 * wk[kmax] / fl["area_km2"], 2) if fl["area_km2"] else None
+            r["flood_peak_km2"] = wk[kmax]
+            r["flood_aug_pct"] = round(100 * fl["ext_km2"][0] / fl["area_km2"], 2) if fl["area_km2"] else None
+            r["flood_exposed"] = (fl["exposed"][1:] or fl["exposed"])[kmax] if fl["exposed"] else None
         else:
             r["flood_series"] = None; r["flood_exposed_series"] = None; r["flood_max_km2"] = None
             r["flood_pct"] = None; r["flood_exposed"] = None
@@ -376,7 +382,7 @@ def lens_catalogue():
     add(id="crop", group="Economy", label="Dominant crop", level="district", field="top_crop", scale="cat", palette="crop",
         desc="Crop with the largest cropped area (Agricultural Census 2024).", src=["crops"])
     add(id="flood", group="Hazards", label="2022 mega-flood", level="hex", field="flood_pct", unit="% of land",
-        scale="seq", palette="flood", desc="Share of each hex under water in UNOSAT's VIIRS extent, 1 Jul – 31 Aug 2022.",
+        scale="seq", palette="flood", desc="Share of each hex under water in UNOSAT's VIIRS cumulative extent, 1 Jul – 31 Aug 2022. Caveat: the composite also catches deliberately flooded rice paddies in the Punjab rice belt (Sialkot–Gujranwala).",
         src=["unosat_flood"])
     add(id="seismic", group="Hazards", label="Seismicity", level="hex", field="cells.quake_log", unit="log₁₀ energy",
         scale="seq", palette="quake", desc="Energy released by M4.5+ earthquakes since 1902 (USGS ComCat), smoothed over neighbouring hexes.",

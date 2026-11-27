@@ -38,7 +38,7 @@
    "title": "7th Population & Housing Census 2023: district population, growth, religion, mother tongue, literacy",
    "publisher": "Pakistan Bureau of Statistics",
    "vintage": "Census 2023 (reference date 1 Mar 2023)",
-   "url": "https://www.pbs.gov.pk/census-2023/",
+   "url": "https://www.pbs.gov.pk/census/",
    "files_urls": [
     "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_punjab_districts.pdf",
     "https://www.pbs.gov.pk/wp-content/uploads/census_tables/tables/table_1_sindh_districts.pdf",
@@ -2572,7 +2572,7 @@
     "Flood-surge playback (weekly)",
     "District flood exposure"
    ],
-   "caveats": "Satellite analysis, not field validated. Cloud cover hides some water in some weeks. The playback spreads each district's weekly flooded area over that district's cumulative footprint hexes — the weekly *district totals* are UNOSAT's; their placement inside a district is approximate. Includes permanent water bodies only where UNOSAT counted them as flood water.",
+   "caveats": "Satellite analysis, not field validated. Cloud cover hides some water in some weeks. The playback spreads each district's weekly flooded area over that district's cumulative footprint hexes — the weekly *district totals* are UNOSAT's; their placement inside a district is approximate. The 1 Jul – 31 Aug VIIRS composite also picks up flooded rice paddies (Punjab rice belt, e.g. Sialkot); PakCiv district headlines therefore use the peak of the cloud-free weekly windows (from 25 Aug), with the monthly maximum shown separately.",
    "files": [
     {
      "name": "UNOSAT_Population_Exposure_FL20220808PAK_20220825_20220831_20220901_20220907_Updated14Sep2022.xlsx",

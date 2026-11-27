@@ -74,8 +74,10 @@ export class Duel {
     return { input, list, wrap };
   }
 
-  open() {
+  open(seed) {
     this.root.classList.remove('hidden');
+    this.app.inspector?.hide();
+    if (Number.isInteger(seed) && seed >= 0) { this.set(seed, null, true); this.startPicking(1); return; }
     if (this.sel[0] == null && this.sel[1] == null) this.startPicking(0);
     else this._mapSync();
   }

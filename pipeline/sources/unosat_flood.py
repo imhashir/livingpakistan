@@ -29,7 +29,7 @@ INFO = {
     "caveats": "Satellite analysis, not field validated. Cloud cover hides some water in some weeks. The playback "
                "spreads each district's weekly flooded area over that district's cumulative footprint hexes — the "
                "weekly *district totals* are UNOSAT's; their placement inside a district is approximate. "
-               "Includes permanent water bodies only where UNOSAT counted them as flood water.",
+               "The 1 Jul – 31 Aug VIIRS composite also picks up flooded rice paddies (Punjab rice belt, e.g. Sialkot); PakCiv district headlines therefore use the peak of the cloud-free weekly windows (from 25 Aug), with the monthly maximum shown separately.",
 }
 
 
