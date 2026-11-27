@@ -25,8 +25,10 @@ export class Outline {
         void main(){
           // a slow breath so the edge reads as live rather than painted on
           float pulse = 0.72 + 0.28 * sin(uTime * 2.6);
-          vec3 mint = vec3(0.49, 1.0, 0.77);
-          gl_FragColor = vec4(mint * 2.5 * pulse * uFade, pulse * uFade);
+          // ice, matching the HUD chrome; it separates from the warm gold of
+          // the wonder rings and era beams and reads on grass, sand and snow
+          vec3 ice = vec3(0.50, 0.91, 1.0);
+          gl_FragColor = vec4(ice * 2.5 * pulse * uFade, pulse * uFade);
         }`,
     }));
     this.mesh.visible = false;
