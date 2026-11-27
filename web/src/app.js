@@ -71,13 +71,13 @@ export class App {
     this.home(true);
     this._bindPointer();
     this._bindKeys();
-    stage.onTick((t) => {
+    stage.onTick((t, dt) => {
       this.lines.uTime.value = t; this.sites.uTime.value = t;
       this.sites.updateLabels(stage.camera, stage.controls.target);
-      this.flood?.tick(t);
+      this.flood?.tick(t, dt);
       this.eras?.tick(t);
     });
-    if (location.hash.length > 1) this._restoreHash(); else this.intro();
+    if (location.hash.length > 1) this._restoreHash(); else if (!stage.capture) this.intro();
   }
 
   intro() {

@@ -9,7 +9,9 @@
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "shots": "node scripts/screenshots.mjs",
-    "verify": "node scripts/verify-prod.mjs"
+    "verify": "node scripts/verify-prod.mjs",
+    "video:record": "node scripts/video/record.mjs /tmp/pakciv-video/raw",
+    "video:compose": ".venv/bin/python scripts/video/compose.py /tmp/pakciv-video/raw previews/pakciv-demo.mp4"
   },
   "license": "MIT",
   "dependencies": {

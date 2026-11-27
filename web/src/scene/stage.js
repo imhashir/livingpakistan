@@ -40,6 +40,7 @@ export class Stage {
     this.timer = new THREE.Timer(); this.timer.connect?.(document);
     this.tickers = [];
     this.flight = null;
+    this.capture = /[?&]capture=1/.test(location.search);
     this.container = container;
     window.addEventListener('resize', () => this.resize());
   }
@@ -69,9 +70,10 @@ export class Stage {
   }
 
   start(render) {
-    const loop = () => {
-      this.timer.update(); const dt = Math.min(this.timer.getDelta(), 0.5);
-      const t = this.timer.getElapsed();
+    // Capture mode (?capture=1): no free-running loop; a recorder advances a virtual clock one fixed frame at a time
+    // via window.__pakciv_step(dt), so camera moves, shaders and playback are deterministic at any render speed.
+    this.vt = 0;
+    const frame = (dt, t, draw = true) => {
       if (this.flight) {
         const f = this.flight; f.t += dt / f.duration;
         const k = f.t >= 1 ? 1 : f.t < 0.5 ? 4 * f.t ** 3 : 1 - (-2 * f.t + 2) ** 3 / 2;
@@ -82,11 +84,21 @@ export class Stage {
       }
       this.controls.update();
       for (const fn of this.tickers) fn(t, dt);
-      this.composer.render();
+      if (draw) this.composer.render();
       this.labels.render(this.scene, this.camera);
       render?.(t, dt);
+    };
+    if (this.capture) {
+      window.__pakciv_step = (dt = 1 / 30, draw = true) => { this.vt += dt; frame(dt, this.vt, draw); };
+      frame(0, 0);
+      return;
+    }
+    const loop = () => {
+      this.timer.update(); const dt = Math.min(this.timer.getDelta(), 0.5);
+      frame(dt, this.timer.getElapsed());
       requestAnimationFrame(loop);
     };
     requestAnimationFrame(loop);
   }
+
 }

@@ -7,7 +7,7 @@ export class FloodPlayer {
   constructor(app) {
     this.app = app;
     this.periods = app.atlas.flood_periods || [];
-    this.t = 0; this.playing = false; this.visible = false;
+    this.t = 0; this.playing = false; this.visible = false; this.speed = 0.9; // periods per second
     this._buildUI();
     this._prepare();
   }
@@ -96,11 +96,10 @@ export class FloodPlayer {
     );
   }
 
-  tick(time) {
+  tick(time, dt = 1 / 60) {
     this.uniforms.uTime.value = time;
     if (!this.playing || !this.visible) return;
-    const dt = 1 / 60;
-    this.t = Math.min(this.periods.length - 1, this.t + dt * 0.9);
+    this.t = Math.min(this.periods.length - 1, this.t + dt * this.speed);
     this.slider.value = this.t; this._apply(this.t);
     if (this.t >= this.periods.length - 1) { this.playing = false; this.playBtn.textContent = '▶'; }
   }

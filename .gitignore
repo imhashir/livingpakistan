@@ -7,3 +7,5 @@ data/interim/
 logs/
 dist/
 .DS_Store
+previews/*.mp4
+media/*.mp4

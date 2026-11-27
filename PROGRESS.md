@@ -2,6 +2,30 @@
 
 Newest entries at the top. Screenshots live in `previews/`.
 
+## 04 · Showcase README + end-to-end product demo video (2026-11-27)
+**Built**
+- **README.md rewritten as a showcase**: pitch & stats strip, motivation, illustrated feature tour, yields → real
+  measures, Three.js static architecture & data contracts, a table of all 23 data sources generated from `sources.json`,
+  honest caveats, run / build / verify / rebuild-the-data instructions, repo layout. (Lens count corrected to **24** —
+  earlier entries said 25.)
+- **Optimized screenshots** in `docs/images/`: 16 WebP images at 1200×750, 108–204 KB each (vs 1–1.5 MB PNGs);
+  every image link in the README verified to exist.
+- **96-second product demo video** (`previews/pakciv-demo.mp4`, git-ignored to keep the repo lean — regenerate with
+  `npm run video:record && npm run video:compose`). Chapters: Arabian Sea → K2 flight, relief sweep + Day/Golden/Night,
+  rivers & glowing corridors, tile card & Lahore City View, lenses (mother tongue, literacy, density, modelled GDP) with
+  legend brushing, 2022 flood surge playback, Era Time-Machine, District Duel, Explorer brushing, Search + Surprise me,
+  Almanac, outro. No welcome/walkthrough (bypassed via localStorage).
+- **How it's made** (`scripts/video/`): the production build runs in a new `?capture=1` mode where a virtual clock
+  advances exactly 1/30 s per frame (camera flights, shaders, flood playback are deterministic — zero jank even under
+  software WebGL). `record.mjs` drives real mouse/keyboard input with eased cursor paths and logs cursor, clicks, zoom
+  keyframes and chapters; `compose.py` adds cosine-eased zoom/pan highlights, an anti-aliased cursor with click ripples,
+  minimal Cinzel/Inter chapter labels and title/outro cards, then two-pass H.264.
+- **Verified**: ffprobe → H.264 High, 1280×720, yuv420p (TV range), 30 fps, 2,883 frames, 96.1 s, 11.4 MB (951 kb/s),
+  `moov` before `mdat` (+faststart); check frames at 0:14 / 0:30 / 0:47 / 1:20 inspected; 0 console errors during capture;
+  `npm run verify` on the rebuilt production bundle → 0 errors / warnings / failed requests.
+
+**Screenshots** — `docs/images/*.webp` (README); video: `previews/pakciv-demo.mp4` (local only)
+
 ## 03 · First-time Welcome & interactive walkthrough (2026-11-27)
 **Built**
 - **Welcome / Getting Started modal** — appears after the opening fly-in on a first visit (skipped for shared deep links).
