@@ -96,7 +96,7 @@ export class EraMachine {
     const span = `${e.start_label} – ${e.end_label || 'today'}`;
     this.card.replaceChildren(
       el('div', { class: 'big', text: e.start_year < 0 ? fmtYear(e.start_year) : String(e.start_year) }),
-      el('div', {}, [el('b', { text: e.name, style: { color: '#fff1c8' } }), el('div', { style: { fontSize: '11px', color: 'var(--ink-dim)' }, text: span }),
+      el('div', {}, [el('b', { text: e.name, style: { color: '#e4fbee' } }), el('div', { style: { fontSize: '11px', color: 'var(--ink-dim)' }, text: span }),
         el('p', { text: e.blurb }),
         el('p', { style: { marginTop: '4px', color: 'var(--ink-dim)', fontSize: '11px' }, text: `${sites.length} site${sites.length === 1 ? '' : 's'} lit: ${sites.map((s) => s.name + (s.year != null ? ` (${fmtYear(s.year)})` : '')).join(' · ')}` }),
         e.ref ? el('a', { href: e.ref, target: '_blank', rel: 'noopener', text: 'Reference ↗' }) : '']),

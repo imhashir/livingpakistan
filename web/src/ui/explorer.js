@@ -18,11 +18,11 @@ const COLUMNS = [
   { key: 'top_language', label: 'Top language', str: true, f: lab },
   { key: 'top_crop', label: 'Top crop', str: true, f: lab },
   { key: 'flood_pct', label: 'Flood', f: fmtNum.pct, title: 'Share of district area flooded at the 2022 peak (UNOSAT)' },
-  { key: 'yields.food', label: '🌾', f: fmt.big, title: 'Food: cropped hectares' },
-  { key: 'yields.production', label: '⚒️', f: fmt.big, title: 'Production: industry workers' },
-  { key: 'yields.gold', label: '🪙', f: fmtNum.usdBig, title: 'Gold: MODELLED GDP (PPP)' },
+  { key: 'yields.food', label: '🌾', f: fmt.big, title: 'Cropland: cropped hectares' },
+  { key: 'yields.production', label: '⚒️', f: fmt.big, title: 'Industry: industry workers' },
+  { key: 'yields.gold', label: '🪙', f: fmtNum.usdBig, title: 'Economy: MODELLED GDP (PPP)' },
   { key: 'yields.trade', label: '🐪', f: fmt.big, title: 'Trade: trade/transport/hotel workers' },
-  { key: 'yields.science', label: '🔬', f: fmt.big, title: 'Science: ICT/finance/professional/education workers' },
+  { key: 'yields.science', label: '🔬', f: fmt.big, title: 'Knowledge: ICT/finance/professional/education workers' },
   { key: 'yields.culture', label: '🎭', f: fmt.big, title: 'Culture: arts & recreation workers' },
 ];
 
@@ -35,8 +35,8 @@ const FIELDS = [
   ['gdp_pc', 'GDP/person, modelled (Int$)', fmtNum.usd], ['flood_pct', 'Flooded 2022 %', fmtNum.pct], ['flood_exposed', 'Flood-exposed people 2022', fmt.big],
   ['elev_mean', 'Mean elevation (m)', fmt.int], ['elev_max', 'Max elevation (m)', fmt.int], ['quakes', 'Historic quakes', fmt.int],
   ['cropped_ha', 'Cropped area (ha)', fmt.big], ['lq.C', 'Manufacturing LQ', fmtNum.dec2],
-  ['yields.food', '🌾 Food (ha)', fmt.big], ['yields.production', '⚒️ Production (workers)', fmt.big], ['yields.gold', '🪙 Gold (Int$, modelled)', fmtNum.usdBig],
-  ['yields.trade', '🐪 Trade (workers)', fmt.big], ['yields.science', '🔬 Science (workers)', fmt.big], ['yields.culture', '🎭 Culture (workers)', fmt.big],
+  ['yields.food', '🌾 Cropland (ha)', fmt.big], ['yields.production', '⚒️ Industry (workers)', fmt.big], ['yields.gold', '🪙 Economy (Int$, modelled)', fmtNum.usdBig],
+  ['yields.trade', '🐪 Trade (workers)', fmt.big], ['yields.science', '🔬 Knowledge (workers)', fmt.big], ['yields.culture', '🎭 Culture (workers)', fmt.big],
 ];
 const FIELD = Object.fromEntries(FIELDS.map(([k, l, f]) => [k, { key: k, label: l, f }]));
 

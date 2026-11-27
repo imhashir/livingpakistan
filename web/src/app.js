@@ -84,8 +84,8 @@ export class App {
     const N = this.atlas.nation;
     const k2 = this.sites.sites.find((s) => s.name === 'K2');
     const card = el('div', { class: 'intro' }, [
-      el('div', { class: 'intro-kicker', text: 'A strategy-map atlas built from real public data' }),
-      el('div', { class: 'intro-title', text: 'PAKCIV' }),
+      el('div', { class: 'intro-kicker', text: 'An interactive atlas built from real public data' }),
+      el('div', { class: 'intro-title', text: 'living pakistan' }),
       el('div', { class: 'intro-stats' }, [
         el('span', {}, [el('b', { text: fmt.big(N.pop_census2023) }), ' people · Census 2023']),
         el('span', {}, [el('b', { text: String(N.district_count) }), ' districts']),
@@ -174,7 +174,7 @@ export class App {
     ]));
     const btn = (label, kbd, fn, title) => el('button', { class: 'tb-btn', title, onclick: fn }, [label, kbd ? el('kbd', { text: kbd }) : '']);
     const top = el('div', { class: 'topbar glass' }, [
-      el('div', { class: 'brand', title: 'Home view (H)', onclick: () => this.home() }, [el('span', { class: 'brand-hex' }), el('span', { class: 'brand-name', text: 'PakCiv' })]),
+      el('div', { class: 'brand', title: 'Home view (H)', onclick: () => this.home() }, [el('span', { class: 'flag brand-flag' }), el('span', { class: 'brand-name', text: 'living pakistan' })]),
       el('div', { class: 'yields' }, yieldEls),
       el('div', { class: 'spacer' }),
       btn('🔎', '/', () => this.search.open(), 'Search districts, cities, wonders, dams, peaks (/)'),

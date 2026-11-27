@@ -29,18 +29,18 @@ SECTION_NAMES = {
 }
 
 YIELDS = {
-    "food": {"label": "Food", "icon": "🌾", "unit": "ha cropped",
+    "food": {"label": "Cropland", "icon": "🌾", "unit": "ha cropped",
              "def": "Cropped area (Agricultural Census 2024, PBS)", "src": ["crops"]},
-    "production": {"label": "Production", "icon": "⚒️", "unit": "workers",
+    "production": {"label": "Industry", "icon": "⚒️", "unit": "workers",
                    "def": "Workforce in mining, manufacturing, utilities & construction (Economic Census 2023, PSIC B–F)",
                    "src": ["econ_census"], "sections": ["B", "C", "D", "E", "F"]},
-    "gold": {"label": "Gold", "icon": "🪙", "unit": "Int$ (PPP)",
+    "gold": {"label": "Economy", "icon": "🪙", "unit": "Int$ (PPP)",
              "def": "MODELLED GDP, PPP, 2024 (Kummu et al. gridded GDP) — not official district accounts",
              "src": ["gdp_grid"]},
     "trade": {"label": "Trade", "icon": "🐪", "unit": "workers",
               "def": "Workforce in wholesale & retail, transport, hotels (Economic Census 2023, PSIC G–I)",
               "src": ["econ_census"], "sections": ["G", "H", "I"]},
-    "science": {"label": "Science", "icon": "🔬", "unit": "workers",
+    "science": {"label": "Knowledge", "icon": "🔬", "unit": "workers",
                 "def": "Workforce in ICT, finance, professional/scientific services & education (Economic Census 2023, PSIC J, K, M, P)",
                 "src": ["econ_census"], "sections": ["J", "K", "M", "P"]},
     "culture": {"label": "Culture", "icon": "🎭", "unit": "workers",
@@ -371,7 +371,7 @@ def lens_catalogue():
     add(id="mpi", group="Prosperity", label="Poverty (MPI)", level="district", field="mpi_h", unit="% poor",
         scale="seq", palette="red", desc="Multidimensional poverty headcount (PSLM 2019-20; MPI report, UNDP/OPHI/Planning Commission).",
         src=["mpi"])
-    add(id="gold", group="Prosperity", label="Gold (modelled GDP)", level="hex", field="cells.gdp", unit="Int$ PPP",
+    add(id="gold", group="Prosperity", label="Economy (modelled GDP)", level="hex", field="cells.gdp", unit="Int$ PPP",
         scale="log", palette="gold", desc="MODELLED GDP 2024 (Kummu et al., gridded) — a model, not official district accounts.",
         src=["gdp_grid"])
     add(id="gdppc", group="Prosperity", label="GDP per person (modelled)", level="district", field="gdp_pc",

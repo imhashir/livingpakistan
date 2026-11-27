@@ -1,4 +1,4 @@
-// Almanac: every public source behind PakCiv, with vintage, licence, caveats and file provenance.
+// Almanac: every public source behind living pakistan, with vintage, licence, caveats and file provenance.
 import './panels.css';
 import { el } from './dom.js';
 import { panel, norm, fmtNum } from './panelkit.js';
@@ -17,7 +17,7 @@ export class Almanac {
     this.list = el('div', { class: 'alm-list' });
     p.body.append(
       el('p', { class: 'alm-blurb' }, [
-        'Every number in PakCiv traces back to one of these public sources. Modelled values (Gold) are labelled as models. ',
+        'Every number in living pakistan traces back to one of these public sources. Modelled values (Economy) are labelled as models. ',
         el('a', { href: REPO, target: '_blank', rel: 'noopener', text: 'Code & pipeline on GitHub ↗' }),
       ]),
       el('div', { class: 'alm-tools' }, [this.filter, this.count]),

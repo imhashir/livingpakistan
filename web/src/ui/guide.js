@@ -44,12 +44,12 @@ export class Guide {
       el('span', { class: 'gw-ico', text: icon }), el('b', { text: title }), el('span', { text })]);
     const A = this.app;
     this.dontShow = el('input', { type: 'checkbox', id: 'gw-dont' });
-    this.welcome = el('div', { class: 'modal guide-welcome hidden', role: 'dialog', 'aria-label': 'Welcome to PakCiv' }, [
+    this.welcome = el('div', { class: 'modal guide-welcome hidden', role: 'dialog', 'aria-label': 'Welcome to living pakistan' }, [
       el('div', { class: 'gw-panel glass' }, [
         el('button', { class: 'gw-x', text: '✕', title: 'Close', onclick: () => this.closeWelcome() }),
         el('div', { class: 'gw-kicker', text: 'Welcome to' }),
-        el('div', { class: 'gw-title', text: 'PakCiv' }),
-        el('p', { class: 'gw-lede', html: `Pakistan drawn like a board game: the whole country is cut into <b>${fmt.int(c.hexes)} hexagon tiles</b>, each about 20 km wide, raised to its real height from the Arabian Sea to K2.<br>Tiles, cities and landmarks carry <b>real public data</b> — click anything to see what's there. No gaming experience needed.` }),
+        el('div', { class: 'gw-title', text: 'living pakistan' }),
+        el('p', { class: 'gw-lede', html: `Pakistan to explore tile by tile: the whole country is cut into <b>${fmt.int(c.hexes)} hexagon tiles</b>, each about 20 km wide, raised to its real height from the Arabian Sea to K2.<br>Tiles, cities and landmarks carry <b>real public data</b> — click anything to see what's there.` }),
         el('div', { class: 'gw-grid' }, [
           card('🗺️', `${c.lenses} lenses`, 'Re-colour the map: language, literacy, poverty, farmland, floods…', () => A.setLens('language')),
           card('🏙️', `${c.cities} cities`, 'Click a city banner for its City View: workers, districts, landmarks.', () => { const k = A.sites.sites.find((s) => s.name === 'Karachi' && s.kind === 'city'); A.select({ site: k }); A.flyToSite(k, { distance: 420 }); }),
@@ -136,7 +136,7 @@ export class Guide {
     const mapCentre = () => ({ left: innerWidth * 0.3, top: innerHeight * 0.18, width: innerWidth * 0.42, height: innerHeight * 0.64 });
     const c = this._counts();
     return [
-      { title: 'This is Pakistan, as a game board', body: `Every hexagon is a ~20 km tile of real land — ${fmt.int(c.hexes)} of them. Height comes from satellite elevation data, colour from satellite land cover: green irrigated plains, brown ranges, white Karakoram glaciers.`,
+      { title: 'This is Pakistan, tile by tile', body: `Every hexagon is a ~20 km tile of real land — ${fmt.int(c.hexes)} of them. Height comes from satellite elevation data, colour from satellite land cover: green irrigated plains, brown ranges, white Karakoram glaciers.`,
         target: mapCentre, demo: async () => { A.home(); } },
       { title: 'Move around', body: 'Drag to pan · right-drag (or two fingers) to tilt and rotate · scroll to zoom · double-click a tile to swoop in · press H to come home. Watch — we\'re orbiting now.',
         target: mapCentre, demo: async (tok) => { for (const az of [-0.7, 0.5, -0.12]) { if (tok !== this.token) return; await A.stage.flyTo(A.stage.controls.target.toArray(), { distance: 2100, tilt: 0.66, azimuth: az, duration: 1.6 }); } } },
@@ -148,7 +148,7 @@ export class Guide {
         target: '.inspector', demo: async () => { const i = dist('Faisalabad'); const cell = A.districts[i].cells[Math.floor(A.districts[i].cells.length / 2)]; A.select({ cell }); await A.flyToCell(cell, { distance: 620, tilt: 0.85 }); } },
       { title: 'City View', body: 'Click a city banner (green = population, gold = name). You get the city\'s yields, specialised quarters (industrial, campus, harbour…), its working citizens, nearby landmarks and peer cities.',
         target: '.inspector', demo: async () => { const k = city('Karachi'); A.select({ site: k }); await A.flyToSite(k, { distance: 420, tilt: 0.9 }); } },
-      { title: 'Yields: the score bar', body: 'Food, Production, Gold, Trade, Science and Culture are game words for real numbers: cropped area, workers by industry, and (modelled) GDP. Click one to rank every district.',
+      { title: 'The summary bar', body: 'Cropland, Industry, Economy, Trade, Knowledge and Culture summarise real numbers: cropped area, workers by industry, and (modelled) GDP. Click one to rank every district.',
         target: '.yields', demo: async () => { A.select(null); A.home(); } },
       { title: `Lenses: ${c.lenses} ways to see the country`, body: 'A lens re-colours every tile by one measure. We just switched to Mother tongue (Census 2023) — then Literacy. Number keys 1–9 pick lenses too.',
         target: '.dock', demo: async (tok) => { A.ui.dock.classList.remove('collapsed'); A.setLens('language'); await wait(1600); if (tok === this.token) A.setLens('literacy'); } },

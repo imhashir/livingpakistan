@@ -153,7 +153,7 @@ export class Duel {
       el('div', { class: 'duel-spec' }, [a, b].map((d) => el('div', {}, d.specials?.length
         ? d.specials.map((s) => el('span', { class: 'duel-badge2', title: `Location quotient ${s.lq} · ${fmt.int(s.workers)} workers`, text: `${s.icon} ${s.label}` }))
         : [el('span', { class: 'nd', title: d.lq ? 'no sector stands out (LQ ≥ 1.5)' : NO_DATA, text: d.lq ? 'None stand out' : '—' })]))),
-      el('p', { class: 'duel-note', text: 'Gold is MODELLED GDP (Kummu et al.), not official accounts. “—” = no data published (AJK & GB lack census and economic-census tables).' }),
+      el('p', { class: 'duel-note', text: 'Economy is MODELLED GDP (Kummu et al.), not official accounts. “—” = no data published (AJK & GB lack census and economic-census tables).' }),
     );
   }
 
