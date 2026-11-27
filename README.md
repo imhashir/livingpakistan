@@ -46,7 +46,10 @@ It is a 100% static site: no backend, no API keys. The processed data (~2 MB JSO
 - **Chronicles of Pakistan** — seven cinematic tours with captions computed from the data.
 - **District Duel**, **Explorer** (table + scatter + brushing across all 160 districts), **Surprise me** (fly to an outlier),
   fuzzy **search** (`/`), shareable URL state, keyboard shortcuts (`T` tours, `Y` eras, `D` duel, `E` explorer, `S` surprise,
-  `L` lighting, `[ ]` relief, `H` home, `?` Almanac).
+  `L` lighting, `[ ]` relief, `H` home, `A` Almanac, `?` Guide).
+- **Welcome & walkthrough** — first-time visitors get a plain-language welcome with every capability (live counts from the
+  data) and a 19-step spotlight walkthrough that demos each feature on the real UI (Back/Next/Skip, ← → / Esc).
+  "Don't show again" is stored in localStorage; reopen any time with ❔ Guide or `?`.
 
 ## Data pipeline
 

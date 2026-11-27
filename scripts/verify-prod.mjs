@@ -22,6 +22,10 @@ const steps = [
   "const a=window.__pakciv; window.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'})); a.surprise.go(); a.surprise.go();",
   "const a=window.__pakciv; window.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'})); for (let k=0;k<a.tours.tours.length;k++){ a.tours.run(k); for (let s=0;s<a.tours.tours[k].steps.length;s++) a.tours.next(); } a.tours.stop();",
   "const a=window.__pakciv; a.lines.setTreatyView(true); a.lines.setTreatyView(false); a.home();",
+  "const a=window.__pakciv; a.guide.openWelcome(); a.guide.dontShow.checked = true; a.guide.closeWelcome(); if (localStorage.getItem('pakciv.welcome.v1') !== 'hide') throw new Error('dont-show not persisted'); localStorage.removeItem('pakciv.welcome.v1');",
+  "const a=window.__pakciv; a.guide.start(); window.__steps = a.guide.steps.length;",
+  ...Array.from({ length: 19 }, () => "window.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight'}));"),
+  "const a=window.__pakciv; if (a.guide.running) throw new Error('guide did not finish'); a.guide.start(); a.guide.go(5); a.guide.back(); window.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape'})); if (a.guide.running) throw new Error('Esc did not exit');",
 ];
 for (const s of steps) { await p.evaluate(s).catch((e) => errs.push('[step] ' + s.slice(0, 60) + ' → ' + e.message)); await p.waitForTimeout(700); }
 // real mouse interactions on the canvas

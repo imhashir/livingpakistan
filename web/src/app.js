@@ -14,6 +14,7 @@ import { Tours } from './ui/tours.js';
 import { EraMachine } from './ui/eras.js';
 import { FloodPlayer } from './ui/flood.js';
 import { Surprise } from './ui/surprise.js';
+import { Guide } from './ui/guide.js';
 
 const LAYER_TOGGLES = [
   ['rivers', '〰️ Rivers', 'lines'], ['canals', '💧 Canals', 'lines'], ['corridors', '🐪 Caravans & Corridors', 'lines'],
@@ -65,6 +66,7 @@ export class App {
     this.eras = new EraMachine(this);
     this.flood = new FloodPlayer(this);
     this.surprise = new Surprise(this);
+    this.guide = new Guide(this);
     this.setMood('day');
     this.home(true);
     this._bindPointer();
@@ -103,7 +105,7 @@ export class App {
     setTimeout(() => { this.home(); this.stage.flight && (this.stage.flight.duration = 4.5); }, 900);
     setTimeout(() => { this.setMood('day'); }, 4200);
     setTimeout(() => { card.classList.add('gone'); document.body.classList.remove('intro-on'); }, 5200);
-    setTimeout(() => card.remove(), 6500);
+    setTimeout(() => { card.remove(); if (this.guide.shouldAutoShow()) this.guide.openWelcome(); }, 6500);
     card.addEventListener('click', () => { card.classList.add('gone'); document.body.classList.remove('intro-on'); });
   }
 
@@ -176,12 +178,13 @@ export class App {
       el('div', { class: 'yields' }, yieldEls),
       el('div', { class: 'spacer' }),
       btn('🔎', '/', () => this.search.open(), 'Search districts, cities, wonders, dams, peaks (/)'),
-      btn('🎬 Chronicles', 'T', () => this.tours.openMenu(), 'Guided story tours'),
+      btn('🎬 Tours', 'T', () => this.tours.openMenu(), 'Guided story tours'),
       btn('⏳ Eras', 'Y', () => this.eras.toggle(), 'Era Time-Machine: 9,000 years on the same hexes'),
       btn('⚔️ Duel', 'D', () => this.duel.open(), 'District Duel: compare two districts'),
       btn('📊 Explorer', 'E', () => this.explorer.open(), 'Sortable table + scatter of all 160 districts'),
       btn('🎲 Surprise', 'S', () => this.surprise.go(), 'Fly to a remarkable outlier'),
-      btn('📜', '?', () => this.ui.almanac.open(), 'Almanac: every source, vintage and caveat'),
+      btn('📜', 'A', () => this.ui.almanac.open(), 'Almanac: every source, vintage and caveat (A)'),
+      Object.assign(btn('❔ Guide', '?', () => this.guide.openWelcome(), 'Welcome guide & interactive walkthrough (?)'), { className: 'tb-btn guide-btn' }),
     ]);
     // lens dock
     const groups = {};
@@ -319,7 +322,8 @@ export class App {
       else if (k === 'd' || k === 'D') this.duel.open();
       else if (k === 'e' || k === 'E') this.explorer.open();
       else if (k === 's' || k === 'S') this.surprise.go();
-      else if (k === '?') this.ui.almanac.open();
+      else if (k === '?' || k === 'g' || k === 'G') this.guide.openWelcome();
+      else if (k === 'a' || k === 'A') this.ui.almanac.open();
       else if (k === 'h' || k === 'H') this.home();
       else if (k === 'l' || k === 'L') this.setMood({ day: 'golden', golden: 'night', night: 'day' }[this.mood]);
       else if (k === 'y' || k === 'Y') this.eras.toggle();

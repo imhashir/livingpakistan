@@ -2,6 +2,25 @@
 
 Newest entries at the top. Screenshots live in `previews/`.
 
+## 03 · First-time Welcome & interactive walkthrough (2026-11-27)
+**Built**
+- **Welcome / Getting Started modal** — appears after the opening fly-in on a first visit (skipped for shared deep links).
+  Explains the hex-board idea in two plain sentences, then shows every capability as a clickable card with counts read
+  from the data: 24 lenses, 47 cities, 46 wonders, 7 story tours, 8 eras, 2022 flood replay (10 satellite snapshots),
+  District Explorer (160 districts), District Duel, Surprise me, light & relief, Search (418 places), Almanac (23 sources).
+  Actions: **Start interactive walkthrough** or **Jump right in**; "Don't show this again" persists in localStorage; a
+  highlighted **❔ Guide** button (and `?` / `G`) reopens it any time. Almanac moved to `A`.
+- **19-step spotlight walkthrough** on the real UI — each step spotlights the actual control and runs a live demo:
+  camera orbit, relief slider sweep, Day→Golden→Night cycle, clicking a tile, City View (Karachi), yields bar, lens switch
+  (Mother tongue → Literacy), legend brushing, layers (corridors at night), flood surge playback, Era Time-Machine,
+  tour menu, District Explorer, District Duel (Lahore vs South Karachi), Search (types "tarbela"), Surprise me, Almanac,
+  and a finale offering the K2 tour. Step counter `n / 19`, progress dots, Back / Next / Skip, ← → Enter / Esc.
+- `npm run verify` now also exercises the guide end to end (welcome, don't-show persistence, all 19 steps, Back, Esc) —
+  production build: **0 console errors / warnings / failed requests**.
+
+**Screenshots** — `previews/13-welcome.png`, `14-walkthrough-lenses.png`, `15-walkthrough-city-tile.png`,
+`16-walkthrough-flood.png`, `17-walkthrough-duel.png`, `18-walkthrough-finish.png`
+
 ## 02 · Explore & Discover suite + production verification (2026-11-27)
 **Built**
 - **Chronicles of Pakistan** — 7 cinematic tours (K2 → Arabian Sea, Indus Food Machine, Industrial Belt, 5,000 Years of
