@@ -5,6 +5,8 @@ import { Borders } from './scene/borders.js';
 import { Lines } from './scene/lines.js';
 import { Sites, KIND_META } from './scene/sites.js';
 import { Outline } from './scene/outline.js';
+import { HereMarker } from './scene/here.js';
+import { projector } from './geo.js';
 import { LensEngine, LABELS } from './ui/lenses.js';
 import { Inspector } from './ui/inspector.js';
 import { Search } from './ui/search.js';
@@ -75,14 +77,18 @@ export class App {
     this._bindPointer();
     this._bindKeys();
     this.outline = new Outline(this.board, stage.scene);
+    this.here = new HereMarker(stage.scene);
+    this.project = projector(data.world);
     stage.onTick((t, dt) => {
       this.outline.tick(t);
+      this.here.tick(t);
       this.lines.uTime.value = t; this.sites.uTime.value = t;
       this.sites.updateLabels(stage.camera, stage.controls.target);
       this.flood?.tick(t, dt);
       this.eras?.tick(t);
     });
     this.setLens(DEFAULT_LENS);
+    if (!stage.capture) this.locate();
     if (location.hash.length > 1) this._restoreHash(); else if (!stage.capture) this.intro();
   }
 
@@ -284,6 +290,38 @@ export class App {
 
   // ------------------------------------------------------------------ picking & selection
   cellWorld(cell) { const [x, z] = this.board.worldXZ(cell); return [x, this.board.topY(cell), z]; }
+
+  /**
+   * Mark roughly where the viewer is, when the edge can tell us.
+   *
+   * There is deliberately no navigator.geolocation call anywhere in this app,
+   * so no permission prompt is ever raised. /geo is answered by the CDN from
+   * metadata already attached to the request; it is not a third-party lookup
+   * and the viewer's address is not sent on anywhere. Off the CDN — localhost,
+   * a file:// open — it simply 404s and no marker appears, which is the
+   * intended behaviour whenever the position is unknown.
+   */
+  async locate() {
+    if (!this.project) return;
+    try {
+      const res = await fetch('geo', { cache: 'no-store' });
+      if (!res.ok) return;
+      const g = await res.json();
+      const lat = Number(g.lat), lon = Number(g.lon);
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+      // a viewer outside the country has no place on a map of it
+      if (!this.project.inBounds(lat, lon)) return;
+      this.showHere(lat, lon);
+      this.hereAt = { lat, lon, city: g.city || null };
+    } catch { /* unknown position: no marker, no noise */ }
+  }
+
+  /** Place the "you are here" pulse at a latitude/longitude. */
+  showHere(lat, lon) {
+    const [mx, my] = this.project.toMap(lat, lon);
+    const [x, z] = this.board.mapToWorld(mx, my);
+    this.here.show(new THREE.Vector3(x, this.board.heightAt(x, z), z), 26, this.stage.vt || 0);
+  }
 
   /**
    * Mark what a tour is talking about. Pass {site}, {district} or {xy}, or
