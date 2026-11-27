@@ -70,7 +70,7 @@ export class Stage {
 
   start(render) {
     const loop = () => {
-      this.timer.update(); const dt = Math.min(this.timer.getDelta(), 0.1);
+      this.timer.update(); const dt = Math.min(this.timer.getDelta(), 0.5);
       const t = this.timer.getElapsed();
       if (this.flight) {
         const f = this.flight; f.t += dt / f.duration;

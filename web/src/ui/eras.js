@@ -27,14 +27,14 @@ export class EraMachine {
   }
 
   _buildBeams() {
-    const g = new THREE.CylinderGeometry(1.6, 3.2, 140, 12, 1, true); g.translate(0, 70, 0);
+    const g = new THREE.CylinderGeometry(2.4, 4.5, 190, 14, 1, true); g.translate(0, 95, 0);
     this.uniforms = { uTime: { value: 0 }, uColor: { value: new THREE.Color(0xffd27a) } };
     const mat = new THREE.ShaderMaterial({
       uniforms: this.uniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, toneMapped: false,
       vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * instanceMatrix * vec4(position,1.0); }',
       fragmentShader: `uniform float uTime; uniform vec3 uColor; varying vec2 vUv;
         void main(){ float fade = pow(1.0 - vUv.y, 1.6); float band = 0.65 + 0.35 * sin(vUv.y * 40.0 - uTime * 4.0);
-          gl_FragColor = vec4(uColor * 1.8 * fade * band, fade * 0.8); }`,
+          gl_FragColor = vec4(uColor * 3.2 * fade * band, fade); }`,
     });
     this.beams = new THREE.InstancedMesh(g, mat, Math.max(1, this.sites.length));
     this.beams.count = 0; this.beams.visible = false; this.beams.renderOrder = 13; this.beams.frustumCulled = false;

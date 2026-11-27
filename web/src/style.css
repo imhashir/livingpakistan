@@ -209,3 +209,5 @@ body[data-mood=night] .glass { background: linear-gradient(180deg, rgba(14, 17, 
 @media (max-width: 1600px) { .tb-btn kbd { display: none; } }
 @media (max-width: 1440px) { .yield { padding: 5px 6px; gap: 5px; } .yield .v { font-size: 13px; } .tb-btn { padding: 0 9px; font-size: 12.5px; } .brand-name { font-size: 19px; } }
 @media (max-width: 1300px) { .yield .k { display: none; } }
+.timebar { left: 600px; right: 318px; transform: none; width: auto; min-width: 0; }
+@media (max-width: 1360px) { .timebar { left: 300px; bottom: 120px; } }

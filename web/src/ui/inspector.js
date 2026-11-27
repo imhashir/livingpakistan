@@ -208,7 +208,7 @@ export class Inspector {
     const skip = new Set(['coord_from', 'coord_src', 'group', 'kind', 'wikidata_year', 'superlative', 'box_location', 'usgs_id', 'usgs_url', 'mag_scale', 'river_src', 'capacity_src', 'openalex_rank_pk', 'in_top15_rule', 'in_danger', 'components', 'whc_id']);
     for (const [k, v] of Object.entries(f)) {
       if (skip.has(k) || rows.length > 12 || k.endsWith('_src') || k.endsWith('_ref')) continue;
-      if (typeof v === 'number' || (typeof v === 'string' && v.length < 60)) add(k.replace(/_/g, ' ').replace(/\b\w/, (m) => m.toUpperCase()), typeof v === 'number' ? fmt.int(v) === '0' ? v : (Number.isInteger(v) && v > 1800 && v < 2100 ? v : fmt.int(v)) : v);
+      if (typeof v === 'number' || (typeof v === 'string' && v.length < 60)) add(k.replace(/_/g, ' ').replace(/\b\w/, (m) => m.toUpperCase()), typeof v === 'number' ? (/year|date|founded|inscribed/.test(k) || (Number.isInteger(v) && v > -9000 && v < 2100 && /year/.test(k)) ? String(v) : Math.abs(v) < 100 && !Number.isInteger(v) ? String(v) : fmt.int(v)) : v);
     }
     const d = s.pcode ? app.districts[app.districtIndex(s.pcode)] : null;
     return [

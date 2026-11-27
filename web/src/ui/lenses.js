@@ -16,7 +16,7 @@ const RAMPS = {
   red: ['#1e3b2a', '#a4b35a', '#f0c35a', '#e2703a', '#b8242a', '#5a0f1a'],
   gold: ['#1b1609', '#4d3a0d', '#9c7414', '#e0ad2e', '#ffe48a', '#fffbe0'],
   warm: ['#203040', '#4c6a7a', '#c9b07a', '#e88a4a', '#c0392b'],
-  flood: ['#3a3226', '#2a5d7a', '#1f8fd0', '#4fd4ff', '#d8fbff'],
+  flood: ['#cbb98f', '#7fa7b5', '#2f86c8', '#1456b0', '#08245e'],
   quake: ['#22201c', '#5a2a1a', '#a8361e', '#f05a28', '#ffd23f', '#ffffd0'],
   div: ['#2166ac', '#67a9cf', '#d1e5f0', '#f7f7f7', '#fddbc7', '#ef8a62', '#b2182b'],
 };

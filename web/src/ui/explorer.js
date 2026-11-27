@@ -40,7 +40,7 @@ const FIELDS = [
 ];
 const FIELD = Object.fromEntries(FIELDS.map(([k, l, f]) => [k, { key: k, label: l, f }]));
 
-const W = 560, H = 430, M = { l: 66, r: 14, t: 14, b: 42 };
+let W = 560, H = 430; const M = { l: 66, r: 14, t: 14, b: 42 };
 
 const tickFmt = (v) => fmt.big(v).replace(/\.0+(?=[A-Za-z]|$)/, '');
 
@@ -97,6 +97,8 @@ export class Explorer {
     this.tip = el('div', { class: 'pc-tip glass hidden' });
     app.hud.append(this.tip);
     this._bindBrush();
+    let rt = null;
+    new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => { if (!this.root.classList.contains('hidden') && !this.root.classList.contains('min')) this.drawPlot(); }, 80); }).observe(this.svg);
     this.drawLegend();
   }
 
@@ -166,6 +168,8 @@ export class Explorer {
   }
 
   drawPlot() {
+    const box = this.svg.getBoundingClientRect();
+    if (box.width > 50 && box.height > 50) { W = Math.round(box.width); H = Math.round(box.height); this.svg.setAttribute('viewBox', `0 0 ${W} ${H}`); }
     const { x, y, logX, logY } = this.ax, fx = FIELD[x], fy = FIELD[y];
     const pts = this._points();
     this.pts = pts;

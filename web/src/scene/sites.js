@@ -145,6 +145,7 @@ export class Sites {
     };
     // buildings per city: count & height scale with population (√pop), placed in a disc around the centre
     const list = [];
+    const wxy = this.sites.filter((s) => s.kind === 'wonder' || s.kind === 'unesco').map((s) => s.xy);
     for (const c of cities) {
       const pop = c.pop || 150000;
       const n = Math.round(Math.min(90, 10 + Math.sqrt(pop) / 55));
@@ -153,6 +154,8 @@ export class Sites {
       const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
       for (let k = 0; k < n; k++) {
         const r = R * Math.sqrt(rnd()), a = rnd() * Math.PI * 2;
+        const bx = c.xy[0] + Math.cos(a) * r, by = c.xy[1] + Math.sin(a) * r;
+        if (wxy.some(([x, y]) => Math.hypot(x - bx, y - by) < 5)) continue; // leave room around wonders
         const centre = 1 - r / R;
         const h = (0.8 + rnd() * 1.6) * (1 + centre * 2.2) * (0.6 + Math.log10(pop) / 7) * 1.4;
         list.push([c, Math.cos(a) * r, Math.sin(a) * r, 0.9 + rnd() * 1.4, h, rnd() * Math.PI]);
@@ -205,7 +208,7 @@ export class Sites {
       mesh.castShadow = true;
       list.forEach((w, k) => {
         const p = this.worldPos(w, type === 'peak' ? 1.5 : 0.2);
-        const sc = type === 'peak' ? 1.3 : 0.75;
+        const sc = type === 'peak' ? 1.7 : 1.15;
         q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), (k * 0.7) % 6.28); s.setScalar(sc);
         m.compose(p, q, s); mesh.setMatrixAt(k, m);
       });
