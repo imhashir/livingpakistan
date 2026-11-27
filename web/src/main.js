@@ -12,6 +12,7 @@ import { Board } from './scene/board.js';
 import { createWater, createSky, createVoid, Lighting } from './scene/environment.js';
 import { loadAll } from './data.js';
 import { App } from './app.js';
+import { instrument } from './analytics.js';
 
 const sub = document.getElementById('loader-sub');
 const say = (s) => { if (sub) sub.textContent = s; };
@@ -28,6 +29,7 @@ async function boot() {
   const lighting = new Lighting(stage.scene, stage.renderer);
   const app = new App({ stage, board, water, sky, lighting, data, voidPlane });
   await app.init();
+  instrument(app); // wraps the app's public methods to report usage to GA4
   stage.onTick((t) => {
     water.uniforms.uTime.value = t;
     board.uniforms.uTime.value = t;
