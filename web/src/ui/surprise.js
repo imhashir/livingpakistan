@@ -40,7 +40,7 @@ export class Surprise {
     const maxSite = (pred, f) => { const xs = sites.filter(pred); const r = this._extreme(xs, f); return r ? xs[r.i] : null; };
     const hexKm2 = app.atlas.nation?.hex_km2;
 
-    cell('top-hex', world.elev_max, '🏔️', (d) => `The roof of Pakistan · ${d.name}`, (v) => `Highest point on the board: ${fmt.int(v)} m above sea level inside a single hex${hexKm2 ? ` (~${fmt.int(hexKm2)} km²)` : ''}.`, 'copernicus_dem');
+    cell('top-hex', world.elev_max, '🏔️', (d) => `The roof of Pakistan · ${d.name}`, (v) => `Highest point in the country: ${fmt.int(v)} m above sea level inside a single hex${hexKm2 ? ` (~${fmt.int(hexKm2)} km²)` : ''}.`, 'copernicus_dem');
     cell('dense-hex', cells.density, '🏙️', (d) => `The most crowded hex · ${d.name}`, (v) => `${fmt.int(v)} people per km² — the densest hex in the country.`, 'worldpop');
     site('hottest', sites.find((s) => s.kind === 'heat' && s.facts?.rank_mean_max === 1), '🔥', (s) => `${s.name}: the furnace`,
       (s) => `${s.facts.hottest_month ? `${s.facts.hottest_month} mean max ${s.facts.hottest_month_mean_max_c} °C` : ''}${s.facts.record_high_c ? `; record ${s.facts.record_high_c} °C${s.facts.record_date ? ` (${s.facts.record_date.slice(0, 4)})` : ''}` : ''} — hottest average summer of any listed station.`);

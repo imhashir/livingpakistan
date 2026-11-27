@@ -101,6 +101,10 @@ export function instrument(instance) {
   wrap(A, 'setLayer', (key, on) => track('layer_toggle', { layer_key: key, enabled: !!on }));
   wrap(A, 'setRelief', debounce((v) => track('relief_change', { relief: Number(v) }), 700));
   wrap(A, 'home', () => track('home_view'));
+  // Home restores every layer, lens, mood and the relief in one go; without
+  // silencing, one click would report ~22 layer_toggle events.
+  wrap(A, 'resetView', () => track('home_reset'), true);
+  wrap(A, 'showDock', (show) => track('dock_toggle', { shown: !!show }));
 
   // ---- selection ---------------------------------------------------------
   wrap(A, 'select', (sel) => {

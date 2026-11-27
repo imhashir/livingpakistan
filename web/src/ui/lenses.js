@@ -46,7 +46,7 @@ export class LensEngine {
   constructor(app) {
     this.app = app;
     this.lenses = app.data.atlas.lenses;
-    this.current = 'terrain';
+    this.current = 'elevation';
   }
 
   /** Value of the lens at a hex (number | string | null). */

@@ -16,6 +16,8 @@ import { FloodPlayer } from './ui/flood.js';
 import { Surprise } from './ui/surprise.js';
 import { Guide } from './ui/guide.js';
 
+export const DEFAULT_LENS = 'elevation';
+
 const LAYER_TOGGLES = [
   ['rivers', '〰️ Rivers', 'lines'], ['canals', '💧 Canals', 'lines'], ['corridors', '🐪 Caravans & Corridors', 'lines'],
   ['roads', '🛣️ Roads & rail', 'lines'], ['faults', '⚠️ Active faults', 'lines'],
@@ -77,6 +79,7 @@ export class App {
       this.flood?.tick(t, dt);
       this.eras?.tick(t);
     });
+    this.setLens(DEFAULT_LENS);
     if (location.hash.length > 1) this._restoreHash(); else if (!stage.capture) this.intro();
   }
 
@@ -117,6 +120,31 @@ export class App {
       this.stage.controls.target.set(...tgt);
       this.stage.camera.position.set(cx + dist * Math.sin(tilt) * Math.sin(az), dist * Math.cos(tilt), cz + dist * Math.sin(tilt) * Math.cos(az));
     } else this.stage.flyTo(tgt, { distance: dist, tilt, azimuth: az });
+  }
+
+  /** Home: put the map back to how it looked on arrival, not just the camera. */
+  resetView() {
+    this.tours?.stop();
+    this.eras?.hide();
+    this.flood?.hide();
+    this.hud.querySelectorAll('.modal:not(.hidden)').forEach((m) => m.classList.add('hidden'));
+    this.lines.focusCorridor(null);
+    this.lines.setTreatyView(false);
+    const treaty = this.hud.querySelector('.treaty input');
+    if (treaty) treaty.checked = false;
+    this.select(null);
+    for (const [k, on] of Object.entries(this._initial.layers)) this.setLayer(k, on);
+    this.setRelief(this._initial.relief);
+    this.setMood('day');
+    this.setLens(DEFAULT_LENS);
+    this.showDock(true);
+    this.home();
+  }
+
+  /** Slide the lens dock in or out, and swap in the edge tab that brings it back. */
+  showDock(show) {
+    this.ui.dock.classList.toggle('collapsed', !show);
+    document.body.classList.toggle('dock-collapsed', !show);
   }
 
   // ------------------------------------------------------------------ mood / lens / layers
@@ -174,9 +202,10 @@ export class App {
     ]));
     const btn = (label, kbd, fn, title) => el('button', { class: 'tb-btn', title, onclick: fn }, [label, kbd ? el('kbd', { text: kbd }) : '']);
     const top = el('div', { class: 'topbar glass' }, [
-      el('div', { class: 'brand', title: 'Home view (H)', onclick: () => this.home() }, [el('span', { class: 'flag brand-flag' }), el('span', { class: 'brand-name', text: 'living pakistan' })]),
+      el('div', { class: 'brand', title: 'Fly back to the whole country', onclick: () => this.home() }, [el('span', { class: 'flag brand-flag' }), el('span', { class: 'brand-name', text: 'living pakistan' })]),
       el('div', { class: 'yields' }, yieldEls),
       el('div', { class: 'spacer' }),
+      btn('🏠', 'H', () => this.resetView(), 'Home: back to the opening view, default lens and layers (H)'),
       btn('🔎', '/', () => this.search.open(), 'Search districts, cities, wonders, dams, peaks (/)'),
       btn('🎬 Tours', 'T', () => this.tours.openMenu(), 'Guided story tours'),
       btn('⏳ Eras', 'Y', () => this.eras.toggle(), 'Era Time-Machine: 9,000 years on the same hexes'),
@@ -190,7 +219,10 @@ export class App {
     const groups = {};
     for (const l of this.atlas.lenses) (groups[l.group] ||= []).push(l);
     const dock = el('div', { class: 'dock glass' }, [
-      el('div', { class: 'dock-title', text: 'Lenses' }),
+      el('div', { class: 'dock-head' }, [
+        el('div', { class: 'dock-title', text: 'Lenses' }),
+        el('button', { class: 'dock-collapse', title: 'Hide this panel', onclick: () => this.showDock(false) }, ['❮']),
+      ]),
       ...Object.entries(groups).map(([g, ls]) => el('div', { class: 'dock-group' }, [
         el('div', { class: 'dock-gtitle', text: g }),
         el('div', { class: 'dock-items' }, ls.map((l) => el('button', { class: 'lens-btn', 'data-lens': l.id, title: l.desc, onclick: () => this.setLens(l.id) }, [l.label]))),
@@ -201,7 +233,7 @@ export class App {
       }, [label]))),
       el('label', { class: 'treaty' }, [el('input', { type: 'checkbox', onchange: (e) => { this.lines.setTreatyView(e.target.checked); if (e.target.checked) { this.setLayer('rivers', true); this.toast('Indus Waters Treaty (1960): western rivers → Pakistan (green), eastern rivers → India (orange)'); } } }), ' Indus Waters Treaty view']),
     ]);
-    const dockToggle = el('button', { class: 'dock-toggle glass', title: 'Show/hide lenses', onclick: () => dock.classList.toggle('collapsed') }, ['☰']);
+    const dockToggle = el('button', { class: 'dock-toggle glass', title: 'Show lenses & map layers', onclick: () => this.showDock(true) }, ['❯ Lenses']);
     this.ui.legend = el('div', { class: 'legend glass hidden' });
     const moods = el('div', { class: 'moods glass' }, ['day', 'golden', 'night'].map((m) =>
       el('button', { 'data-mood': m, class: 'chip', title: 'Lighting (L cycles)', onclick: () => this.setMood(m) },
@@ -219,7 +251,12 @@ export class App {
     this.hud.append(top, dock, dockToggle, this.ui.legend, moods, relief, this.tip, this.toastEl);
     this.ui.dock = dock;
     for (const [k] of LAYER_TOGGLES) this.hud.querySelector(`[data-layer="${k}"]`)?.classList.toggle('on', this.layerOn(k));
-    this.hud.querySelector('[data-lens="terrain"]')?.classList.add('on');
+    this.hud.querySelector(`[data-lens="${DEFAULT_LENS}"]`)?.classList.add('on');
+    // what the Home button restores
+    this._initial = {
+      layers: Object.fromEntries(LAYER_TOGGLES.map(([k]) => [k, this.layerOn(k)])),
+      relief: this.board.exaggeration,
+    };
     this.animateCounters(top);
   }
 
@@ -324,7 +361,7 @@ export class App {
       else if (k === 's' || k === 'S') this.surprise.go();
       else if (k === '?' || k === 'g' || k === 'G') this.guide.openWelcome();
       else if (k === 'a' || k === 'A') this.ui.almanac.open();
-      else if (k === 'h' || k === 'H') this.home();
+      else if (k === 'h' || k === 'H') this.resetView();
       else if (k === 'l' || k === 'L') this.setMood({ day: 'golden', golden: 'night', night: 'day' }[this.mood]);
       else if (k === 'y' || k === 'Y') this.eras.toggle();
       else if (k === '[' || k === ']') this.setRelief(Math.min(30, Math.max(1, this.board.exaggeration + (k === ']' ? 2 : -2))));
@@ -378,7 +415,7 @@ export class App {
     clearTimeout(this._hashT);
     this._hashT = setTimeout(() => {
       const p = new URLSearchParams();
-      if (this.lens.current !== 'terrain') p.set('lens', this.lens.current);
+      if (this.lens.current !== DEFAULT_LENS) p.set('lens', this.lens.current);
       if (this.mood !== 'day') p.set('mood', this.mood);
       const s = this.selection;
       if (s?.district != null) p.set('d', this.districts[s.district].pcode);

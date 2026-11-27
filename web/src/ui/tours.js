@@ -48,7 +48,7 @@ export class Tours {
         steps: [
           () => { const k2 = this.site('K2', ['wonder']); A.setRelief(22); A.setMood('golden'); A.setLens('elevation'); this.layers(['rivers', 'wonder', 'city']);
             const hexMax = Math.max(...A.data.world.elev_max.filter((v, c) => A.data.world.owner[c] >= 0));
-            return { go: () => this.goSite(k2, { distance: 340, tilt: 1.05, azimuth: 0.6 }), k: 'The roof of the board', title: 'K2 · Karakoram',
+            return { go: () => this.goSite(k2, { distance: 340, tilt: 1.05, azimuth: 0.6 }), k: 'The roof of the country', title: 'K2 · Karakoram',
               stat: `${fmt.int(this.fact(k2, 'elevation_m'))} m`, text: `The world's second-highest summit. ${A.sites.sites.filter((s) => s.kind === 'wonder' && (s.facts?.elevation_m || 0) >= 8000).length} of the fourteen 8,000-metre peaks stand in Pakistan; our highest 90 m DEM pixel here reads ${fmt.int(hexMax)} m.`, src: ['wonders', 'copernicus_dem'] }; },
           () => { const s = this.site('Nanga Parbat', ['wonder']); return { go: () => this.goSite(s, { distance: 420, tilt: 1.0, azimuth: 1.4 }), k: 'The western anchor of the Himalaya', title: 'Nanga Parbat',
             stat: `${fmt.int(this.fact(s, 'elevation_m'))} m`, text: 'The "Killer Mountain" rises above the Indus gorge — where the Himalaya, Karakoram and Hindu Kush meet.', src: ['wonders'] }; },
@@ -177,16 +177,25 @@ export class Tours {
     const dwell = st.dwell || 7500;
     const prog = el('div', { class: 'prog', style: { width: '0%' } });
     this.narr.replaceChildren(
-      el('div', { class: 'k', text: `${a.tour.icon} ${a.tour.title} · ${st.k}` }), el('h3', { text: st.title }),
-      el('p', {}, [st.stat ? el('span', { class: 'stat', text: st.stat }) : '', st.text]),
-      el('div', { class: 'src', text: `Data: ${st.src.map((s) => this.app.sourceTitle(s)).join(' · ')}` }),
+      el('div', { class: 'narr-head' }, [
+        el('div', { class: 'k', text: `${a.tour.icon} ${a.tour.title}` }),
+        el('button', { class: 'narr-x', text: '✕', title: 'End tour (Esc)', onclick: () => this.stop() }),
+      ]),
+      el('div', { class: 'narr-body' }, [
+        el('div', { class: 'narr-step', text: st.k }),
+        el('h3', { text: st.title }),
+        el('p', {}, [st.stat ? el('span', { class: 'stat', text: st.stat }) : '', st.text]),
+        el('div', { class: 'src', text: `Data: ${st.src.map((s) => this.app.sourceTitle(s)).join(' · ')}` }),
+      ]),
+      el('div', { class: 'dots' }, steps.map((_, j) => el('i', { class: j === i ? 'on' : '' }))),
       el('div', { class: 'row' }, [
-        el('div', { class: 'dots' }, steps.map((_, j) => el('i', { class: j === i ? 'on' : '' }))),
-        el('div', { style: { display: 'flex', gap: '6px' } }, [
-          el('button', { class: 'tb-btn', text: '◀', onclick: () => this.prev() }),
-          el('button', { class: 'tb-btn', text: this.paused ? '▶' : '❚❚', onclick: (e) => { this.paused = !this.paused; e.target.textContent = this.paused ? '▶' : '❚❚'; } }),
-          el('button', { class: 'tb-btn', text: i === steps.length - 1 ? 'Finish' : 'Next ▶', onclick: () => this.next() }),
-          el('button', { class: 'tb-btn', text: '✕', onclick: () => this.stop() })])]),
+        el('div', { class: 'count', text: `${i + 1} / ${steps.length}` }),
+        el('div', { class: 'narr-ctl' }, [
+          el('button', { class: 'tb-btn', text: '◀', title: 'Previous (←)', onclick: () => this.prev() }),
+          el('button', { class: 'tb-btn', text: this.paused ? '▶' : '❚❚', title: 'Pause / resume', onclick: (e) => { this.paused = !this.paused; e.target.textContent = this.paused ? '▶' : '❚❚'; } }),
+          el('button', { class: 'tb-btn', text: i === steps.length - 1 ? 'Finish' : '▶', title: i === steps.length - 1 ? 'Finish tour' : 'Next (→)', onclick: () => this.next() }),
+        ]),
+      ]),
       prog);
     this.narr.classList.remove('hidden');
     this.narr.style.animation = 'none'; void this.narr.offsetWidth; this.narr.style.animation = '';
