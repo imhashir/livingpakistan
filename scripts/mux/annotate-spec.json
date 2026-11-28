@@ -1,0 +1,302 @@
+[
+ {
+  "src": "/tmp/mux-matrix/i14-home.png",
+  "out": "previews/mux-01-first-load-phone.png",
+  "boxes": [
+   {
+    "x": 20,
+    "y": 811,
+    "w": 345,
+    "h": 18,
+    "label": "dock labels 9.5px mono, dim",
+    "color": "amber"
+   },
+   {
+    "x": 190,
+    "y": 267,
+    "w": 36,
+    "h": 20,
+    "label": "banner-pop 10px, 3.2:1",
+    "color": "red"
+   }
+  ],
+  "banner": "iPhone 14, first visit: no intro, hint or welcome on phones (app.js:94).\nNothing says drag / pinch / tap; the guide is behind the (?) icon."
+ },
+ {
+  "src": "/tmp/mux-matrix/i14-guide.png",
+  "out": "previews/mux-02-welcome-desktop-copy.png",
+  "boxes": [
+   {
+    "x": 20,
+    "y": 290,
+    "w": 350,
+    "h": 40,
+    "label": "\"click anything\"",
+    "color": "amber"
+   },
+   {
+    "x": 239,
+    "y": 378,
+    "w": 116,
+    "h": 62,
+    "label": "\"Click a city banner\"",
+    "color": "amber"
+   }
+  ],
+  "banner": "Welcome sheet (only via the ? icon): desktop wording (click, / key, ? key)."
+ },
+ {
+  "src": "/tmp/mux-flows/raw-pinch-dock.png",
+  "out": "previews/mux-03-pinch-on-dock-zooms-page.png",
+  "banner": "Two-finger pinch that starts on the dock: the PAGE zooms to 5x (visualViewport.scale=5).\nAll controls are off-screen; the zoom even survives a reload (Chromium)."
+ },
+ {
+  "src": "/tmp/mux-flows/raw-pinch-banner.png",
+  "out": "previews/mux-04-pinch-on-banner-zooms-page.png",
+  "banner": "Pinch that starts on a city banner (Karachi): page zooms to 5x instead of the map.\nBanners are pointer-events:auto with no touch-action (style.css:170)."
+ },
+ {
+  "src": "/tmp/mux-flows/ghost.png",
+  "out": "previews/mux-05-ghost-inspector-eats-taps-in-tour.png",
+  "boxes": [
+   {
+    "x": 8,
+    "y": 382,
+    "w": 374,
+    "h": 388,
+    "label": "inspector at opacity .15 but pointer-events:auto",
+    "color": "red"
+   }
+  ],
+  "banner": "Tour running, user taps a hex: the inspector opens as a 15% ghost that still\ncatches every tap and drag in the bottom half (#hud > * beats body.touring rule)."
+ },
+ {
+  "src": "/tmp/mux-flows/raw-tourcard-ghost.png",
+  "out": "previews/mux-06-tour-card-over-ghost-inspector.png",
+  "boxes": [
+   {
+    "x": 8,
+    "y": 382,
+    "w": 374,
+    "h": 388,
+    "label": "ghost inspector behind the card",
+    "color": "red"
+   }
+  ],
+  "banner": "Pinned tour card on top, ghost inspector text bleeding through below it."
+ },
+ {
+  "src": "/tmp/mux-flows/raw-cinema.png",
+  "out": "previews/mux-07-cinema-badge-under-exit.png",
+  "boxes": [
+   {
+    "x": 334,
+    "y": 8,
+    "w": 48,
+    "h": 48,
+    "label": "badge (48px) under the exit",
+    "color": "red"
+   },
+   {
+    "x": 299,
+    "y": 31,
+    "w": 36,
+    "h": 36,
+    "label": "",
+    "color": "amber"
+   },
+   {
+    "x": 323,
+    "y": 55,
+    "w": 36,
+    "h": 36,
+    "label": "",
+    "color": "amber"
+   }
+  ],
+  "banner": "Play all (cinema): the tour badge sits exactly under the cinema \u2715 (z 40 > 26).\nThe 'top: +52px' cinema rule loses on specificity (tourchip.css:16 vs :9)."
+ },
+ {
+  "src": "/tmp/mux-matrix/land-tour.png",
+  "out": "previews/mux-09-labels-clipped-landscape.png",
+  "boxes": [
+   {
+    "x": 0,
+    "y": 206,
+    "w": 80,
+    "h": 14,
+    "label": "Lake Saiful Muluk (x=-34)",
+    "color": "red"
+   },
+   {
+    "x": 0,
+    "y": 135,
+    "w": 87,
+    "h": 14,
+    "label": "Kalasha Valleys (x=-16)",
+    "color": "red"
+   }
+  ],
+  "banner": "Landscape 844x390, K2 tour stop: wonder labels cut by the left edge."
+ },
+ {
+  "src": "/tmp/mux-flows/hover-exp-rowtap.png",
+  "out": "previews/mux-11-explorer-row-tap-loses-table.png",
+  "banner": "Tap a row in Explorer: the camera flies, the inspector opens, and Explorer is closed\n(one-sheet rule). Sort, scroll and brush are lost; reopening starts over."
+ },
+ {
+  "src": "/tmp/mux-flows/walk-01.png",
+  "out": "previews/mux-14-walkthrough-desktop-steps.png",
+  "boxes": [
+   {
+    "x": 109,
+    "y": 144,
+    "w": 180,
+    "h": 556,
+    "label": "spotlight = desktop 'map centre' rect",
+    "color": "red"
+   },
+   {
+    "x": 8,
+    "y": 40,
+    "w": 374,
+    "h": 60,
+    "label": "right-drag / scroll / double-click / H",
+    "color": "amber"
+   }
+  ],
+  "banner": "Walkthrough step 2 on a phone: desktop gestures and keys; spotlight is an arbitrary\ncolumn (guide.js:136, 141)."
+ },
+ {
+  "src": "/tmp/mux-flows/walk-13.png",
+  "out": "previews/mux-15-walkthrough-card-covers-target.png",
+  "boxes": [
+   {
+    "x": 8,
+    "y": 8,
+    "w": 374,
+    "h": 193,
+    "label": "card",
+    "color": "amber"
+   },
+   {
+    "x": 0,
+    "y": 136,
+    "w": 390,
+    "h": 642,
+    "label": "",
+    "color": "red"
+   }
+  ],
+  "banner": "Step 14 (Explorer): the card covers the panel's header and controls; 5 of 19 steps\noverlap like this, the last step has no target at all (.guide-btn is hidden)."
+ },
+ {
+  "src": "/tmp/mux-matrix/i14-tourOpen.png",
+  "out": "previews/mux-16-tap-targets-tour-card.png",
+  "targets": {
+   "json": "/tmp/mux-matrix/i14.json",
+   "state": "tourOpen"
+  },
+  "banner": "Tour card, iPhone 14: amber = under 44px, red = under 32px."
+ },
+ {
+  "src": "/tmp/mux-matrix/i14-eras.png",
+  "out": "previews/mux-17-tap-targets-eras.png",
+  "targets": {
+   "json": "/tmp/mux-matrix/i14.json",
+   "state": "eras"
+  },
+  "banner": "Era Time-Machine: era ticks 26px tall, slider thumb ~16px, 11px text."
+ },
+ {
+  "src": "/tmp/mux-matrix/i14-duel.png",
+  "out": "previews/mux-18-tap-targets-duel.png",
+  "targets": {
+   "json": "/tmp/mux-matrix/i14.json",
+   "state": "duel"
+  },
+  "banner": "Duel: preset chips 24px, inputs 32px, name truncated ('South Karac...')."
+ },
+ {
+  "src": "/tmp/mux-matrix/tab820-home.png",
+  "out": "previews/mux-19-tablet-820-desktop-layout.png",
+  "targets": {
+   "json": "/tmp/mux-matrix/tab820.json",
+   "state": "home"
+  },
+  "banner": "iPad 820x1180 (touch) gets the DESKTOP layout: 39 targets <44px, 31 <32px.\nNo Explorer entry point (yields hidden <=900px)."
+ },
+ {
+  "src": "/tmp/mux-matrix/tab820-tourOpen.png",
+  "out": "previews/mux-20-tablet-820-tour-end-13px.png",
+  "targets": {
+   "json": "/tmp/mux-matrix/tab820.json",
+   "state": "tourOpen"
+  },
+  "banner": "iPad 820 tour: end-tour \u2715 is 13x13px, step controls 31x27px."
+ },
+ {
+  "src": "/tmp/mux-matrix/android-tourOpen.png",
+  "out": "previews/mux-21-tour-controls-paused.png",
+  "boxes": [
+   {
+    "x": 203,
+    "y": 225,
+    "w": 134,
+    "h": 38,
+    "label": "paused: \u25c0 \u25b6 \u25b6 (resume = next glyph)",
+    "color": "amber"
+   },
+   {
+    "x": 263,
+    "y": 13,
+    "w": 82,
+    "h": 40,
+    "label": "shrink and END TOUR 6px apart",
+    "color": "red"
+   }
+  ],
+  "banner": "360px Android, paused tour card: two identical \u25b6 buttons; shrink sits next to end-tour."
+ },
+ {
+  "src": "/tmp/mux-matrix/i14-inspCity.png",
+  "out": "previews/mux-22-city-view-small-text.png",
+  "crop": [
+   0,
+   380,
+   390,
+   844
+  ],
+  "banner": "City View sheet: 9.5-11.5px mono/uppercase micro-labels throughout."
+ },
+ {
+  "src": "/tmp/mux-matrix/land-explore.png",
+  "out": "previews/mux-23-landscape-explorer.png",
+  "banner": "Landscape: Explorer shows 5 table rows; the plot is below the fold of a 240px panel."
+ },
+ {
+  "src": "/tmp/mux-matrix/android-explore.png",
+  "out": "previews/mux-24-android-explorer-table.png",
+  "banner": "360px: the 13-column table needs sideways scrolling; only District/Province visible."
+ },
+ {
+  "src": "/tmp/mux-flows/safe-i14-home.png",
+  "out": "previews/mux-25-ok-safe-area-insets.png",
+  "banner": "OK: with 47/34px insets (CDP override) nothing sits under the island or home bar."
+ },
+ {
+  "src": "/tmp/mux-flows/short-lenses.png",
+  "out": "previews/mux-26-ok-short-viewport-se.png",
+  "banner": "OK: iPhone SE with both Safari bars (375x553): sheets fit, dvh-based sizing holds."
+ },
+ {
+  "src": "/tmp/mux-matrix/tab768-home.png",
+  "out": "previews/mux-27-ok-tablet-768-phone-layout.png",
+  "banner": "768x1024 gets the phone layout: usable by touch, if sparse on a big screen."
+ },
+ {
+  "src": "/tmp/mux-matrix/land-home.png",
+  "out": "previews/mux-30-ok-landscape-rail.png",
+  "banner": "OK: landscape 844x390 moves the dock to a right rail; the country fits the free space."
+ }
+]
