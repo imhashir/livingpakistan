@@ -41,39 +41,47 @@ export class Guide {
 
   _buildWelcome() {
     const c = this._counts();
+    // text is a string, or [mouse and keyboard wording, touch wording]
+    const say = (text) => (Array.isArray(text)
+      ? el('span', {}, [el('span', { class: 'only-desk', text: text[0] }), el('span', { class: 'only-touch', text: text[1] })])
+      : el('span', { text }));
     const card = (icon, title, text, onTry) => el('button', { class: 'gw-card', title: 'Try it', onclick: () => { this.closeWelcome(); onTry(); } }, [
-      el('span', { class: 'gw-ico', text: icon }), el('b', { text: title }), el('span', { text })]);
+      el('span', { class: 'gw-ico', text: icon }), el('b', { text: title }), say(text)]);
     const A = this.app;
     this.welcome = el('div', { class: 'modal guide-welcome hidden', role: 'dialog', 'aria-label': 'Welcome to living pakistan' }, [
       el('div', { class: 'gw-panel glass' }, [
-        el('button', { class: 'gw-x', text: '✕', title: 'Close', onclick: () => this.closeWelcome() }),
+        el('button', { class: 'gw-x', text: '✕', title: 'Close', 'aria-label': 'Close', onclick: () => this.closeWelcome() }),
         el('div', { class: 'gw-kicker', text: 'Welcome to' }),
         el('div', { class: 'gw-title', text: 'living pakistan' }),
-        el('p', { class: 'gw-lede', html: `Pakistan to explore tile by tile: the whole country is cut into <b>${fmt.int(c.hexes)} hexagon tiles</b>, each about 20 km wide, raised to its real height from the Arabian Sea to K2.<br>Tiles, cities and landmarks carry <b>real public data</b> — click anything to see what's there.` }),
+        el('p', { class: 'gw-lede', html: `Pakistan to explore tile by tile: the whole country is cut into <b>${fmt.int(c.hexes)} hexagon tiles</b>, each about 20 km wide, raised to its real height from the Arabian Sea to K2.<br>Tiles, cities and landmarks carry <b>real public data</b> — <span class="only-desk">click</span><span class="only-touch">tap</span> anything to see what's there.` }),
         el('div', { class: 'gw-grid' }, [
           card('🗺️', `${c.lenses} lenses`, 'Re-colour the map: language, literacy, poverty, farmland, floods…', () => A.setLens('language')),
-          card('🏙️', `${c.cities} cities`, 'Click a city banner for its City View: workers, districts, landmarks.', () => { const k = A.sites.sites.find((s) => s.name === 'Karachi' && s.kind === 'city'); A.select({ site: k }); A.flyToSite(k, { distance: 420 }); }),
+          card('🏙️', `${c.cities} cities`, ['Click a city banner for its City View: workers, districts, landmarks.', 'Tap a city banner for its City View: workers, districts, landmarks.'], () => { const k = A.sites.sites.find((s) => s.name === 'Karachi' && s.kind === 'city'); A.select({ site: k }); A.flyToSite(k, { distance: 420 }); }),
           card('✨', `${c.wonders} wonders`, 'K2, Mohenjo-daro, Badshahi Mosque — 3D landmarks with sourced facts.', () => { const k = A.sites.sites.find((s) => s.name === 'Badshahi Mosque'); A.select({ site: k }); A.flyToSite(k, { distance: 200 }); }),
           card('🎬', `${c.tours} story tours`, 'Sit back: cinematic fly-throughs narrated with real numbers.', () => A.tours.openMenu()),
           card('⏳', `${c.eras} eras`, `9,000 years in one slider — ${c.eraSites} historic sites light up.`, () => A.eras.show()),
           card('🌊', '2022 flood replay', `Watch the mega-flood rise and recede over ${c.weeks} satellite snapshots.`, () => A.setLens('flood')),
-          card('📊', 'District Explorer', `Sort & plot all ${c.districts} districts; brush the chart to light up the map.`, () => A.explorer.open()),
+          card('📊', 'District Explorer', [`Sort & plot all ${c.districts} districts; brush the chart to light up the map.`, `Sort & plot all ${c.districts} districts; hold and drag on the chart to light up the map.`], () => A.explorer.open()),
           card('⚔️', 'District Duel', 'Pick any two districts and compare them head-to-head.', () => A.duel.open()),
           card('🎲', 'Surprise me', 'Jump to an extreme: the highest tile, hottest city, oldest village…', () => A.surprise.go()),
           card('🌇', 'Light & relief', 'Day, golden hour or nightlights; stretch the mountains up to 30×.', () => A.setMood('golden')),
-          card('🔎', 'Search', `Find any of ${c.districts} districts or ${fmt.int(c.sites)} places in a keystroke ( / ).`, () => A.search.open()),
+          card('🔎', 'Search', [`Find any of ${c.districts} districts or ${fmt.int(c.sites)} places in a keystroke ( / ).`, `Find any of ${c.districts} districts or ${fmt.int(c.sites)} places as you type.`], () => A.search.open()),
           card('📜', 'Almanac', `All ${c.sources} public data sources, with dates and caveats.`, () => A.ui.almanac.open()),
         ]),
         el('div', { class: 'gw-actions' }, [
           el('button', { class: 'gw-primary', onclick: () => { this.closeWelcome(); this.start(); } }, ['▶ Start interactive walkthrough ', el('small', { text: '~2 min' })]),
           el('button', { class: 'gw-secondary', text: 'Jump right in', onclick: () => this.closeWelcome() }),
         ]),
-        el('div', { class: 'gw-hint', text: 'Reopen any time with the ❔ Guide button or the ? key.' }),
+        el('div', { class: 'gw-hint' }, [el('span', { class: 'only-desk', text: 'Reopen any time with the ❔ Guide button or the ? key.' }),
+          el('span', { class: 'only-touch', text: 'Drag to move · pinch to zoom · two fingers to tilt and turn · tap anything. Reopen this any time with the ❔ button, top right.' })]),
       ]),
     ]);
     this.welcome.addEventListener('pointerdown', (e) => { if (e.target === this.welcome) this.closeWelcome(); });
     document.getElementById('hud').append(this.welcome);
   }
+
+  /** A first visit has been greeted (the phone's coach mark counts). */
+  markSeen() { try { localStorage.setItem(STORE_KEY, 'seen'); } catch { /* private mode */ } }
 
   openWelcome() {
     this.end();
@@ -130,6 +138,55 @@ export class Guide {
   }
 
   _steps() {
+    return this.app.mobile?.on ? this._phoneSteps() : this._deskSteps();
+  }
+
+  /**
+   * The walkthrough on a phone: touch wording, no hover or keyboard steps,
+   * and targets that exist there (dock buttons, the legend key, the ❔ icon).
+   * The card sits at the top, or at the bottom when what it points at is up there.
+   */
+  _phoneSteps() {
+    const A = this.app;
+    const desk = this._deskSteps();
+    const by = (title) => desk.find((s) => s.title.startsWith(title));
+    const city = (name) => A.sites.sites.find((s) => s.kind === 'city' && s.name === name);
+    // the map that is left between the card and the dock
+    const mapArea = () => {
+      const top = this.card.getBoundingClientRect().bottom + 12, dock = A.mobile.dock.getBoundingClientRect();
+      const bottom = (dock.height > dock.width ? innerHeight - 16 : dock.top - 12);
+      const right = dock.height > dock.width ? dock.left - 12 : innerWidth - 16;
+      return { left: 16, top, width: right - 16, height: Math.max(60, bottom - top) };
+    };
+    const c = this._counts();
+    return [
+      { ...by('This is Pakistan'), target: mapArea },
+      { title: 'Move around', body: 'Drag to pan · pinch to zoom · two fingers to tilt and turn · double-tap a tile to swoop in · tap “living pakistan”, top left, to come home. Watch — we\'re orbiting now.',
+        target: mapArea, demo: by('Move around').demo },
+      { ...by('Stretch the mountains'), body: 'The Relief slider, in the Light sheet, exaggerates height from ×1 (true scale) to ×30. Pakistan rises from 0 m at the coast to 8,611 m at K2.' },
+      { ...by('Change the light'), body: 'Day, Golden hour, or Nightlights — at night every tile glows with how many people live there, so the Indus and the big cities light up.' },
+      { ...by('Hover and click'), title: 'Tap any tile', body: 'Tapping a tile opens its card: elevation, people, modelled income, flood impact, the nearest city and wonder. Tap the map again to move it along.' },
+      { ...by('City View'), body: 'Tap a city banner (green = population, gold = name). You get the city\'s yields, specialised quarters (industrial, campus, harbour…), its working citizens, nearby landmarks and peer cities.' },
+      { title: 'Pakistan at a glance', body: 'Under More, six numbers summarise real data: cropped area, workers by industry, and (modelled) GDP. Tap one to rank every district.',
+        target: '.m-glance', demo: async () => { A.select(null); A.home(); } },
+      { title: `Lenses: ${c.lenses} ways to see the country`, body: 'The Lenses button re-colours every tile by one measure. We just switched to Mother tongue (Census 2023) — then Literacy.',
+        target: '.m-dbtn[data-sheet=lenses]', demo: by('Lenses').demo },
+      { title: 'The legend key', body: 'Whenever a lens is on, its key sits above the dock. Tap it for the full legend: drag a finger along the histogram to light up just those tiles. The source of every lens is linked underneath.',
+        target: '.m-peek', demo: async (tok) => { if (A.lens.current !== 'literacy') A.setLens('literacy'); await by('Read and brush').demo(tok); } },
+      { ...by('Map layers'), body: `The Lenses sheet also switches on rivers, canals, the ${c.corridors} trade corridors (GT Road, Karakoram Highway, CPEC, ML-1 railway), dams, power plants, airports, shrines, cricket grounds and more.`, target: '.m-dbtn[data-sheet=lenses]' },
+      by('Replay the 2022'),
+      { ...by('9,000 years'), body: `The Era Time-Machine (under More) steps from Mehrgarh (c. 7000 BCE) through the Indus Valley, Gandhara and the Mughals to modern Pakistan — ${c.eraSites} dated sites light up with beams.` },
+      { ...by('Sit back'), body: `${c.tours} "Chronicles of Pakistan" tours fly the camera, switch lenses and narrate with real numbers. During a tour the badge in the corner opens the card; ✕ on the card ends it.` },
+      { ...by('District Explorer'), body: `All ${c.districts} districts in one sortable table, plus a scatter plot. Tap a row for its card; press and hold the plot, then drag a box, and those districts light up on the map.` },
+      { ...by('District Duel'), body: 'Put two districts in the ring — type their names or tap them on the map — and compare yields, literacy, poverty, terrain and languages, with a radar chart and a verdict.' },
+      { ...by('Search anything'), body: 'Tap 🔍 (top right) and type: a district, a city, a dam, a peak, a shrine or a lens name. Tap a result to fly there.' },
+      { ...by('Surprise me'), body: 'Not sure where to start? Surprise (under More) jumps to a remarkable extreme computed from the data — the highest tile, the hottest city, the most flooded district, the oldest village.' },
+      by('The Almanac'),
+      { ...by("You're ready"), body: 'That\'s everything. Reopen this guide any time with the ❔ button, top right. Want a first adventure? Start the "From K2 to the Arabian Sea" tour — or just start tapping.', target: '.m-guide' },
+    ];
+  }
+
+  _deskSteps() {
     const A = this.app;
     const city = (name) => A.sites.sites.find((s) => s.kind === 'city' && s.name === name);
     const dist = (name) => A.districts.findIndex((d) => d.name === name);
@@ -238,6 +295,7 @@ export class Guide {
 
   _position() {
     if (!this.running || !this.current) return;
+    if (this.app.mobile?.on) return this._positionPhone();
     const r = this._rectOf(this.current.target);
     const pad = 8;
     if (r) {
@@ -256,5 +314,21 @@ export class Guide {
     } else { x = innerWidth / 2 - cw / 2; y = innerHeight - ch - 40; }
     x = Math.max(m, Math.min(innerWidth - cw - m, x)); y = Math.max(76, Math.min(innerHeight - ch - m, y));
     this.card.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  /**
+   * Phone: the card spans the top, and sheets are capped (mobile.css, from
+   * --gd-ch) so they end below it. A target in the top half (search, the ❔
+   * icon) sends the card to the bottom instead.
+   */
+  _positionPhone() {
+    document.documentElement.style.setProperty('--gd-ch', `${Math.ceil(this.card.offsetHeight)}px`);
+    const r = this._rectOf(this.current.target);
+    this.card.classList.toggle('at-bottom', !!r && r.top + r.height / 2 < innerHeight / 2);
+    const pad = 6;
+    if (r) {
+      Object.assign(this.spot.style, { left: `${r.left - pad}px`, top: `${r.top - pad}px`, width: `${r.width + pad * 2}px`, height: `${r.height + pad * 2}px` });
+      this.spot.classList.remove('hidden');
+    } else this.spot.classList.add('hidden');
   }
 }

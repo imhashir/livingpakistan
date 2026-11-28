@@ -61,7 +61,20 @@ export class Duel {
       act = 0;
       list.replaceChildren(...res.map((r, j) => el('div', { class: j === 0 ? 'on' : null, onpointerdown: (e) => { e.preventDefault(); choose(r.i); } }, [el('b', { text: r.d.name }), el('small', { text: r.d.province })])));
       list.classList.toggle('hidden', !res.length);
+      fit();
     };
+    // keep the suggestions inside what the keyboard leaves of the screen:
+    // below the input if there is room, else above it
+    const fit = () => {
+      if (list.classList.contains('hidden')) return;
+      const vv = window.visualViewport, top = vv ? vv.offsetTop : 0, h = vv ? vv.height : innerHeight;
+      const r = input.getBoundingClientRect();
+      const below = top + h - r.bottom - 8, above = r.top - top - 8;
+      const up = below < 160 && above > below;
+      list.classList.toggle('above', up);
+      list.style.maxHeight = `${Math.max(96, Math.floor(up ? above : below) - 4)}px`;
+    };
+    window.visualViewport?.addEventListener('resize', fit);
     input.addEventListener('input', refresh);
     input.addEventListener('focus', () => { input.select(); });
     input.addEventListener('blur', () => setTimeout(() => list.classList.add('hidden'), 120));

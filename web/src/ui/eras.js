@@ -47,7 +47,7 @@ export class EraMachine {
     this.slider = el('input', { type: 'range', min: 0, max: E.length - 1, step: 1, value: 0, oninput: (e) => this.setEra(+e.target.value) });
     this.ticks = el('div', { class: 'ticks' }, E.map((e, k) => el('button', { text: e.name.split(' (')[0].replace('Civilisation', '').replace(' and early Islamic', ''), title: `${e.start_label} – ${e.end_label || 'today'}`, onclick: () => this.setEra(k) })));
     this.card = el('div', { class: 'era-card' });
-    this.playBtn = el('button', { class: 'play', text: '▶', title: 'Play through history', onclick: () => this.play() });
+    this.playBtn = el('button', { class: 'play', text: '▶', title: 'Play through history', 'aria-label': 'Play or pause history', onclick: () => this.play() });
     this.root = el('div', { class: 'timebar glass hidden' }, [
       el('h5', {}, [el('span', { text: '⏳ ERA TIME-MACHINE · 9,000 years on the same hexes' }), el('small', { text: 'Y to close' })]),
       el('div', { style: { display: 'flex', gap: '10px', alignItems: 'center' } }, [this.playBtn, this.slider]), this.ticks, this.card,

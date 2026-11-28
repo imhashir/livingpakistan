@@ -93,8 +93,9 @@ export class App {
 
   intro() {
     // On a phone the map is the opening: no title card over it, no welcome
-    // modal after it. The guide is one tap away on the ❔ button.
-    if (this.mobile.on) return;
+    // modal after it. A first visit gets a one-line coach mark for the
+    // gestures instead, and the guide is one tap away on the ❔ button.
+    if (this.mobile.on) { if (this.guide.shouldAutoShow()) { this.guide.markSeen(); this.mobile.coach(); } return; }
     const N = this.atlas.nation;
     const k2 = this.sites.sites.find((s) => s.name === 'K2');
     const card = el('div', { class: 'intro' }, [
@@ -137,8 +138,8 @@ export class App {
     } else this.stage.flyTo(tgt, { distance: dist, tilt, azimuth: az });
   }
 
-  /** Home: put the map back to how it looked on arrival, not just the camera. */
-  resetView() {
+  /** Home: put the map back to how it looked on arrival, not just the camera (unless keepCamera). */
+  resetView({ keepCamera = false } = {}) {
     this.tours?.stop(false);
     this.eras?.hide();
     this.flood?.hide();
@@ -154,7 +155,7 @@ export class App {
     this.setMood('day');
     this.setLens(DEFAULT_LENS);
     this.showDock(true);
-    this.home();
+    if (!keepCamera) this.home();
   }
 
   /** Slide the lens dock in or out, and swap in the edge tab that brings it back. */
@@ -225,6 +226,7 @@ export class App {
       btn('🔎', '/', () => this.search.open(), 'Search districts, cities, wonders, dams, peaks (/)'),
       btn('🎬 Tours', 'T', () => this.tours.openMenu(), 'Guided story tours'),
       btn('⏳ Eras', 'Y', () => this.eras.toggle(), 'Era Time-Machine: 9,000 years on the same hexes'),
+      Object.assign(btn('📊 Explore', 'E', () => this.explorer.open(), 'District Explorer: sort and plot every district (E)'), { className: 'tb-btn exp-tb' }),
       btn('⚔️ Duel', 'D', () => this.duel.open(), 'District Duel: compare two districts'),
       btn('🎲 Surprise', 'S', () => this.surprise.go(), 'Fly to a remarkable outlier'),
       btn('📜', 'A', () => this.ui.almanac.open(), 'Almanac: every source, vintage and caveat (A)'),
@@ -236,7 +238,7 @@ export class App {
     const dock = el('div', { class: 'dock glass' }, [
       el('div', { class: 'dock-head' }, [
         el('div', { class: 'dock-title', text: 'Lenses' }),
-        el('button', { class: 'dock-collapse', title: 'Hide this panel', onclick: () => this.showDock(false) }, ['❮']),
+        el('button', { class: 'dock-collapse', title: 'Hide this panel', 'aria-label': 'Hide the lenses panel', onclick: () => this.showDock(false) }, ['❮']),
       ]),
       ...Object.entries(groups).map(([g, ls]) => el('div', { class: 'dock-group' }, [
         el('div', { class: 'dock-gtitle', text: g }),
@@ -409,6 +411,12 @@ export class App {
       this.raycaster.setFromCamera(this.pointer, this.stage.camera);
       const hit = this.board.pick(this.raycaster);
       if (this.duel.picking && hit && this.data.world.owner[hit.cell] >= 0) { this.duel.pickDistrict(this.data.world.owner[hit.cell]); return; }
+      // a phone's tour owns the screen: a tap on the map only puts the tour card
+      // away (see TourChip), it does not open a card behind the narration
+      if (this.mobile.on && this.tours.active) return;
+      // on a phone the banners let touches through to the map, so a tap on one lands here
+      const label = this.mobile.on ? this.sites.labelAt(e.clientX, e.clientY, e.pointerType === 'touch' ? 12 : 0) : null;
+      if (label) { this.select({ site: label }); return; }
       if (this.mobile.dismissOnTap()) return;
       const site = this.sites.pick(this.raycaster);
       if (site) { this.select({ site }); return; }
@@ -485,7 +493,7 @@ export class App {
 
   showSiteTip(s, x, y) {
     const meta = KIND_META[s.kind] || {};
-    const sub = s.kind === 'power' ? `${s.fuel || ''} · ${s.mw ? fmt.int(s.mw) + ' MW' : ''}` : s.kind === 'city' ? `${fmt.big(s.pop)} people (Census 2023)` : meta.label;
+    const sub = s.kind === 'power' ? `${s.fuel || ''} · ${s.mw ? fmt.int(s.mw) + ' MW' : ''}` : s.kind === 'city' ? (s.pop ? `${fmt.big(s.pop)} people (Census 2023)` : 'Population not covered by Census 2023') : meta.label;
     this.tip.replaceChildren(el('div', { class: 'tip-title', text: `${meta.icon || ''} ${s.name}` }), el('div', { class: 'tip-sub', text: sub || '' }),
       s.blurb ? el('div', { class: 'tip-blurb', text: s.blurb.length > 150 ? s.blurb.slice(0, 147) + '…' : s.blurb }) : '');
     this._placeTip(x, y);
@@ -508,7 +516,8 @@ export class App {
       const s = this.selection;
       if (s?.district != null) p.set('d', this.districts[s.district].pcode);
       else if (s?.site) p.set('site', s.site.id);
-      history.replaceState(null, '', p.toString() ? '#' + p.toString() : location.pathname + location.search);
+      // keep the entry's state: on a phone it marks the entry Back closes sheets with (MobileUI)
+      history.replaceState(history.state, '', p.toString() ? '#' + p.toString() : location.pathname + location.search);
     }, 200);
   }
 

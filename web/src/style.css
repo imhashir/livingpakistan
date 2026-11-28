@@ -35,6 +35,8 @@ button { font-family: inherit; }
 .topbar.glass { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut)),
   calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut))); }
 .hidden { display: none !important; }
+/* wording for a mouse and keyboard, or for a finger (body.mobile is the phone/tablet layout) */
+body:not(.mobile) .only-touch, body.mobile .only-desk { display: none !important; }
 
 /* ---------- top bar */
 .topbar { position: absolute; top: 0; left: 12px; right: 12px; height: 54px; display: flex; align-items: center; gap: 18px; padding: 0 14px;
@@ -70,28 +72,32 @@ button { font-family: inherit; }
 .yields { display: flex; gap: 6px; margin-left: 8px; }
 .yield { display: flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 0; cursor: pointer;
   border: 1px solid transparent; transition: 0.15s; }
-.yield:hover { border-color: var(--line); background: rgba(255, 255, 255, 0.04); }
+@media (hover: hover) { .yield:hover { border-color: var(--line); background: rgba(255, 255, 255, 0.04); } }
 .yield .ico { font-size: 17px; filter: drop-shadow(0 0 6px rgba(255, 182, 39, 0.25)); }
 .yield .v { font-weight: 700; font-variant-numeric: tabular-nums; font-size: 14px; }
 .yield .k { font-size: 10px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.08em; }
 .topbar .spacer { flex: 1; }
 .tb-btn { background: rgba(255, 255, 255, 0.04); color: var(--ink); border: 1px solid var(--line); border-radius: 0; height: 34px;
   padding: 0 12px; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: 0.15s; }
-.tb-btn:hover { background: rgba(127, 231, 255, 0.1); border-color: var(--accent-2); color: #fff; }
+@media (hover: hover) { .tb-btn:hover { background: rgba(127, 231, 255, 0.1); border-color: var(--accent-2); color: #fff; } }
 .tb-btn.on { background: var(--accent); border-color: var(--accent); color: #141000; font-weight: 700; }
 .tb-btn kbd { font-family: var(--sans); font-size: 10px; opacity: 0.6; border: 1px solid currentColor; border-radius: 0; padding: 0 4px; }
+/* Explore lives in the yields bar on a desktop; touch screens and narrow
+   windows, which lose that bar, get a button */
+.tb-btn.exp-tb { display: none; }
+@media (pointer: coarse), (max-width: 900px) { .tb-btn.exp-tb { display: flex; } }
 
 /* ---------- lighting + relief */
 .moods { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 4px; padding: 5px; }
 .chip { background: transparent; color: var(--ink-dim); border: 1px solid transparent; border-radius: 0; padding: 7px 10px; cursor: pointer; font-size: 12.5px; font-weight: 600; }
-.chip:hover { color: var(--ink); }
+@media (hover: hover) { .chip:hover { color: var(--ink); } }
 .chip.on { color: #141000; background: var(--accent); font-weight: 700; }
 .relief { position: absolute; right: 12px; bottom: 62px; display: flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 12px; color: var(--ink-dim); }
 .relief input { accent-color: var(--accent); width: 120px; }
 .relief b { color: var(--accent-2); width: 28px; font-variant-numeric: tabular-nums; }
 .quality { position: absolute; right: 270px; bottom: 62px; padding: 9px 11px; white-space: nowrap; font-size: 12px;
   background: linear-gradient(160deg, rgba(10, 20, 26, 0.92), rgba(5, 11, 15, 0.92)); border: 1px solid var(--line); }
-.quality:hover { color: var(--ink); border-color: var(--accent-2); }
+@media (hover: hover) { .quality:hover { color: var(--ink); border-color: var(--accent-2); } }
 .quality.on { color: var(--accent-2); background: linear-gradient(160deg, rgba(10, 20, 26, 0.92), rgba(5, 11, 15, 0.92)); font-weight: 600; }
 
 /* ---------- tooltip */
@@ -125,7 +131,7 @@ button { font-family: inherit; }
 .dock-collapse { flex: none; width: 24px; height: 22px; display: grid; place-items: center;
   background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); border-radius: 0;
   color: var(--accent-2); cursor: pointer; font-size: 10px; line-height: 1; transition: 0.15s; }
-.dock-collapse:hover { background: rgba(255, 182, 39, 0.18); color: var(--ink); }
+@media (hover: hover) { .dock-collapse:hover { background: rgba(255, 182, 39, 0.18); color: var(--ink); } }
 .dock-toggle { position: absolute; left: 0; top: 96px; padding: 11px 9px 11px 7px;
   border-radius: 0; border-left: none; writing-mode: vertical-rl;
   letter-spacing: 0.16em; text-transform: uppercase; font-size: 10.5px; font-weight: 600;
@@ -133,7 +139,7 @@ button { font-family: inherit; }
   opacity: 0; pointer-events: none; transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.25s; }
 body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: translateX(0); }
-.dock-toggle:hover { background: linear-gradient(180deg, rgba(255, 182, 39, 0.3), rgba(12, 14, 18, 0.8)); }
+@media (hover: hover) { .dock-toggle:hover { background: linear-gradient(180deg, rgba(255, 182, 39, 0.3), rgba(12, 14, 18, 0.8)); } }
 .dock-title { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-2);
   margin: 6px 0 6px; padding-bottom: 5px; border-bottom: 1px solid var(--line); }
 .dock-group { margin-bottom: 6px; }
@@ -141,7 +147,7 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .dock-items { display: flex; flex-wrap: wrap; gap: 4px; }
 .lens-btn, .layer-btn { background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--ink); border-radius: 0;
   padding: 4px 8px; font-size: 11.5px; cursor: pointer; transition: 0.14s; }
-.lens-btn:hover, .layer-btn:hover { border-color: var(--accent); color: #fff; }
+@media (hover: hover) { .lens-btn:hover, .layer-btn:hover { border-color: var(--accent); color: #fff; } }
 .lens-btn.on { background: var(--accent); color: #141000; border-color: var(--accent); font-weight: 700;
   box-shadow: 0 0 16px rgba(255, 182, 39, 0.4); }
 .layer-btn { opacity: 0.55; }
@@ -168,12 +174,12 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .lg-cat { display: flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--ink); font-size: 11.5px; cursor: pointer; padding: 2px; text-align: left; }
 .lg-cat i { width: 12px; height: 12px; border-radius: 0; flex: none; box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
 .lg-cat em { margin-left: auto; color: var(--ink-dim); font-style: normal; font-size: 10px; }
-.lg-cat:hover span { color: var(--accent-2); }
+@media (hover: hover) { .lg-cat:hover span { color: var(--accent-2); } }
 
 /* ---------- city banners & wonder labels (CSS2D) */
 .banner { display: flex; align-items: stretch; transform: translateY(-50%); pointer-events: auto; cursor: pointer; white-space: nowrap;
   filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55)); font-family: var(--sans); transition: transform 0.15s; }
-.banner:hover { transform: translateY(-50%) scale(1.08); }
+@media (hover: hover) { .banner:hover { transform: translateY(-50%) scale(1.08); } }
 .banner-pop { background: linear-gradient(180deg, #2d6b80, #163c49); color: #0a1014; font-weight: 700; font-size: 11px; padding: 3px 7px;
   border: 1px solid #7fe7ff; border-right: 0; border-radius: 0; display: grid; place-items: center; }
 .banner-name { background: linear-gradient(180deg, #2a2d34, #15171c); color: #ffb627; font-family: var(--display); font-weight: 700; font-size: 12.5px;
@@ -198,7 +204,7 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 @media (prefers-reduced-motion: reduce) { .banner.focused, .wlabel.focused { animation: none; } }
 .wlabel { pointer-events: auto; cursor: pointer; font-family: var(--display); font-size: 11px; font-weight: 700; color: #ffe9b0; white-space: nowrap;
   text-shadow: 0 1px 3px #000, 0 0 10px rgba(255, 190, 70, 0.6); transform: translateY(-50%); letter-spacing: 0.04em; }
-.wlabel:hover { color: #fff; }
+@media (hover: hover) { .wlabel:hover { color: #fff; } }
 .tip-blurb { color: var(--ink); line-height: 1.35; font-size: 12px; }
 
 /* ---------- toast */
@@ -215,7 +221,7 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .insp-title { font-family: var(--display); font-weight: 900; font-size: 22px; color: #eaf6fa; margin: 2px 0 4px; line-height: 1.15; }
 .insp-sub { color: var(--ink-dim); font-size: 12px; }
 .insp-close { position: absolute; top: 10px; right: 10px; background: none; border: 0; color: var(--ink-dim); font-size: 18px; cursor: pointer; }
-.insp-close:hover { color: #fff; }
+@media (hover: hover) { .insp-close:hover { color: #fff; } }
 .insp-sec { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .insp-sec h4 { margin: 0 0 7px; font-family: var(--display); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); }
 .kv { display: grid; grid-template-columns: 1fr auto; gap: 3px 12px; font-size: 12.5px; }
@@ -248,7 +254,8 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .timebar input[type=range] { width: 100%; accent-color: var(--accent); margin: 8px 0 2px; }
 .ticks { display: flex; justify-content: space-between; font-size: 10px; color: var(--ink-dim); }
 .ticks button { background: none; border: 0; color: var(--ink-dim); font-size: 10.5px; cursor: pointer; padding: 2px 3px; border-radius: 0; }
-.ticks button.on, .ticks button:hover { color: #1b1406; background: var(--accent-2); }
+.ticks button.on { color: #1b1406; background: var(--accent-2); }
+@media (hover: hover) { .ticks button:hover { color: #1b1406; background: var(--accent-2); } }
 .era-card { margin-top: 8px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start; }
 .era-card .big { font-family: var(--display); font-weight: 900; font-size: 24px; color: #e8f4f8; white-space: nowrap; }
 .era-card p { margin: 0; font-size: 12px; line-height: 1.4; color: var(--ink); }
@@ -265,7 +272,7 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .tour-head .tb-btn { flex: none; }
 .tour-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .tour-card { text-align: left; background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--ink); border-radius: 0; padding: 10px 12px; cursor: pointer; transition: 0.15s; }
-.tour-card:hover { border-color: var(--accent-2); background: rgba(255, 182, 39,0.12); transform: translateY(-2px); }
+@media (hover: hover) { .tour-card:hover { border-color: var(--accent-2); background: rgba(255, 182, 39,0.12); transform: translateY(-2px); } }
 .tour-card b { display: block; font-family: var(--display); color: #e8f4f8; font-size: 14px; margin-bottom: 3px; }
 .tour-card span { font-size: 11.5px; color: var(--ink-dim); }
 /* Tour card: the narration used to be a wide bar across the bottom, which
@@ -280,7 +287,7 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .narr .k { font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-2); line-height: 1.45; }
 .narr-x { flex: none; background: transparent; border: none; color: var(--ink-dim);
   cursor: pointer; font-size: 13px; line-height: 1; padding: 0 1px; }
-.narr-x:hover { color: var(--ink); }
+@media (hover: hover) { .narr-x:hover { color: var(--ink); } }
 .narr-body { overflow-y: auto; min-height: 0; scrollbar-width: thin; scrollbar-color: var(--accent-dim) transparent; }
 .narr-step { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--ink-dim); }
 .narr h3 { margin: 2px 0 6px; font-family: var(--display); font-size: 17px; line-height: 1.2; color: #eaf6fa; }
@@ -296,6 +303,8 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .narr-ctl .tb-btn { height: 27px; padding: 0 9px; font-size: 12px; }
 .narr .prog { position: absolute; left: 0; bottom: 0; height: 2px; background: var(--accent-2); transition: width 0.2s linear; border-radius: 0; }
 body.touring .dock, body.touring .legend, body.touring .inspector, body.touring .timebar { opacity: 0.15; pointer-events: none; }
+/* #hud > * turns pointer events back on with an id's weight, so say it again with one */
+body.touring #hud > :is(.dock, .legend, .inspector, .timebar) { pointer-events: none; }
 
 /* ---------- cinema: every tour end to end, nothing in the way
    One exit, top right. The narration stays — it is the tour's substance,
@@ -309,7 +318,7 @@ body.cinema .narr .row, body.cinema .narr-x { display: none !important; }
   clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
   backdrop-filter: blur(8px); transition: 0.15s; }
 body.cinema .cinema-exit { display: grid; }
-.cinema-exit:hover { background: var(--accent); color: #141000; border-color: var(--accent); }
+@media (hover: hover) { .cinema-exit:hover { background: var(--accent); color: #141000; border-color: var(--accent); } }
 body[data-mood=night] .glass { background: linear-gradient(180deg, rgba(14, 17, 30, 0.8), rgba(5, 7, 14, 0.82)); }
 @media (max-width: 1340px) { .yield .k { display: none; } .tb-btn { padding: 0 9px; } .yields { gap: 2px; } }
 .tb-btn { white-space: nowrap; flex: none; }
@@ -360,18 +369,18 @@ body.intro-on .labels-layer { opacity: 0; }
 .gw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .gw-card { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 9px; text-align: left; align-items: start;
   background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.08); border-radius: 0; padding: 10px 11px; color: var(--ink); cursor: pointer; transition: 0.15s; }
-.gw-card:hover { border-color: var(--accent); background: rgba(255, 182, 39,0.1); transform: translateY(-2px); }
+@media (hover: hover) { .gw-card:hover { border-color: var(--accent); background: rgba(255, 182, 39,0.1); transform: translateY(-2px); } }
 .gw-card .gw-ico { grid-row: span 2; font-size: 22px; }
 .gw-card b { font-family: var(--display); color: #e8f4f8; font-size: 14px; }
 .gw-card span:last-child { font-size: 11.5px; color: var(--ink-dim); line-height: 1.35; }
 .gw-actions { display: flex; gap: 10px; margin-top: 18px; align-items: center; }
 .gw-primary { background: linear-gradient(180deg, var(--accent-2), var(--accent)); color: #1b1406; border: 0; border-radius: 0; padding: 12px 20px; font-weight: 800;
   font-size: 15px; cursor: pointer; box-shadow: 0 6px 24px rgba(255, 182, 39,0.35); transition: 0.15s; }
-.gw-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(255, 182, 39,0.5); }
+@media (hover: hover) { .gw-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(255, 182, 39,0.5); } }
 .gw-primary small { font-weight: 600; opacity: 0.7; font-size: 11px; }
 .gw-primary.small { padding: 7px 14px; font-size: 13px; border-radius: 0; }
 .gw-secondary { background: rgba(255,255,255,0.05); color: var(--ink); border: 1px solid var(--line); border-radius: 0; padding: 12px 18px; font-size: 14px; font-weight: 600; cursor: pointer; }
-.gw-secondary:hover { border-color: var(--accent); }
+@media (hover: hover) { .gw-secondary:hover { border-color: var(--accent); } }
 .gw-hint { font-size: 11px; color: var(--ink-dim); margin-top: 4px; }
 @media (max-width: 1100px) { .gw-grid { grid-template-columns: repeat(3, 1fr); } }
 
@@ -395,7 +404,7 @@ body.intro-on .labels-layer { opacity: 0; }
 .gd-top { display: flex; justify-content: space-between; align-items: center; }
 .gd-count { font-size: 11px; letter-spacing: 0.16em; color: var(--accent-2); font-weight: 700; }
 .gd-skip { background: none; border: 0; color: var(--ink-dim); font-size: 11.5px; cursor: pointer; }
-.gd-skip:hover { color: #fff; }
+@media (hover: hover) { .gd-skip:hover { color: #fff; } }
 .gd-card h3 { margin: 6px 0 6px; font-family: var(--display); font-size: 19px; color: #eaf6fa; }
 .gd-card p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink); }
 .gd-dots { display: flex; gap: 4px; margin: 12px 0 10px; flex-wrap: wrap; }
@@ -443,3 +452,15 @@ body.guiding .modal:not(.guide-welcome) { z-index: 50; }
 .dock-head { border-bottom: none; }
 /* the progress dots become ticks on a scale */
 .narr .dots i, .gd-dots i { width: 10px; height: 3px; border-radius: 0; }
+
+/* ---------- touch screens on the desktop layout (iPad landscape and wider):
+   finger-sized controls. Phones and tablets up to 1100px get ui/mobile.css. */
+@media (pointer: coarse) {
+  body:not(.mobile) :is(.tb-btn, .lens-btn, .layer-btn, .chip) { min-height: 40px; }
+  body:not(.mobile) :is(.narr-x, .insp-close, .gw-x, .pc-x, .dock-collapse) { min-width: 44px; min-height: 44px; display: grid; place-items: center; }
+  body:not(.mobile) .narr-ctl .tb-btn { height: 40px; min-width: 44px; justify-content: center; }
+}
+/* touch: pressed states, since :hover is for pointers that hover */
+@media (hover: none) {
+  :is(.lens-btn, .layer-btn, .chip, .tour-card, .pc-btn, .pc-x, .duel-chip, .gw-card, .srch-row, .tb-btn, .exp-lg, .lg-cat, .badge, .ticks button, .gw-primary, .gw-secondary):active { filter: brightness(1.25); }
+}

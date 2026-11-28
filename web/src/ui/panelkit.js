@@ -107,7 +107,7 @@ export function onHidden(node, fn) {
 /** Build a panel shell: { root, body, head }. */
 export function panel(app, { cls, title, sub = null, actions = [], onClose = null }) {
   const root = el('div', { class: `modal pc-panel glass hidden ${cls}` });
-  const close = el('button', { class: 'pc-x', title: 'Close (Esc)', text: '✕', onclick: () => { root.classList.add('hidden'); } });
+  const close = el('button', { class: 'pc-x', title: 'Close (Esc)', 'aria-label': 'Close', text: '✕', onclick: () => { root.classList.add('hidden'); } });
   const head = el('div', { class: 'pc-head' }, [
     el('div', { class: 'pc-titles' }, [el('h2', { class: 'pc-title', text: title }), sub ? el('div', { class: 'pc-sub', text: sub }) : '']),
     el('div', { class: 'pc-actions' }, [...actions, close]),

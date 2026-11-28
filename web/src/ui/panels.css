@@ -14,10 +14,11 @@
 .pc-x, .pc-btn { background: rgba(255, 255, 255, 0.04); color: var(--ink); border: 1px solid var(--line); border-radius: 0; cursor: pointer;
   font-size: 12.5px; font-weight: 600; height: 30px; padding: 0 11px; transition: 0.15s; white-space: nowrap; }
 .pc-x { width: 30px; padding: 0; }
-.pc-x:hover, .pc-btn:hover, .pc-btn.on { border-color: var(--accent); background: rgba(255, 182, 39, 0.18); color: #fff6dc; }
+.pc-btn.on { border-color: var(--accent); background: rgba(255, 182, 39, 0.18); color: #fff6dc; }
+@media (hover: hover) { .pc-x:hover, .pc-btn:hover { border-color: var(--accent); background: rgba(255, 182, 39, 0.18); color: #fff6dc; } }
 .pc-btn.small { height: 24px; font-size: 11px; padding: 0 8px; }
 .pc-btn.gold { background: linear-gradient(180deg, var(--accent-2), var(--accent)); color: #1b1406; border-color: var(--accent-2); }
-.pc-btn.gold:hover { filter: brightness(1.08); color: #1b1406; }
+@media (hover: hover) { .pc-btn.gold:hover { filter: brightness(1.08); color: #1b1406; } }
 .pc-btn.on { animation: pc-pulse 1.4s ease-in-out infinite; }
 @keyframes pc-pulse { 50% { box-shadow: 0 0 0 4px rgba(255, 182, 39, 0.18); } }
 .pc-input, .pc-select { background: rgba(0, 0, 0, 0.35); color: var(--ink); border: 1px solid var(--line); border-radius: 0;
@@ -29,7 +30,7 @@
 .nd { color: var(--ink-dim); opacity: 0.7; cursor: help; }
 .pc-tip { position: fixed; left: 0; top: 0; z-index: 40; pointer-events: none; width: 240px; padding: 9px 11px; font-size: 12px; }
 .pc-panel a, .surp a { color: var(--accent-2); text-decoration: none; border-bottom: 1px dotted var(--accent-dim); }
-.pc-panel a:hover, .surp a:hover { color: #e8f4f8; border-bottom-color: var(--accent-2); }
+@media (hover: hover) { .pc-panel a:hover, .surp a:hover { color: #e8f4f8; border-bottom-color: var(--accent-2); } }
 .sw { display: inline-block; width: 9px; height: 9px; border-radius: 0; margin-right: 6px; vertical-align: 0; flex: none;
   box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.5); }
 
@@ -65,7 +66,7 @@
 .alm-count { font-size: 12px; color: var(--ink-dim); white-space: nowrap; }
 .alm-list { display: flex; flex-direction: column; gap: 10px; }
 .alm-card { border: 1px solid rgba(255, 182, 39, 0.2); border-radius: 0; padding: 12px 14px; background: rgba(255, 255, 255, 0.025); transition: border-color 0.2s; }
-.alm-card:hover { border-color: var(--line); }
+@media (hover: hover) { .alm-card:hover { border-color: var(--line); } }
 .alm-card.flash { animation: alm-flash 2.2s ease-out; }
 @keyframes alm-flash { 0%, 30% { border-color: var(--accent-2); box-shadow: 0 0 0 3px rgba(127, 231, 255, 0.35), 0 0 30px rgba(255, 182, 39, 0.35); background: rgba(255, 182, 39, 0.12); } }
 .alm-card header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
@@ -99,7 +100,7 @@
 .exp-table th { position: sticky; top: 0; z-index: 1; background: #171a20; color: var(--ink-dim); font-weight: 600; font-size: 11px;
   padding: 7px 7px; border-bottom: 1px solid var(--line); cursor: pointer; white-space: nowrap; user-select: none; text-align: right; }
 .exp-table th.str { text-align: left; }
-.exp-table th:hover { color: var(--ink); }
+@media (hover: hover) { .exp-table th:hover { color: var(--ink); } }
 .exp-table th.on { color: var(--accent-2); }
 .exp-table th i { font-style: normal; font-size: 9px; }
 .exp-table td { padding: 5px 7px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); white-space: nowrap; text-align: right; }
@@ -107,7 +108,8 @@
 .exp-table td.nm { font-weight: 600; }
 .exp-table .rk { color: var(--ink-dim); opacity: 0.6; text-align: right; width: 28px; }
 .exp-table tbody tr { cursor: pointer; transition: background 0.1s; }
-.exp-table tbody tr:hover, .exp-table tbody tr.hov { background: rgba(255, 182, 39, 0.13); }
+.exp-table tbody tr.hov { background: rgba(255, 182, 39, 0.13); }
+@media (hover: hover) { .exp-table tbody tr:hover { background: rgba(255, 182, 39, 0.13); } }
 .exp-table tbody tr.hov td.nm { color: var(--accent-2); }
 .exp-plot { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
 .exp-axes { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
@@ -121,7 +123,8 @@
 .exp-svg .tick { fill: var(--ink-dim); font-size: 10.5px; font-family: var(--sans); font-variant-numeric: tabular-nums; }
 .exp-svg .alabel { fill: var(--ink); font-size: 11.5px; font-family: var(--sans); font-weight: 600; }
 .exp-svg .pt { stroke: #101318; stroke-width: 1.5; cursor: pointer; transition: r 0.12s, opacity 0.15s; opacity: 0.9; }
-.exp-svg .pt:hover, .exp-svg .pt.hov { r: 8; stroke: var(--accent-2); stroke-width: 2; opacity: 1; }
+.exp-svg .pt.hov { r: 8; stroke: var(--accent-2); stroke-width: 2; opacity: 1; }
+@media (hover: hover) { .exp-svg .pt:hover { r: 8; stroke: var(--accent-2); stroke-width: 2; opacity: 1; } }
 .exp-svg .pt.dim { opacity: 0.18; }
 .exp-svg .pt.sel { stroke: var(--accent-2); }
 .exp-svg .brush { fill: rgba(255, 182, 39, 0.12); stroke: var(--accent); stroke-width: 1; stroke-dasharray: 4 3; pointer-events: none; }
@@ -131,7 +134,7 @@
 .exp-legend { display: flex; flex-wrap: wrap; gap: 4px; }
 .exp-lg { display: inline-flex; align-items: center; background: transparent; color: var(--ink); border: 1px solid rgba(255, 182, 39, 0.2);
   border-radius: 0; padding: 3px 9px; font-size: 11px; cursor: pointer; transition: 0.15s; }
-.exp-lg:hover { border-color: var(--accent); }
+@media (hover: hover) { .exp-lg:hover { border-color: var(--accent); } }
 .exp-lg.off { opacity: 0.4; text-decoration: line-through; }
 
 /* ---------- duel */
@@ -144,16 +147,19 @@
   font-size: 10.5px; font-weight: 800; color: #12100a; }
 .duel-slot.s0 .duel-badge, .duel-n.s0 b::before { background: var(--accent); }
 .duel-slot.s1 .duel-badge { background: var(--contrast-2); }
-.duel-ac { position: absolute; top: 36px; left: 0; right: 0; z-index: 5; background: #15181e; border: 1px solid var(--line); border-radius: 0; padding: 4px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+.duel-ac { position: absolute; top: 36px; left: 0; right: 0; z-index: 5; background: #15181e; border: 1px solid var(--line); border-radius: 0; padding: 4px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow-y: auto; overscroll-behavior: contain; }
+.duel-ac.above { top: auto; bottom: calc(100% + 4px); }
 .duel-ac div { display: flex; flex-direction: column; padding: 5px 8px; border-radius: 0; cursor: pointer; }
-.duel-ac div.on, .duel-ac div:hover { background: rgba(255, 182, 39, 0.18); }
+.duel-ac div.on { background: rgba(255, 182, 39, 0.18); }
+@media (hover: hover) { .duel-ac div:hover { background: rgba(255, 182, 39, 0.18); } }
 .duel-ac b { font-size: 13px; font-weight: 600; }
 .duel-ac small { font-size: 10.5px; color: var(--ink-dim); }
 .duel-tools { display: flex; gap: 6px; margin: 10px 0 8px; }
 .duel-tools .pc-btn:first-child { flex: 1; }
 .duel-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
 .duel-chip { background: rgba(47, 107, 128, 0.12); color: #d8eef7; border: 1px solid rgba(127, 231, 255, 0.35); border-radius: 0; padding: 4px 10px; font-size: 11.5px; cursor: pointer; transition: 0.15s; }
-.duel-chip:hover { background: rgba(127, 231, 255, 0.25); color: #fff; }
+@media (hover: hover) { .duel-chip:hover { background: rgba(127, 231, 255, 0.25); color: #fff; } }
 .duel-empty { text-align: center; padding: 30px 10px; color: var(--ink-dim); }
 .duel-empty-ico { font-size: 44px; opacity: 0.7; }
 .duel-names { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }

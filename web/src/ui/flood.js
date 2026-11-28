@@ -64,7 +64,7 @@ export class FloodPlayer {
     const P = this.periods;
     this.slider = el('input', { type: 'range', min: 0, max: Math.max(0, P.length - 1), step: 0.01, value: 0,
       oninput: (e) => { this.playing = false; this.playBtn.textContent = '▶'; this.t = +e.target.value; this._apply(this.t); } });
-    this.playBtn = el('button', { class: 'play', text: '▶', title: 'Play the surge', onclick: () => this.toggle() });
+    this.playBtn = el('button', { class: 'play', text: '▶', title: 'Play the surge', 'aria-label': 'Play or pause the surge', onclick: () => this.toggle() });
     this.stats = el('div', { class: 'flood-stats' });
     this.root = el('div', { class: 'timebar glass hidden' }, [
       el('h5', {}, [el('span', { text: '🌊 2022 MEGA-FLOOD · surge playback' }), el('small', { text: 'UNOSAT weekly satellite extents' })]),

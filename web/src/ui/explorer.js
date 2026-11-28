@@ -61,19 +61,37 @@ export class Explorer {
     this.brush = null; // Set of district indices
     this.hiddenProv = new Set();
     this.hover = null;
-    const minBtn = el('button', { class: 'pc-btn', title: 'Minimise / restore', text: '▁', onclick: () => this.toggleMin() });
+    const minBtn = el('button', { class: 'pc-btn', title: 'Minimise / restore', 'aria-label': 'Minimise or restore', text: '▁', onclick: () => this.toggleMin() });
     const p = panel(app, {
       cls: 'exp', title: '📊 Explorer', sub: `${app.districts.length} districts · click a row or point to fly there · drag on the plot to brush`,
       actions: [minBtn], onClose: () => { this._restoreHighlight(true); this.tip.classList.add('hidden'); },
     });
     this.root = p.root;
+    // a finger has no drag-to-brush without a hold first (the plot scrolls)
+    p.head.querySelector('.pc-sub').replaceChildren(
+      el('span', { class: 'only-desk', text: p.head.querySelector('.pc-sub').textContent }),
+      el('span', { class: 'only-touch', text: `${app.districts.length} districts · tap a row or point for its card · press and hold the plot, then drag, to brush` }));
     p.head.addEventListener('dblclick', () => this.toggleMin());
+    // on a phone the minimised Explorer is a bar above the dock; tapping it brings the table back
+    p.head.addEventListener('click', (e) => { if (this.app.mobile?.on && this.root.classList.contains('min') && !e.target.closest('button')) this.toggleMin(); });
 
     // table
     this.thead = el('thead');
     this.tbody = el('tbody', { onpointerleave: () => this._hover(null) });
     this.tableInfo = el('div', { class: 'exp-info' });
     const tableWrap = el('div', { class: 'exp-table' }, [el('table', {}, [this.thead, this.tbody])]);
+    // Phones show three columns: District, the one it is sorted by, and one
+    // more of the reader's choosing. Every other figure is in the row's card.
+    this.extra = 'pop';
+    const colSel = (get, set) => el('select', { class: 'pc-select', onchange: (e) => { set(e.target.value); this.drawTable(); } },
+      COLUMNS.map((c) => el('option', { value: c.key, text: c.title ? `${c.label} · ${c.title.split(' (')[0]}` : c.label, selected: get() === c.key ? true : null })));
+    this.sortSel = colSel(() => this.sort.key, (k) => { const c = COLUMNS.find((x) => x.key === k); this.sort = { key: k, dir: c?.str ? 1 : -1 }; });
+    this.extraSel = colSel(() => this.extra, (k) => { this.extra = k; });
+    this.dirBtn = el('button', { class: 'pc-btn', title: 'Reverse the order', 'aria-label': 'Reverse the order', onclick: () => { this.sort = { ...this.sort, dir: -this.sort.dir }; this.drawTable(); } });
+    const phoneCols = el('div', { class: 'exp-mcols only-touch' }, [
+      el('label', {}, [el('span', { text: 'Sort' }), this.sortSel, this.dirBtn]),
+      el('label', {}, [el('span', { text: 'Also' }), this.extraSel]),
+    ]);
 
     // scatter controls
     const sel = (axis) => el('select', { class: 'pc-select', onchange: (e) => { this.ax[axis] = e.target.value; this.clearBrush(false); this.drawPlot(); } },
@@ -93,7 +111,7 @@ export class Explorer {
       el('div', { class: 'exp-under' }, [this.rEl, el('button', { class: 'pc-btn small', text: 'Clear brush', onclick: () => this.clearBrush() })]),
       this.legend,
     ]);
-    p.body.append(el('div', { class: 'exp-grid' }, [el('div', { class: 'exp-left' }, [this.tableInfo, tableWrap]), plot]));
+    p.body.append(el('div', { class: 'exp-grid' }, [el('div', { class: 'exp-left' }, [phoneCols, this.tableInfo, tableWrap]), plot]));
     this.tip = el('div', { class: 'pc-tip glass hidden' });
     app.hud.append(this.tip);
     this._bindBrush();
@@ -132,8 +150,17 @@ export class Explorer {
     return idx;
   }
 
+  /** The columns on screen: all of them, or on a phone District + sort + one more. */
+  _cols() {
+    if (!this.app.mobile?.on) return COLUMNS;
+    const keep = new Set(['name', this.sort.key, this.extra]);
+    return COLUMNS.filter((c) => keep.has(c.key));
+  }
+
   drawTable() {
-    this.thead.replaceChildren(el('tr', {}, [el('th', { class: 'rk', text: '#' }), ...COLUMNS.map((c) => el('th', {
+    const cols = this._cols();
+    if (this.sortSel) { this.sortSel.value = this.sort.key; this.extraSel.value = this.extra; this.dirBtn.textContent = this.sort.dir > 0 ? '▲' : '▼'; }
+    this.thead.replaceChildren(el('tr', {}, [el('th', { class: 'rk', text: '#' }), ...cols.map((c) => el('th', {
       class: `${c.str ? 'str' : 'num'}${this.sort.key === c.key ? ' on' : ''}`, title: c.title ? `${c.title} — click to sort` : 'Click to sort',
       onclick: () => { this.sort = this.sort.key === c.key ? { key: c.key, dir: -this.sort.dir } : { key: c.key, dir: c.str ? 1 : -1 }; this.drawTable(); },
     }, [c.label, this.sort.key === c.key ? el('i', { text: this.sort.dir > 0 ? ' ▲' : ' ▼' }) : '']))]));
@@ -143,11 +170,11 @@ export class Explorer {
       'data-i': i, class: this.hover === i ? 'hov' : null,
       onpointerenter: (e) => this._hover(i, e.clientX, e.clientY, 'row'),
       onclick: () => this._choose(i),
-    }, [el('td', { class: 'rk', text: r + 1 }), ...COLUMNS.map((c) => {
+    }, [el('td', { class: 'rk', text: r + 1 }), ...cols.map((c) => {
       const v = get(ds[i], c.key);
       if (c.key === 'name') return el('td', { class: 'str nm' }, [el('i', { class: 'sw', style: { background: PROVINCE_COLORS[ds[i].province] } }), v]);
       return val(v, c.f || String, 'td');
-    }).map((td, k) => { td.classList.add(COLUMNS[k].str ? 'str' : 'num'); return td; })])));
+    }).map((td, k) => { td.classList.add(cols[k].str ? 'str' : 'num'); return td; })])));
     this.tableInfo.textContent = this.brush
       ? `Brushed: ${rows.length} district${rows.length === 1 ? '' : 's'} (union highlighted on the map)`
       : `${rows.length} districts${this.hiddenProv.size ? ` · ${this.hiddenProv.size} province(s) hidden` : ''} · “—” = no data published`;
@@ -229,25 +256,53 @@ export class Explorer {
   }
 
   _bindBrush() {
-    let start = null;
+    // A mouse brushes on drag. A finger scrolls the panel on drag (the plot
+    // is touch-action: pan-y on phones) and brushes only after a ~300 ms hold.
+    let start = null, armed = null, hold = 0;
+    const HOLD_MS = 300, SLOP = 8;
+    const disarm = () => { clearTimeout(hold); armed = null; };
     this.svg.addEventListener('pointerdown', (e) => {
       if (e.target.classList?.contains('pt') || e.button !== 0) return;
+      if (e.pointerType === 'touch') {
+        disarm();
+        armed = { pointerId: e.pointerId, clientX: e.clientX, clientY: e.clientY };
+        hold = setTimeout(() => {
+          if (!armed) return;
+          start = this._svgPoint(armed);
+          try { this.svg.setPointerCapture(armed.pointerId); } catch { /* the finger already lifted */ }
+          this.svg.classList.add('brushing'); navigator.vibrate?.(8);
+          this.tip.classList.add('hidden');
+        }, HOLD_MS);
+        return;
+      }
       start = this._svgPoint(e); this.svg.setPointerCapture(e.pointerId);
       this.tip.classList.add('hidden');
     });
+    // once the hold has armed the brush, the finger's moves draw it instead of scrolling
+    this.svg.addEventListener('touchmove', (e) => { if (start) e.preventDefault(); }, { passive: false });
+    this.svg.addEventListener('pointercancel', () => {
+      disarm(); this.svg.classList.remove('brushing');
+      if (start) { start = null; this.brushRect.classList.add('hidden'); }
+    });
     this.svg.addEventListener('pointermove', (e) => {
+      if (armed && !start && Math.hypot(e.clientX - armed.clientX, e.clientY - armed.clientY) > SLOP) disarm();
       if (!start) return;
       const p = this._svgPoint(e);
       Object.entries({ x: Math.min(start.x, p.x), y: Math.min(start.y, p.y), width: Math.abs(p.x - start.x), height: Math.abs(p.y - start.y) }).forEach(([k, v]) => this.brushRect.setAttribute(k, v));
       this.brushRect.classList.remove('hidden');
     });
     this.svg.addEventListener('pointerup', (e) => {
+      // a quick tap on the plot clears the brush, as a click does
+      if (armed && !start) { disarm(); if (this.brush) this.clearBrush(); return; }
+      disarm(); this.svg.classList.remove('brushing');
       if (!start) return;
       const p = this._svgPoint(e), a = start; start = null;
       if (Math.abs(p.x - a.x) < 4 && Math.abs(p.y - a.y) < 4) { this.clearBrush(); return; }
       const [xa, xb] = [Math.min(a.x, p.x), Math.max(a.x, p.x)], [ya, yb] = [Math.min(a.y, p.y), Math.max(a.y, p.y)];
       const { sx, sy } = this.scale;
       this.brush = new Set(this.pts.filter((q) => { const X = sx(q.tx), Y = sy(q.ty); return X >= xa && X <= xb && Y >= ya && Y <= yb; }).map((q) => q.i));
+      // on a phone, a box that caught nothing is a miss, not an empty table
+      if (!this.brush.size && this.app.mobile?.on) { this.clearBrush(); return; }
       for (const [i, c] of this.dots) { c.classList.toggle('dim', !this.brush.has(i)); c.classList.toggle('sel', this.brush.has(i)); }
       this.drawTable();
       this._restoreHighlight();
@@ -297,6 +352,9 @@ export class Explorer {
   }
 
   _choose(i) {
+    // on a phone the card opens over the map; the Explorer folds to a bar
+    // above the dock, keeping its sort, scroll and brush for the next pick
+    if (this.app.mobile?.on) { this.root.classList.add('min'); this.tip.classList.add('hidden'); }
     this.app.select({ district: i });
     this.app.flyToDistrict(i);
   }
