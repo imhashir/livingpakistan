@@ -6,6 +6,7 @@
 // easy to lose among its neighbours. Outlining the ground it stands on says
 // "this one" without covering the landscape the tour flew there to show.
 import * as THREE from 'three';
+import { requestRender } from './frame.js';
 
 // Corner angles (degrees, y-down map space) of the edge shared with neighbour
 // direction E, SE, SW, W, NW, NE — the same convention as scene/borders.js.
@@ -100,14 +101,17 @@ export class Outline {
     this.mesh.geometry = g;
     this.mesh.visible = true;
     this._shownAt = null; // faded in on the next tick
+    requestRender({ shadows: false });
   }
 
-  hide() { this.mesh.visible = false; this.uniforms.uFade.value = 0; }
+  hide() { this.mesh.visible = false; this.uniforms.uFade.value = 0; requestRender({ shadows: false }); }
 
-  tick(t) {
-    if (!this.mesh.visible) return;
-    if (this._shownAt == null) this._shownAt = t;
+  /** `t` drives the breathing pulse (ambient clock), `rt` the fade-in (real time). True while fading. */
+  tick(t, rt = t) {
+    if (!this.mesh.visible) return false;
+    if (this._shownAt == null) this._shownAt = rt;
     this.uniforms.uTime.value = t;
-    this.uniforms.uFade.value = Math.min(1, (t - this._shownAt) / 0.45);
+    this.uniforms.uFade.value = Math.min(1, (rt - this._shownAt) / 0.45);
+    return this.uniforms.uFade.value < 1;
   }
 }

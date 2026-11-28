@@ -1,5 +1,6 @@
 // Borders drawn along hex edges: a glowing gold national frontier, province lines and faint district lines.
 import * as THREE from 'three';
+import { requestRender } from './frame.js';
 
 // Corner angles (degrees, y-down map space) of the edge shared with neighbour direction E, SE, SW, W, NW, NE.
 const EDGE = [[-30, 30], [30, 90], [90, 150], [150, 210], [210, 270], [270, 330]];
@@ -25,7 +26,9 @@ export class Borders {
   }
 
   build() {
-    this.group.clear();
+    for (const o of [...this.group.children]) { o.removeFromParent(); o.geometry?.dispose(); }
+    // the curtain's shader material is rebuilt with the geometry; the three line materials are shared
+    this._curtainMat?.dispose();
     const b = this.board, w = b.world, R = b.grid.radius * 0.985;
     const buckets = { nation: [], province: [], district: [] };
     const prov = (o) => (o >= 0 ? this.districts[o].province : null);
@@ -47,6 +50,7 @@ export class Borders {
         buckets[kind].push([p0, p1, y]);
       }
     }
+    requestRender({ shadows: false });
     const widths = { nation: 1.5, province: 0.9, district: 0.35 };
     for (const [kind, segs] of Object.entries(buckets)) {
       const pos = new Float32Array(segs.length * 18);
@@ -78,6 +82,7 @@ export class Borders {
           vertexShader: 'varying float vY; void main(){ vY = uv.y; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
           fragmentShader: 'varying float vY; void main(){ gl_FragColor = vec4(vec3(1.0, 0.75, 0.3) * (1.0 - vY) * 0.35, 1.0); }',
         });
+        this._curtainMat = cm;
         const curtain = new THREE.Mesh(cg, cm); curtain.name = 'nation'; curtain.renderOrder = 7;
         this.group.add(curtain);
       }
@@ -87,5 +92,6 @@ export class Borders {
   setVisible(kind, on) {
     this.visible[kind] = on;
     this.group.children.forEach((m) => { if (m.name === kind) m.visible = on; });
+    requestRender({ shadows: false });
   }
 }
