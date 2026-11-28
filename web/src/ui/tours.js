@@ -1,6 +1,7 @@
 // "Chronicles of Pakistan": cinematic guided tours. Every number in a caption is read from the loaded data at runtime.
 import { el, fmt } from './dom.js';
 import { LABELS } from './lenses.js';
+import { TourChip, tourChipVariant } from './tourchip.js';
 
 const norm = (s) => (s || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g, '');
 
@@ -12,6 +13,9 @@ export class Tours {
     // the one control cinema mode leaves on screen
     this.exitBtn = el('button', { class: 'cinema-exit', title: 'Exit (Esc)', onclick: () => this.stop() }, ['✕']);
     app.hud.append(this.menu, this.narr, this.exitBtn);
+    // design preview: ?tourchip=A|B|C|D folds the card into a corner chip on phones
+    const chip = tourChipVariant();
+    this.chip = chip ? new TourChip(this, chip) : null;
     this.tours = this._define();
     this.menu.append(
       el('div', { class: 'tour-head' }, [
@@ -230,13 +234,14 @@ export class Tours {
         el('div', { class: 'count', text: `${i + 1} / ${steps.length}` }),
         el('div', { class: 'narr-ctl' }, [
           el('button', { class: 'tb-btn', text: '◀', title: 'Previous (←)', onclick: () => this.prev() }),
-          el('button', { class: 'tb-btn', text: this.paused ? '▶' : '❚❚', title: 'Pause / resume', onclick: (e) => { this.paused = !this.paused; e.target.textContent = this.paused ? '▶' : '❚❚'; } }),
+          el('button', { class: 'tb-btn narr-pause', text: this.paused ? '▶' : '❚❚', title: 'Pause / resume', onclick: () => this.togglePause() }),
           el('button', { class: 'tb-btn', text: i === steps.length - 1 ? 'Finish' : '▶', title: i === steps.length - 1 ? 'Finish tour' : 'Next (→)', onclick: () => this.next() }),
         ]),
       ]),
       prog);
     this.narr.classList.remove('hidden');
     this.narr.style.animation = 'none'; void this.narr.offsetWidth; this.narr.style.animation = '';
+    this.chip?.update({ tour: a.tour, i, steps, st });
     this._focus = null;
     this.app.focusOn(null);
     await st.go?.();
@@ -249,8 +254,16 @@ export class Tours {
       if (!this.active || this.active.token !== token) return;
       if (!this.paused) t += 100;
       prog.style.width = `${(100 * t) / dwell}%`;
+      this.chip?.progress(t / dwell);
     }
     if (this.active && this.active.token === token) this.next();
+  }
+
+  togglePause() {
+    this.paused = !this.paused;
+    const b = this.narr.querySelector('.narr-pause');
+    if (b) b.textContent = this.paused ? '▶' : '❚❚';
+    this.chip?.syncPause();
   }
 
   next() { if (this.active) this.show(this.active.i + 1); }
@@ -271,6 +284,7 @@ export class Tours {
     this.loopAll = false;
     document.body.classList.remove('cinema');
     this.narr.classList.add('hidden'); document.body.classList.remove('touring');
+    this.chip?.hide();
     this.app.lines.focusCorridor(null);
     this.app.focusOn(null);
     this.app.flood?.hide(); if (this.app.lens.current === 'flood') this.app.flood.show();

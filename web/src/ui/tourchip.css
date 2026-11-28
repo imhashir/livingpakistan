@@ -1,0 +1,142 @@
+/* Design preview (?tourchip=A|B|C|D, see tourchip.js). Everything is scoped
+   to body.mobile.tc: desktop, and phones without the flag, never match.
+   The card is the real tour narration (.narr), moved to the top-right corner
+   and clipped down to the chip's own outline while collapsed; opening grows
+   the clip from the chip's corner to the full card, so the chip appears to
+   turn into the card in place. */
+
+.tc-chip { display: none; }
+
+body.mobile.tc.touring .tc-chip:not(.hidden) {
+  display: flex; align-items: center; position: fixed; z-index: 26;
+  top: var(--m-top); right: var(--m-r);
+  /* never reach the brand badge on the left (~186px on a 390px phone) */
+  max-width: calc(100vw - var(--m-l) - var(--m-r) - 190px);
+  color: var(--ink);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+/* cinema has its own exit in this corner: sit just below it */
+body.mobile.tc.cinema .tc-chip { top: calc(var(--m-top) + 52px); }
+
+/* no callout, selection or magnifier on a long press; the chip handles its own touches */
+.tc-chip, .tc-chip * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.tc-hold { touch-action: none; cursor: pointer; outline: none; }
+.tc-hold:focus-visible { box-shadow: inset 0 0 0 1.5px var(--accent); }
+
+.tc-btn { flex: none; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; margin: 0;
+  background: none; border: 0; color: var(--accent-2); cursor: pointer; touch-action: manipulation; }
+.tc-btn:active { color: var(--accent); }
+.tc-svg { display: grid; place-items: center; }
+.tc-svg svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tc-count { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ---------- the card, as the chip's expanded state */
+body.mobile.tc .narr {
+  top: var(--tc-top, var(--m-top)); right: var(--m-r); left: auto; bottom: auto;
+  width: min(374px, calc(100vw - var(--m-l) - var(--m-r))); max-height: calc(100dvh - var(--m-top) - var(--m-dock-b) - 24px);
+  z-index: 27; animation: none;
+  /* collapsed: the card's six-point outline gathered onto the chip's outline */
+  --tc-cut: min(var(--cut), calc(var(--tc-h, 44px) / 2));
+  clip-path: polygon(calc(100% - var(--tc-w, 44px) + var(--tc-cut)) 0, 100% 0, 100% calc(var(--tc-h, 44px) - var(--tc-cut)),
+    calc(100% - var(--tc-cut)) var(--tc-h, 44px), calc(100% - var(--tc-w, 44px)) var(--tc-h, 44px), calc(100% - var(--tc-w, 44px)) var(--tc-cut));
+  visibility: hidden; pointer-events: none;
+  transition: clip-path 0.22s cubic-bezier(.4, 0, .6, 1), visibility 0s linear 0.22s;
+}
+body.mobile.tc .narr > * { opacity: 0; transition: opacity 0.1s ease; }
+body.mobile.tc.tc-open .narr {
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+  visibility: visible; pointer-events: auto;
+  transition: clip-path 0.34s cubic-bezier(.2, .9, .25, 1), visibility 0s;
+}
+body.mobile.tc.tc-open .narr > * { opacity: 1; transition: opacity 0.2s ease 0.09s; }
+/* the progress hairline sits outside the fade, so it reads as part of the frame */
+body.mobile.tc .narr > .prog { opacity: 1; }
+/* a peek is a glance: a cyan edge says "let go to put it back" */
+body.mobile.tc.tc-peek .narr { border-color: var(--accent-2); }
+/* the chip steps back while the card stands on it (D keeps its strip) */
+body.mobile.tc.tc-open:not(.tc-D) .tc-chip { opacity: 0; }
+body.mobile.tc.tc-pinned:not(.tc-D) .tc-chip { pointer-events: none; }
+body.mobile.tc.tc-peek:not(.tc-D) .tc-chip { pointer-events: auto; }
+
+/* the card's head: eyebrow, then shrink and end-tour side by side */
+body.mobile.tc .narr-head { align-items: center; }
+body.mobile.tc .narr-x { width: 36px; height: 36px; font-size: 15px; margin: -8px -8px -8px 0; }
+.tc-min { display: none; }
+body.mobile.tc .narr-head .tc-min { display: grid; margin: -8px -6px -8px auto; color: var(--ink-dim); }
+body.mobile.tc .narr-head .tc-min svg { width: 16px; height: 16px; }
+body.mobile.tc .narr-head .tc-min + .narr-x { margin-left: 0; }
+
+/* ---------- A: pill with a progress ring that is also play/pause */
+body.mobile.tc-A.touring .tc-chip { height: 44px; padding: 0 2px 0 4px; gap: 0; }
+.tc-A .tc-pause { position: relative; width: 38px; height: 38px; }
+.tc-ring { position: absolute; inset: 1px; }
+.tc-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.tc-ring circle { fill: none; stroke-width: 2.6; }
+.tc-ring .trk { stroke: rgba(127, 231, 255, 0.18); }
+.tc-ring .val { stroke: var(--accent-2); stroke-dasharray: 100 100; stroke-dashoffset: 100; transition: stroke-dashoffset 0.2s linear;
+  filter: drop-shadow(0 0 3px rgba(127, 231, 255, 0.7)); }
+.tc-A .tc-pp svg { width: 13px; height: 13px; stroke-width: 2.6; }
+.tc-A .tc-chip.paused .tc-pp { color: var(--accent); }
+.tc-A .tc-chip.paused .tc-pp svg { fill: currentColor; stroke-width: 1.5; }
+.tc-A .tc-hold { display: flex; align-items: center; height: 44px; padding: 0 6px 0 6px; }
+
+/* ---------- B: the stop's name and its number */
+body.mobile.tc-B.touring .tc-chip { height: 44px; padding: 0 0 0 12px; gap: 2px; }
+.tc-B .tc-hold { display: flex; flex-direction: column; justify-content: center; gap: 5px; min-width: 0; height: 44px; padding-right: 10px; }
+.tc-B .tc-label { font-family: var(--display); font-weight: 700; font-size: 13.5px; color: #eaf6fa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tc-B .tc-dashes { display: flex; gap: 3px; }
+.tc-B .tc-dashes i { width: 12px; height: 2px; background: rgba(255, 255, 255, 0.2); }
+.tc-B .tc-dashes i.done { background: rgba(127, 231, 255, 0.55); }
+.tc-B .tc-dashes i.on { background: var(--accent-2); box-shadow: 0 0 6px var(--accent-2); }
+.tc-B .tc-next { width: 36px; height: 44px; border-left: 1px solid rgba(127, 231, 255, 0.18); }
+/* a swipe nudges the chip the way it went */
+.tc-B .tc-chip[data-swipe=next] { transform: translateX(-6px); }
+.tc-B .tc-chip[data-swipe=prev] { transform: translateX(6px); }
+
+/* ---------- C: round badge, step segments around the tour's icon */
+body.mobile.tc-C.touring .tc-chip { gap: 0; flex-direction: row-reverse; align-items: flex-start; }
+.tc-C .tc-hold { position: relative; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  background: radial-gradient(circle at 50% 40%, rgb(16, 30, 38), rgb(5, 11, 15)); border: 1px solid var(--line);
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.55)); }
+.tc-C .tc-hold:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+.tc-segs { position: absolute; inset: 1px; }
+.tc-segs svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.tc-segs circle { fill: none; stroke-width: 3; }
+.tc-segs .trk { stroke: rgba(255, 255, 255, 0.16); }
+.tc-segs .done { stroke: rgba(127, 231, 255, 0.6); }
+.tc-segs .val { stroke: var(--accent-2); filter: drop-shadow(0 0 3px rgba(127, 231, 255, 0.8)); }
+.tc-C .tc-icon { font-size: 19px; line-height: 1; }
+/* next hangs off the badge's lower-left, 36px to touch, drawn smaller */
+.tc-C .tc-next { margin: 22px -6px 0 0; width: 36px; height: 36px; }
+.tc-C .tc-next .tc-svg { width: 26px; height: 26px; border-radius: 50%; background: rgb(8, 16, 21); border: 1px solid var(--line); }
+.tc-C .tc-next svg { width: 14px; height: 14px; }
+.tc-C .tc-chip.paused .tc-icon { opacity: 0.45; }
+/* the card blooms out of the circle */
+body.mobile.tc-C .narr { clip-path: circle(23px at calc(100% - 24px) 24px); }
+body.mobile.tc-C.tc-open .narr { clip-path: circle(160% at calc(100% - 24px) 24px); transition: clip-path 0.42s cubic-bezier(.3, .8, .3, 1), visibility 0s; }
+
+/* ---------- D: slim ticker strip; the card unrolls beneath it */
+body.mobile.tc-D.touring .tc-chip { height: 36px; width: min(184px, calc(100vw - var(--m-l) - var(--m-r) - 194px)); padding: 0; gap: 0; overflow: hidden;
+  --cut: 7px; }
+.tc-D .tc-btn { width: 36px; height: 36px; }
+.tc-D .tc-btn svg { width: 15px; height: 15px; }
+.tc-D .tc-hold { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; height: 36px;
+  border-left: 1px solid rgba(127, 231, 255, 0.14); border-right: 1px solid rgba(127, 231, 255, 0.14); padding: 0 7px; }
+.tc-D .tc-count { font-size: 10.5px; color: var(--accent-2); }
+.tc-D .tc-ticker { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+.tc-D .tc-ticker:not(.scroll) { -webkit-mask-image: none; mask-image: none; }
+.tc-D .tc-label { display: inline-block; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.tc-D .tc-ticker.scroll .tc-label { animation: tcTick 10s linear 2s infinite; padding-right: 24px; }
+@keyframes tcTick { 0%, 30% { transform: translateX(0); } 85%, 100% { transform: translateX(calc(-100% + 60px)); } }
+.tc-bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--accent-2); box-shadow: 0 0 6px var(--accent-2); transition: width 0.2s linear; }
+body.mobile.tc-D.tc-open .tc-hold { background: rgba(127, 231, 255, 0.08); }
+
+@media (prefers-reduced-motion: reduce) {
+  body.mobile.tc .narr, body.mobile.tc.tc-open .narr { transition: visibility 0s, opacity 0.12s; }
+  body.mobile.tc .narr > *, body.mobile.tc.tc-open .narr > * { transition: none; }
+  body.mobile.tc .tc-chip { transition: none; }
+  .tc-B .tc-chip[data-swipe] { transform: none; }
+  .tc-D .tc-ticker.scroll .tc-label { animation: none; }
+  .tc-D .tc-ticker.scroll { text-overflow: ellipsis; }
+}
