@@ -17,12 +17,12 @@ body.mobile {
   --m-room: calc(100dvh - var(--m-sheet-b) - var(--m-top));
   overscroll-behavior: none;
   /* the dim ink, a step lighter: 6:1 on the sheets instead of 3.4:1 */
-  --ink-dim: #86a2ad;
+  --ink-dim: #8eaab5;
 }
 /* Chrome pulls to refresh from the root scroller, not from body */
 html:has(body.mobile) { overscroll-behavior: none; }
 /* small print has a floor of 11px on a phone */
-body.mobile :is(.m-dlabel, .m-peek-more, .narr .k, .narr-step, .narr .src, .yield .k, .m-sub, .insp-kicker, .dock-gtitle, .exp-table th i, .banner-pop) { font-size: 11px; }
+body.mobile :is(.m-dlabel, .m-peek-more, .narr .k, .narr-step, .narr .src, .yield .k, .m-sub, .insp-kicker, .dock-gtitle, .exp-table th i, .banner-pop, .ycard .k, .ycard .rank, .badge em) { font-size: 11px; }
 body.mobile :is(.insp-kicker, .insp-sub, .insp-close) { color: rgba(232, 244, 248, 0.8); }
 /* light figures on the teal pill: 3.2:1 → over 5:1 */
 body.mobile .banner-pop { color: #e8f4f8; }
@@ -301,6 +301,8 @@ body.mobile .toast { top: calc(var(--m-top) + 54px); max-width: calc(100vw - 24p
 body.mobile :is(.lg-src a, .src-note a, .era-card a, .surp-src a, .alm-card a) { padding-block: 14px; }
 body.mobile .duel-chip { min-height: 36px; }
 body.mobile .exp-table th { padding-top: 12px; padding-bottom: 12px; }
+body.mobile .exp-table td { padding-top: 11px; padding-bottom: 11px; }
+body.mobile .exp-axes .pc-select { height: 40px; }
 body.mobile .pc-check { min-height: 40px; }
 
 /* ---------- grab handles: a sheet's head drags down to put it away (mobile.js) */
