@@ -187,7 +187,7 @@ cases.m09 = async (browser) => {
   r.mouseWords = (r.welcomeText.match(/\b(click|keystroke|hover|key)\b|\( \/ \)|\? key/gi) || []);
   await shotTo(page, 'm09-welcome.png');
   await A(page, (A) => { A.guide.closeWelcome(); A.mobile.open('tours'); }); await settle(page, 900);
-  r.toursNote = await page.evaluate(() => document.querySelector('.tour-menu .src-note')?.textContent);
+  r.toursNote = await page.evaluate(() => document.querySelector('.tour-menu .src-note')?.innerText);
   await ctx.close();
   return r;
 };
@@ -198,7 +198,7 @@ cases.m11 = async (browser) => {
   const { page } = await open(ctx);
   await settle(page, 600);
   const m = await collect(page);
-  const r = { mobile: await page.evaluate(() => document.body.classList.contains('mobile')), summary: summarize(m), explore: await page.evaluate(() => { const n = document.querySelector('.m-dbtn[data-sheet=explore], .tb-btn.exp-tb'); return !!n && n.getBoundingClientRect().width > 0; }) };
+  const r = { mobile: await page.evaluate(() => document.body.classList.contains('mobile')), summary: summarize(m), explore: await page.evaluate(() => { return [...document.querySelectorAll('.m-dbtn[data-sheet=explore], .tb-btn.exp-tb')].some((n) => n.getBoundingClientRect().width > 0); }) };
   await shotTo(page, 'm11.png');
   await ctx.close();
   return r;
@@ -257,7 +257,8 @@ cases.m07 = async (browser) => {
   const box = await page.locator('.exp-svg').boundingBox();
   const r = { svgH: Math.round(box.height), touchAction: await page.evaluate(() => getComputedStyle(document.querySelector('.exp-svg')).touchAction) };
   const s0 = await body();
-  await drag([[box.x + box.width / 2, box.y + box.height - 20]], [[box.x + box.width / 2, box.y + 10]], 10); await page.waitForTimeout(900);
+  // finger moves down: the panel should scroll back up
+  await drag([[box.x + box.width / 2, box.y + 10]], [[box.x + box.width / 2, box.y + box.height - 20]], 10); await page.waitForTimeout(900);
   r.swipe = { scrollBefore: s0, scrollAfter: await body(), brush: await A(page, (A) => A.explorer.brush ? A.explorer.brush.size : null), info: await page.evaluate(() => document.querySelector('.exp-info').textContent) };
   // hold 450 ms, then drag a box over the left half of the plot
   await page.evaluate(() => document.querySelector('.exp-svg').scrollIntoView({ block: 'center' })); await page.waitForTimeout(400);
@@ -270,8 +271,11 @@ cases.m07 = async (browser) => {
   await annotate(page, [{ x: p0.x, y: p0.y, w: p1.x - p0.x, h: p1.y - p0.y, label: `hold + drag → ${r.holdDrag.brush} districts`, color: '#30d158' }]);
   await shotTo(page, 'm07.png'); await clearAnn(page);
   // a held brush over empty space
-  await ev('touchStart', [{ x: b2.x + b2.width - 30, y: b2.y + 18, id: 0 }]); await page.waitForTimeout(450);
-  for (let k = 1; k <= 4; k++) await ev('touchMove', [{ x: b2.x + b2.width - 30 + k * 4, y: b2.y + 18 + k * 2, id: 0 }]);
+  // bottom right: rich and illiterate, where no district sits
+  const e0 = { x: b2.x + b2.width - 40, y: b2.y + b2.height - 70 };
+  r.emptyBrushStartsOn = await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.getAttribute('class'), e0);
+  await ev('touchStart', [{ x: e0.x, y: e0.y, id: 0 }]); await page.waitForTimeout(450);
+  for (let k = 1; k <= 4; k++) await ev('touchMove', [{ x: e0.x + k * 5, y: e0.y + k * 4, id: 0 }]);
   await ev('touchEnd', []); await page.waitForTimeout(900);
   r.emptyBrush = { brush: await A(page, (A) => A.explorer.brush ? A.explorer.brush.size : null), rows: await page.evaluate(() => document.querySelectorAll('.exp-table tbody tr').length) };
   await ctx.close();
@@ -373,7 +377,7 @@ cases.misc = async (browser) => {
   // M-19: swipe the sheet's head down
   const hd = await page.locator('.m-sheet-lenses .m-sheet-head').boundingBox();
   await drag([[hd.x + 150, hd.y + 16]], [[hd.x + 150, hd.y + 250]], 10); await page.waitForTimeout(1200);
-  r.m19 = { lensesStillOpen: await A(page, (A) => A.mobile.isOpen('lenses')), handle: await page.evaluate(() => getComputedStyle(document.querySelector('.m-sheet-lenses .m-sheet-head'), '::before').content) };
+  r.m19 = { lensesStillOpen: await A(page, (A) => A.mobile.isOpen('lenses')), handle: await page.evaluate(() => getComputedStyle(document.querySelector('.m-sheet-lenses'), '::before').content) };
   await A(page, (A) => { const k = A.sites.sites.find((s) => s.name === 'Lahore' && s.kind === 'city'); A.select({ site: k }); }); await settle(page, 900);
   const ih = await page.locator('.insp-hero').boundingBox();
   await drag([[ih.x + 120, ih.y + 20]], [[ih.x + 120, ih.y + 200]], 6); await page.waitForTimeout(1200);
@@ -404,8 +408,7 @@ cases.misc = async (browser) => {
   // M-17: reduced motion
   const c3 = await context(browser, DEVICES.i14, { reducedMotion: 'reduce' });
   const { page: p3 } = await open(c3);
-  await A(p3, (A) => A.surprise.go()); await p3.waitForTimeout(200);
-  r.m17 = { flight: await p3.evaluate(() => { const f = window.__livingpakistan.stage.flight; return f ? { duration: f.duration, lift: Math.round(f.lift) } : 'landed already'; }) };
+  r.m17 = { flight: await p3.evaluate(() => { const A = window.__livingpakistan; A.surprise.go(); const f = A.stage.flight; return f ? { duration: f.duration, lift: Math.round(f.lift) } : null; }) };
   await landed(p3);
   await A(p3, (A) => { A.mobile.closeAll(); A.tours.run(0); }); await p3.waitForTimeout(600);
   r.m17.tourStartsPaused = await p3.evaluate(() => !!window.__livingpakistan.tours.paused);
