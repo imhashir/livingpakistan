@@ -1,0 +1,91 @@
+/* The phone tour badge (see tourchip.js). Everything is scoped to body.mobile:
+   desktop never matches. The card is the real tour narration (.narr), moved
+   to the top-right corner and clipped down to the badge's circle while
+   collapsed; opening grows the circle to the full card, so the badge appears
+   to bloom into the card in place. */
+
+.tc-chip { display: none; }
+
+body.mobile.touring .tc-chip:not(.hidden) {
+  display: block; position: fixed; z-index: 26; width: 48px; height: 48px;
+  top: var(--m-top); right: var(--m-r);
+  color: var(--ink);
+  transition: opacity 0.18s ease;
+}
+/* cinema has its own exit in this corner: sit just below it */
+body.mobile.cinema .tc-chip { top: calc(var(--m-top) + 52px); }
+
+/* no callout, selection or magnifier on a long press; the badge handles its own touches */
+.tc-chip, .tc-chip * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+
+.tc-hold { position: relative; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  touch-action: none; cursor: pointer; outline: none;
+  background: radial-gradient(circle at 50% 40%, rgb(16, 30, 38), rgb(5, 11, 15)); border: 1px solid var(--line);
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.55)); }
+.tc-hold:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+.tc-segs { position: absolute; inset: 1px; }
+.tc-segs svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.tc-segs circle { fill: none; stroke-width: 3; }
+.tc-segs .trk { stroke: rgba(255, 255, 255, 0.16); }
+.tc-segs .done { stroke: rgba(127, 231, 255, 0.6); }
+.tc-segs .val { stroke: var(--accent-2); filter: drop-shadow(0 0 3px rgba(127, 231, 255, 0.8)); }
+.tc-icon { font-size: 19px; line-height: 1; }
+.tc-chip.paused .tc-icon { opacity: 0.45; }
+
+.tc-btn { flex: none; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; margin: 0;
+  background: none; border: 0; color: var(--accent-2); cursor: pointer; touch-action: manipulation; }
+.tc-btn:active { color: var(--accent); }
+.tc-svg { display: grid; place-items: center; }
+.tc-svg svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* next and pause hang off the badge's lower-left, along its rim: 36px to
+   touch, drawn as 26px discs */
+.tc-chip .tc-next, .tc-chip .tc-pause { position: absolute; }
+.tc-chip .tc-next { top: 23px; right: 47px; }
+.tc-chip .tc-pause { top: 47px; right: 23px; }
+.tc-chip .tc-btn .tc-svg { width: 26px; height: 26px; border-radius: 50%; background: rgb(8, 16, 21); border: 1px solid var(--line);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45); }
+.tc-chip .tc-btn svg { width: 14px; height: 14px; }
+.tc-chip .tc-pause svg { width: 12px; height: 12px; stroke-width: 2.6; }
+.tc-chip.paused .tc-pause { color: var(--accent); }
+.tc-chip.paused .tc-pause svg { fill: currentColor; stroke-width: 1.5; }
+
+/* ---------- the card, as the badge's expanded state */
+body.mobile.touring .narr {
+  top: var(--m-top); right: var(--m-r); left: auto; bottom: auto;
+  width: min(374px, calc(100vw - var(--m-l) - var(--m-r))); max-height: calc(100dvh - var(--m-top) - var(--m-dock-b) - 24px);
+  z-index: 27; animation: none;
+  /* collapsed: the card gathered onto the badge's circle */
+  clip-path: circle(23px at calc(100% - 24px) 24px);
+  visibility: hidden; pointer-events: none;
+  transition: clip-path 0.22s cubic-bezier(.4, 0, .6, 1), visibility 0s linear 0.22s;
+}
+body.mobile.cinema .narr { top: calc(var(--m-top) + 52px); }
+body.mobile.touring .narr > * { opacity: 0; transition: opacity 0.1s ease; }
+body.mobile.touring.tc-open .narr {
+  clip-path: circle(160% at calc(100% - 24px) 24px);
+  visibility: visible; pointer-events: auto;
+  transition: clip-path 0.42s cubic-bezier(.3, .8, .3, 1), visibility 0s;
+}
+body.mobile.touring.tc-open .narr > * { opacity: 1; transition: opacity 0.2s ease 0.09s; }
+/* the progress hairline sits outside the fade, so it reads as part of the frame */
+body.mobile.touring .narr > .prog { opacity: 1; }
+/* a peek is a glance: a cyan edge says "let go to put it back" */
+body.mobile.tc-peek .narr { border-color: var(--accent-2); }
+/* the badge steps back while the card stands on it */
+body.mobile.tc-open .tc-chip { opacity: 0; }
+body.mobile.tc-pinned .tc-chip { pointer-events: none; }
+
+/* the card's head: eyebrow, then shrink and end-tour side by side */
+body.mobile .narr-head { align-items: center; }
+body.mobile .narr-x { width: 36px; height: 36px; min-width: 36px; min-height: 36px; font-size: 15px; margin: -8px -8px -8px 0; }
+.tc-min { display: none; }
+body.mobile .narr-head .tc-min { display: grid; margin: -8px -2px -8px auto; color: var(--ink-dim); }
+body.mobile .narr-head .tc-min svg { width: 16px; height: 16px; }
+body.mobile .narr-head .tc-min + .narr-x { margin-left: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.mobile.touring .narr, body.mobile.touring.tc-open .narr { transition: visibility 0s; }
+  body.mobile.touring .narr > *, body.mobile.touring.tc-open .narr > * { transition: none; }
+  body.mobile .tc-chip { transition: none; }
+}
