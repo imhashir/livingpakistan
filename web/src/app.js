@@ -17,6 +17,7 @@ import { FloodPlayer } from './ui/flood.js';
 import { Surprise } from './ui/surprise.js';
 import { Guide } from './ui/guide.js';
 import { MobileUI } from './ui/mobile.js';
+import { requestRender } from './scene/frame.js';
 
 export const DEFAULT_LENS = 'elevation';
 
@@ -77,12 +78,14 @@ export class App {
     this._bindPointer();
     this._bindKeys();
     this.outline = new Outline(this.board, stage.scene);
-    stage.onTick((t, dt) => {
-      this.outline.tick(t);
+    // t: ambient clock (shader motion), rt: real time. Returning true keeps the stage drawing.
+    stage.onTick((t, dt, rt) => {
+      const fading = this.outline.tick(t, rt);
       this.lines.uTime.value = t; this.sites.uTime.value = t;
       this.sites.updateLabels(stage.camera, stage.controls.target);
-      this.flood?.tick(t, dt);
+      const flooding = this.flood?.tick(t, dt);
       this.eras?.tick(t);
+      return fading || flooding;
     });
     this.setLens(DEFAULT_LENS);
     if (location.hash.length > 1) this._restoreHash(); else if (!stage.capture) this.intro();
@@ -258,9 +261,10 @@ export class App {
       el('b', { text: String(this.board.exaggeration) }),
     ]);
     this.reliefEl = relief;
+    const quality = this._buildQuality(relief);
     this.tip = el('div', { class: 'tip glass hidden' });
     this.toastEl = el('div', { class: 'toast hidden' });
-    this.hud.append(top, dock, dockToggle, this.ui.legend, moods, relief, this.tip, this.toastEl);
+    this.hud.append(top, dock, dockToggle, this.ui.legend, moods, relief, ...(quality ? [quality] : []), this.tip, this.toastEl);
     this.ui.dock = dock;
     for (const [k] of LAYER_TOGGLES) this.hud.querySelector(`[data-layer="${k}"]`)?.classList.toggle('on', this.layerOn(k));
     this.hud.querySelector(`[data-lens="${DEFAULT_LENS}"]`)?.classList.add('on');
@@ -270,6 +274,32 @@ export class App {
       relief: this.board.exaggeration,
     };
     this.animateCounters(top);
+  }
+
+  /** Graphics quality: one chip that cycles Low → Auto → High, parked left of the relief slider. */
+  _buildQuality(relief) {
+    const q = this.quality;
+    if (!q) return null;
+    const NEXT = { low: 'auto', auto: 'high', high: 'low' };
+    const NAME = { low: 'Low', auto: 'Auto', high: 'High', medium: 'Medium' };
+    const chip = el('button', { class: 'quality glass chip', onclick: () => q.setMode(NEXT[q.mode]) });
+    const sync = () => {
+      chip.textContent = `⚙ ${NAME[q.mode]}`;
+      chip.classList.toggle('on', q.mode !== 'auto');
+      chip.title = `Graphics quality: ${NAME[q.mode]}${q.mode === 'auto' ? ` (running ${NAME[q.tier]})` : ''}.\n`
+        + 'Low is light enough for TVs and older phones; High is the full picture. Click to cycle Low → Auto → High.';
+    };
+    let stepped = false;
+    q.onChange((tier, mode) => {
+      sync();
+      // say so once if auto had to lighten things mid-session
+      if (mode === 'auto' && tier !== q.guess.tier && !stepped && this.toastEl) { stepped = true; this.toast(`Switched to lighter graphics to keep the map smooth (⚙ ${NAME[tier]})`); }
+    });
+    sync();
+    // sit left of the relief control whatever its width ends up being once fonts load
+    new ResizeObserver(() => { chip.style.right = `${relief.offsetWidth + 18}px`; }).observe(relief);
+    this.ui.quality = chip;
+    return chip;
   }
 
   animateCounters(root) {
@@ -371,7 +401,7 @@ export class App {
       this.pointer.set((e.clientX / dom.clientWidth) * 2 - 1, -(e.clientY / dom.clientHeight) * 2 + 1);
       this._pendingPick = [e.clientX, e.clientY];
     });
-    dom.addEventListener('pointerleave', () => { this.tip.classList.add('hidden'); this.hoverRing.visible = false; });
+    dom.addEventListener('pointerleave', () => { this.tip.classList.add('hidden'); this.hoverRing.visible = false; requestRender({ shadows: false }); });
     dom.addEventListener('pointerup', (e) => {
       pointers.delete(e.pointerId);
       if (multi || !down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > (e.pointerType === 'touch' ? 10 : 5)) return;
@@ -397,8 +427,10 @@ export class App {
       const hit = this.board.pick(this.raycaster);
       const own = hit && this.data.world.owner[hit.cell] >= 0;
       dom.style.cursor = own ? 'pointer' : '';
-      this.hoverRing.visible = !!own;
-      if (own) { const [hx, hy, hz] = this.cellWorld(hit.cell); this.hoverRing.position.set(hx, hy + 0.5, hz); }
+      const ring = this.hoverRing, was = ring.visible, px = ring.position.x, pz = ring.position.z;
+      ring.visible = !!own;
+      if (own) { const [hx, hy, hz] = this.cellWorld(hit.cell); ring.position.set(hx, hy + 0.5, hz); }
+      if (ring.visible !== was || ring.position.x !== px || ring.position.z !== pz) requestRender({ shadows: false });
       if (!hit) { this.tip.classList.add('hidden'); return; }
       this.showTip(hit.cell, x, y);
     });

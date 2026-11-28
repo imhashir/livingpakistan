@@ -1,5 +1,15 @@
 // Sea surface, sky dome and the Day / Golden Hour / Nightlights lighting moods.
 import * as THREE from 'three';
+import { requestRender } from './frame.js';
+
+/** Toggle a material's LP_LOW define (the low tier's cheaper shader path). */
+function setLow(mat, on) {
+  if (!!mat.defines?.LP_LOW === on) return;
+  mat.defines = { ...(mat.defines || {}) };
+  if (on) mat.defines.LP_LOW = 1; else delete mat.defines.LP_LOW;
+  mat.needsUpdate = true;
+}
+export { setLow };
 
 export function createWater(scene, size, board) {
   const geo = new THREE.PlaneGeometry(size * 3, size * 3, 1, 1);
@@ -40,8 +50,13 @@ export function createWater(scene, size, board) {
         if (mk < 0.5) discard;
         float t = uTime;
         float w1 = n2(p * 0.08 + vec2(t * 0.15, t * 0.05));
+        #ifdef LP_LOW
+        // low tier: one octave of swell instead of three
+        float w2 = w1, w3 = 0.5;
+        #else
         float w2 = n2(p * 0.23 - vec2(t * 0.2, -t * 0.12));
         float w3 = n2(p * 0.9 + vec2(t * 0.6, t * 0.3));
+        #endif
         vec3 nrm = normalize(vec3((w1 - 0.5) * 0.6 + (w3 - 0.5) * 0.25, 1.0, (w2 - 0.5) * 0.6 + (w3 - 0.5) * 0.2));
         vec3 V = normalize(cameraPosition - vWP);
         float fres = pow(1.0 - max(dot(nrm, V), 0.0), 3.0);
@@ -50,8 +65,10 @@ export function createWater(scene, size, board) {
         vec3 col = mix(uDeep, uShallow, 0.25 + 0.25 * w1);
         col += fres * mix(vec3(0.55, 0.7, 0.85), vec3(0.08, 0.1, 0.2), uNight) * 0.45;
         col += uSunColor * spec * (1.0 - uNight * 0.7);
+        #ifndef LP_LOW
         float glint = step(0.992, h(floor(p * 1.6) + floor(t * 3.0))) * (1.0 - uNight) * 0.5;
         col += glint * uSunColor;
+        #endif
         float d = length(cameraPosition - vWP);
         float fog = smoothstep(uFogNear, uFogFar, d);
         col = mix(col, uFogColor, fog);
@@ -63,7 +80,7 @@ export function createWater(scene, size, board) {
   mesh.position.y = 0.0;
   mesh.renderOrder = 2;
   scene.add(mesh);
-  return { mesh, uniforms };
+  return { mesh, uniforms, setQuality: (q) => setLow(mat, q.cheap) };
 }
 
 /** The fog-of-war void under and beyond the board: drifting parchment clouds. */
@@ -76,9 +93,18 @@ export function createVoid(scene) {
       float h(vec2 p){ return fract(sin(dot(p, vec2(41.3, 289.1))) * 43758.5); }
       float n2(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);
         return mix(mix(h(i),h(i+vec2(1,0)),f.x), mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x), f.y); }
+      #ifdef LP_LOW
+      // low tier: three octaves and no domain warp, 3 noise taps a pixel instead of 10
+      float fbm(vec2 p){ float a=0.5, s=0.; for(int i=0;i<3;i++){ s+=a*n2(p); p*=2.03; a*=0.5; } return s * 1.15; }
+      #else
       float fbm(vec2 p){ float a=0.5, s=0.; for(int i=0;i<5;i++){ s+=a*n2(p); p*=2.03; a*=0.5; } return s; }
+      #endif
       void main(){ vec2 p = vWP.xz * 0.004 + vec2(uTime * 0.004, uTime * 0.002);
+        #ifdef LP_LOW
+        float f = fbm(p + 0.5);
+        #else
         float f = fbm(p + fbm(p * 1.7));
+        #endif
         vec3 c = mix(uA, uB, smoothstep(0.35, 0.8, f));
         float d = length(vWP.xz) / 2600.0;
         c *= 1.0 - smoothstep(0.6, 1.4, d) * 0.6;
@@ -89,7 +115,7 @@ export function createVoid(scene) {
   const g = new THREE.PlaneGeometry(14000, 14000); g.rotateX(-Math.PI / 2);
   const mesh = new THREE.Mesh(g, mat); mesh.position.y = -9;
   scene.add(mesh);
-  return { mesh, uniforms };
+  return { mesh, uniforms, setQuality: (q) => setLow(mat, q.cheap) };
 }
 
 export function createSky(scene) {
@@ -167,6 +193,16 @@ export class Lighting {
     if (voidPlane) { voidPlane.uniforms.uA.value.setHex(m.voidA); voidPlane.uniforms.uB.value.setHex(m.voidB); }
     this.renderer.toneMappingExposure = m.exposure;
     if (bloom) bloom.strength = m.bloom;
+    requestRender();
     return m;
+  }
+
+  /** Shadow map on/off and resolution for the quality tier. */
+  setQuality(q) {
+    const sun = this.sun, size = q.shadows ? q.shadowSize : 0;
+    sun.castShadow = q.shadows;
+    if (size && sun.shadow.mapSize.x !== size) sun.shadow.mapSize.set(size, size);
+    // drop the old map so three allocates one at the new size (or none)
+    if (sun.shadow.map && (!size || sun.shadow.map.width !== size)) { sun.shadow.map.dispose(); sun.shadow.map = null; }
   }
 }

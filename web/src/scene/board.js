@@ -1,6 +1,8 @@
 // The hex board: one InstancedMesh of extruded hex prisms (land, sea floor, lakes) + instanced low-poly peaks.
 import * as THREE from 'three';
 import { HexGrid } from '../hex.js';
+import { requestRender } from './frame.js';
+import { setLow } from './environment.js';
 
 export const TERRAIN_COLORS = {
   sea: 0x1d4f73, lake: 0x2f7fa8, glacier: 0xeef3f7, urban: 0xb8a48c, marsh: 0x5d8a6e, forest_mtn: 0x45683f,
@@ -98,6 +100,8 @@ export class Board {
   _buildPrisms() {
     const geo = new THREE.CylinderGeometry(HEX_R * 0.965, HEX_R * 0.985, 1, 6, 1, false);
     geo.translate(0, 0.5, 0);
+    // the bottom cap sits on the floor under the void plane and is never seen: drop its triangles
+    dropBottomCap(geo);
     // Normal-up flag per vertex for the shader (1 on the top cap).
     const up = new Float32Array(geo.attributes.position.count);
     for (let v = 0; v < up.length; v++) up[v] = geo.attributes.normal.getY(v) > 0.9 ? 1 : 0;
@@ -134,7 +138,11 @@ export class Board {
         .replace('#include <color_fragment>', `#include <color_fragment>
           {
             vec2 p = vWP.xz;
+            #ifdef LP_LOW
+            float n = vnoise(p * 0.35);
+            #else
             float n = vnoise(p * 0.35) * 0.6 + vnoise(p * 1.3) * 0.4;
+            #endif
             float pat = vPattern;
             float top = step(0.5, vUp);
             float lensOn = uLens;
@@ -170,8 +178,12 @@ export class Board {
             diffuseColor.rgb = c;
           }`)
         .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+          #ifdef LP_LOW
+          totalEmissiveRadiance += uGlowColor * vGlow * uNight * (0.75 + 0.5 * vUp);
+          #else
           totalEmissiveRadiance += uGlowColor * vGlow * uNight * (0.75 + 0.5 * vUp)
             * (0.85 + 0.3 * vnoise(vWP.xz * 1.7 + uTime * 0.2));
+          #endif
           totalEmissiveRadiance += vec3(1.0, 0.8, 0.3) * vHi * 0.25;`);
     };
     this.material = mat;
@@ -265,6 +277,7 @@ export class Board {
     // snowline ≈ 4,800 m in the Karakoram; rock above ~3,000 m
     this.peakUniforms.uSnowY.value = 0.6 + 4.8 * ex;
     this.peakUniforms.uRockY.value = 0.6 + 3.0 * ex;
+    requestRender();
     this.onExaggeration?.(ex);
   }
 
@@ -288,6 +301,7 @@ export class Board {
     });
     this.mesh.instanceColor.needsUpdate = true;
     this._tintPeaks(null);
+    requestRender();
   }
 
   _tintPeaks(colorOf) {
@@ -315,22 +329,35 @@ export class Board {
     });
     this.mesh.instanceColor.needsUpdate = true;
     this._tintPeaks((c) => (w.owner[c] >= 0 ? colorFn(c) : null));
+    requestRender();
   }
 
   setGlow(fn) {
     this.cells.forEach((c, k) => { this.glow[k] = fn(c); });
     this.mesh.geometry.attributes.aGlow.needsUpdate = true;
+    requestRender();
   }
 
   setHighlight(cellSet) {
     this.highlight.fill(0);
     if (cellSet) for (const c of cellSet) { const k = this.instanceOf[c]; if (k >= 0) this.highlight[k] = 1; }
     this.mesh.geometry.attributes.aHi.needsUpdate = true;
+    requestRender({ shadows: false });
   }
+
+  /** Low tier: one noise octave on the tiles, no flicker in the night glow. */
+  setQuality(q) { setLow(this.material, q.cheap); }
 
   pick(raycaster) {
     const hit = raycaster.intersectObject(this.mesh, false)[0];
     if (!hit || hit.instanceId == null) return null;
     return { cell: this.cells[hit.instanceId], point: hit.point };
   }
+}
+
+/** Remove CylinderGeometry's last group (the bottom cap) from the index. */
+function dropBottomCap(geo) {
+  const g = geo.groups[geo.groups.length - 1];
+  geo.setIndex(Array.from(geo.index.array.slice(0, g.start)));
+  geo.clearGroups();
 }

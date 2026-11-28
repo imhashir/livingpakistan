@@ -5,7 +5,9 @@ const errs = [];
 p.on('console', (m) => { if (['error', 'warning'].includes(m.type())) errs.push(`[${m.type()}] ${m.text()}`); });
 p.on('pageerror', (e) => errs.push(`[pageerror] ${e.message}`));
 p.on('requestfailed', (r) => errs.push(`[requestfailed] ${r.url()}`));
-await p.goto('http://127.0.0.1:4173/', { waitUntil: 'load' });
+// The full sweep runs on the high tier (shadows, bloom, every shader effect): what capable
+// desktops get, and what auto would not pick on this software-GL runner.
+await p.goto('http://127.0.0.1:4173/?quality=high', { waitUntil: 'load' });
 await p.waitForFunction(() => window.__livingpakistan_ready === true, null, { timeout: 120000 });
 const steps = [
   "const a=window.__livingpakistan; for (const l of a.atlas.lenses) a.setLens(l.id); a.setLens('terrain');",
@@ -34,7 +36,37 @@ await p.mouse.move(700, 400); await p.mouse.down(); await p.mouse.move(600, 380,
 await p.mouse.wheel(0, -600); await p.waitForTimeout(800);
 await p.keyboard.press('l'); await p.keyboard.press('h'); await p.waitForTimeout(1500);
 await p.screenshot({ path: '/tmp/sweep.png' });
+{
+  const q = await p.evaluate(() => { const a = window.__livingpakistan; return { tier: a.quality.tier, shadows: a.stage.renderer.shadowMap.enabled, bloom: a.stage.bloom.enabled }; });
+  if (q.tier !== 'high' || !q.shadows || !q.bloom) errs.push(`[quality] ?quality=high should run the full pipeline, got ${JSON.stringify(q)}`);
+}
 await p.close(); // two software-rendered WebGL pages at once starve each other
+
+// Low tier (?quality=low): loads clean, the same features work, and a still map stops drawing.
+const lp = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+lp.on('console', (m) => { if (['error', 'warning'].includes(m.type())) errs.push(`[low ${m.type()}] ${m.text()}`); });
+lp.on('pageerror', (e) => errs.push(`[low pageerror] ${e.message}`));
+await lp.goto('http://127.0.0.1:4173/?quality=low#lens=elevation', { waitUntil: 'load' });
+await lp.waitForFunction(() => window.__livingpakistan_ready === true, null, { timeout: 120000 });
+const lowSteps = [
+  "const a=window.__livingpakistan; if (a.quality.tier!=='low' || a.stage.renderer.shadowMap.enabled || a.stage.bloom.enabled) throw new Error('not on the low tier: '+a.quality.tier);",
+  "const a=window.__livingpakistan; for (const l of a.atlas.lenses) a.setLens(l.id); a.setLens('elevation');",
+  "const a=window.__livingpakistan; for (const m of ['golden','night','day']) a.setMood(m);",
+  "const a=window.__livingpakistan; for (const b of document.querySelectorAll('[data-layer]')) { b.click(); b.click(); }",
+  "const a=window.__livingpakistan; a.setRelief(20); a.setRelief(12);",
+  "const a=window.__livingpakistan; a.setLens('flood'); a.flood.toggle();",
+  "const a=window.__livingpakistan; a.flood.toggle(); a.setLens('elevation'); a.eras.show(); a.eras.setEra(3); a.eras.hide(); a.select({district: 10}); a.select(null); a.home(true);",
+];
+for (const s of lowSteps) { await lp.evaluate(s).catch((e) => errs.push('[low step] ' + s.slice(0, 60) + ' → ' + e.message)); await lp.waitForTimeout(500); }
+await lp.waitForTimeout(2500); // let the last fly-to, fades and label declutter finish
+const idle = await lp.evaluate(() => new Promise((r) => { const a = window.__livingpakistan, n0 = a.stage.drawn; setTimeout(() => r(a.stage.drawn - n0), 2000); }));
+if (idle > 2) errs.push(`[low] a still map should not keep drawing: ${idle} frames in 2 s`);
+// the HUD chip cycles low → auto → high → low, and remembers the choice
+const cycle = [];
+for (let i = 0; i < 3; i++) { await lp.click('.quality'); await lp.waitForTimeout(400); cycle.push(await lp.evaluate(() => [window.__livingpakistan.quality.mode, localStorage.getItem('livingpakistan.quality')])); }
+if (JSON.stringify(cycle) !== JSON.stringify([['auto', null], ['high', 'high'], ['low', 'low']])) errs.push(`[quality] chip cycle ${JSON.stringify(cycle)}`);
+await lp.evaluate(() => localStorage.removeItem('livingpakistan.quality'));
+await lp.close();
 
 // Phone: a first visit opens on the bare map (no welcome, no panels), and the
 // dock opens one sheet at a time, which a tap on the map puts away.
@@ -58,6 +90,14 @@ const stripY = await m.evaluate(() => (document.querySelector('.m-top').getBound
 await m.touchscreen.tap(195, stripY); await m.waitForTimeout(500);
 await expect('tap on the map dismisses', []);
 await m.tap('[data-sheet=more]'); await m.waitForTimeout(400); await m.keyboard.press('Escape'); await m.waitForTimeout(400); await expect('Esc dismisses', []);
+// the Light sheet carries the graphics quality choice
+await m.tap('[data-sheet=light]'); await m.waitForTimeout(400);
+if (!(await m.isVisible('.m-quality [data-quality=low]'))) errs.push('[mobile] graphics quality row missing from the Light sheet');
+await m.tap('.m-quality [data-quality=low]'); await m.waitForTimeout(600);
+if ((await m.evaluate(() => window.__livingpakistan.quality.tier)) !== 'low') errs.push('[mobile] Low did not switch tier');
+await m.tap('.m-quality [data-quality=auto]'); await m.waitForTimeout(400);
+await m.keyboard.press('Escape'); await m.waitForTimeout(300);
 await mctx.close();
 console.log(JSON.stringify({ errors: errs }, null, 1));
+process.exitCode = errs.length ? 1 : 0;
 await b.close();

@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { el, fmt } from '../ui/dom.js';
+import { requestRender, requestLabels } from './frame.js';
+import { disposeTree } from './lines.js';
 
 export const KIND_META = {
   city: { icon: '🏙️', label: 'City' }, wonder: { icon: '✨', label: 'Wonder' }, unesco: { icon: '🏛️', label: 'UNESCO site' },
@@ -118,7 +120,9 @@ export class Sites {
   }
 
   build() {
-    this.group.clear();
+    // a relief change rebuilds every marker: free the old buffers instead of leaking them
+    for (const o of [...this.group.children]) { o.removeFromParent(); disposeTree(o); }
+    this.pinGroups = {};
     this._buildCities();
     this._buildWonders();
     this._buildPins();
@@ -262,6 +266,8 @@ export class Sites {
     const showC = this.visibleKinds.has('city');
     if (this.skyline) this.skyline.visible = showC;
     this.banners?.forEach((o) => { o.userData.hidden = !showC; });
+    this._labelKey = null; // re-run the declutter
+    requestRender();
   }
 
   setKind(kind, on) { on ? this.visibleKinds.add(kind) : this.visibleKinds.delete(kind); this.applyVisibility(); }
@@ -272,6 +278,7 @@ export class Sites {
     for (const o of [...this.banners, ...this.wonderLabels]) {
       o.element.classList.toggle('focused', !!site && o.userData.site === site);
     }
+    this._labelKey = null;
   }
 
   /** Declutter labels: distance gates + greedy screen-space collision (big cities first). Runs ~6×/s. */
@@ -279,9 +286,16 @@ export class Sites {
     const now = performance.now();
     if (this._lastDeclutter && now - this._lastDeclutter < 160) return;
     this._lastDeclutter = now;
+    // nothing to redo while the camera, the viewport and the label set are unchanged
+    const W = innerWidth, H = innerHeight, cp = camera.position;
+    const key = `${cp.x},${cp.y},${cp.z},${target.x},${target.y},${target.z},${camera.fov},${W},${H}`;
+    if (key === this._labelKey) return;
+    this._labelKey = key;
+    // ticks run before the render that would refresh these, so bring them up to date first
+    camera.updateMatrixWorld();
     const d = camera.position.distanceTo(target);
-    const W = innerWidth, H = innerHeight, boxes = [];
-    const v = new THREE.Vector3();
+    const boxes = [];
+    const v = this._v || (this._v = new THREE.Vector3());
     const place = (o, w, h) => {
       v.copy(o.position).project(camera);
       if (v.z > 1 || v.x < -1.1 || v.x > 1.1 || v.y < -1.1 || v.y > 1.1) return false;
@@ -294,7 +308,9 @@ export class Sites {
     // the focused label is placed first, so a neighbour cannot take its box
     if (this.focusSite) all.sort((a, b) => (b.userData.site === this.focusSite) - (a.userData.site === this.focusSite));
     const isBanner = new Set(this.banners);
+    let changed = false;
     for (const o of all) {
+      const was = o.visible;
       const focused = !!this.focusSite && o.userData.site === this.focusSite;
       const banner = isBanner.has(o);
       const want = banner
@@ -305,7 +321,9 @@ export class Sites {
       // a tour's subject stays legible whatever the distance gates say
       o.visible = (want || focused) && place(o, w, h);
       if (focused) o.visible = true;
+      if (o.visible !== was) changed = true;
     }
+    if (changed) requestLabels();
   }
 
   pick(raycaster) {

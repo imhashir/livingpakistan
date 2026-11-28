@@ -2,6 +2,7 @@
 // caps over each district's mapped flood footprint hexes.
 import * as THREE from 'three';
 import { el, fmt } from './dom.js';
+import { requestRender } from '../scene/frame.js';
 
 export class FloodPlayer {
   constructor(app) {
@@ -31,7 +32,7 @@ export class FloodPlayer {
 
   rebuild() {
     const app = this.app, board = app.board;
-    if (this.mesh) { this.mesh.removeFromParent(); this.mesh.geometry.dispose(); }
+    if (this.mesh) { this.mesh.removeFromParent(); this.mesh.geometry.dispose(); this.mesh.material.dispose(); }
     const geo = new THREE.CylinderGeometry(9.9, 9.9, 1, 6, 1); geo.translate(0, 0.5, 0);
     this.aLevel = new Float32Array(this.cells.length);
     geo.setAttribute('aLevel', new THREE.InstancedBufferAttribute(this.aLevel, 1));
@@ -85,6 +86,7 @@ export class FloodPlayer {
       const s = this.level[i]; this.aLevel[i] = s[k] * (1 - f) + s[k2] * f;
     }
     this.mesh.geometry.attributes.aLevel.needsUpdate = true;
+    requestRender({ shadows: false });
     const lerp = (a) => (a.length ? a[k] * (1 - f) + a[k2] * f : null);
     const km2 = lerp(this.national), ex = lerp(this.exposed);
     const fl = this.app.atlas.nation.flood2022 || {};
@@ -96,14 +98,16 @@ export class FloodPlayer {
     );
   }
 
+  /** True while the surge is playing (the stage keeps drawing). */
   tick(time, dt = 1 / 60) {
     this.uniforms.uTime.value = time;
-    if (!this.playing || !this.visible) return;
+    if (!this.playing || !this.visible) return false;
     this.t = Math.min(this.periods.length - 1, this.t + dt * this.speed);
     this.slider.value = this.t; this._apply(this.t);
     if (this.t >= this.periods.length - 1) { this.playing = false; this.playBtn.textContent = '▶'; }
+    return true;
   }
 
-  show() { this.visible = true; this.mesh.visible = true; this.root.classList.remove('hidden'); this.app.eras?.hide?.(); }
-  hide() { this.visible = false; this.playing = false; this.playBtn.textContent = '▶'; if (this.mesh) this.mesh.visible = false; this.root.classList.add('hidden'); }
+  show() { this.visible = true; this.mesh.visible = true; this.root.classList.remove('hidden'); this.app.eras?.hide?.(); requestRender({ shadows: false }); }
+  hide() { this.visible = false; this.playing = false; this.playBtn.textContent = '▶'; if (this.mesh) this.mesh.visible = false; this.root.classList.add('hidden'); requestRender({ shadows: false }); }
 }
