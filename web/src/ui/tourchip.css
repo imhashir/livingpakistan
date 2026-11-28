@@ -33,17 +33,17 @@ body.mobile.touring.cinema .tc-chip:not(.hidden) { top: calc(var(--m-top) + 52px
 .tc-icon { font-size: 19px; line-height: 1; }
 .tc-chip.paused .tc-icon { opacity: 0.45; }
 
-.tc-btn { flex: none; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; margin: 0;
+.tc-btn { flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; margin: 0;
   background: none; border: 0; color: var(--accent-2); cursor: pointer; touch-action: manipulation; }
 .tc-btn:active { color: var(--accent); }
 .tc-svg { display: grid; place-items: center; }
 .tc-svg svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* next and pause hang off the badge's lower-left, along its rim: 36px to
-   touch, drawn as 26px discs */
+/* next and pause hang off the badge's lower-left, along its rim: 44px to
+   touch (the hit areas overlap the rim), drawn as 26px discs */
 .tc-chip .tc-next, .tc-chip .tc-pause { position: absolute; }
-.tc-chip .tc-next { top: 23px; right: 47px; }
-.tc-chip .tc-pause { top: 47px; right: 23px; }
+.tc-chip .tc-next { top: 19px; right: 43px; }
+.tc-chip .tc-pause { top: 43px; right: 19px; }
 .tc-chip .tc-btn .tc-svg { width: 26px; height: 26px; border-radius: 50%; background: rgb(8, 16, 21); border: 1px solid var(--line);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45); }
 .tc-chip .tc-btn svg { width: 14px; height: 14px; }
@@ -79,11 +79,12 @@ body.mobile.tc-pinned .tc-chip { pointer-events: none; }
 
 /* the card's head: eyebrow, then shrink and end-tour side by side */
 body.mobile .narr-head { align-items: center; }
-body.mobile .narr-x { width: 36px; height: 36px; min-width: 36px; min-height: 36px; font-size: 15px; margin: -8px -8px -8px 0; }
+body.mobile .narr-x { width: 44px; height: 44px; min-width: 44px; min-height: 44px; font-size: 15px; margin: -10px -10px -10px 0; }
 .tc-min { display: none; }
-body.mobile .narr-head .tc-min { display: grid; margin: -8px -2px -8px auto; color: var(--ink-dim); }
+body.mobile .narr-head .tc-min { display: grid; margin: -10px 0 -10px auto; color: var(--ink-dim); }
 body.mobile .narr-head .tc-min svg { width: 16px; height: 16px; }
-body.mobile .narr-head .tc-min + .narr-x { margin-left: 0; }
+/* a slip off "shrink" must not land on "end tour" */
+body.mobile .narr-head .tc-min + .narr-x { margin-left: 16px; }
 
 @media (prefers-reduced-motion: reduce) {
   body.mobile.touring .narr, body.mobile.touring.tc-open .narr { transition: visibility 0s; }

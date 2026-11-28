@@ -43,7 +43,7 @@ export class Inspector {
   // ---------------------------------------------------------------- helpers
   hero(kicker, title, sub) {
     return el('div', { class: 'insp-hero' }, [el('div', { class: 'insp-kicker', text: kicker }), el('div', { class: 'insp-title', text: title }),
-      sub ? el('div', { class: 'insp-sub', text: sub }) : '', el('button', { class: 'insp-close', title: 'Close (Esc)', text: '✕', onclick: () => this.app.select(null) })]);
+      sub ? el('div', { class: 'insp-sub', text: sub }) : '', el('button', { class: 'insp-close', title: 'Close (Esc)', 'aria-label': 'Close', text: '✕', onclick: () => this.app.select(null) })]);
   }
   sec(title, ...kids) { return el('div', { class: 'insp-sec' }, [el('h4', { text: title }), ...kids]); }
   kv(rows) {

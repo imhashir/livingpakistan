@@ -147,12 +147,25 @@ export class LensEngine {
         el('span', { text: lo == null ? 'below' : this.format(lens, lo) }),
         el('span', { text: lens.scale === 'div' ? `${lens.mid} = Pakistan` : '' }),
         el('span', { text: hi == null ? 'above' : this.format(lens, hi) + '+' })])]);
-      cv.addEventListener('mousemove', (e) => {
-        const t = e.offsetX / 260;
+      // a mouse lights up the bars it hovers; a finger scrubs along them
+      // (touch-action: pan-y keeps vertical swipes for the sheet) and the
+      // highlight goes when it lifts
+      const scrub = (e) => {
+        const r = cv.getBoundingClientRect();
+        const t = Math.max(0, Math.min(1, (e.clientX - r.left) / (r.width || 260)));
         const a = inv(Math.max(0, t - 0.04)), b = inv(Math.min(1, t + 0.04));
         this.app.highlightWhere((c) => { const v = this.valueAt(lens, c); return v != null && v >= a && v <= b; }, null, true);
+      };
+      let finger = null;
+      cv.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse') return;
+        finger = e.pointerId; try { cv.setPointerCapture(e.pointerId); } catch { /* gone */ }
+        scrub(e);
       });
-      cv.addEventListener('mouseleave', () => this.app.highlightWhere(null));
+      cv.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' || e.pointerId === finger) scrub(e); });
+      const lift = (e) => { if (e.pointerId !== finger) return; finger = null; this.app.highlightWhere(null); };
+      cv.addEventListener('pointerup', lift); cv.addEventListener('pointercancel', lift);
+      cv.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') this.app.highlightWhere(null); });
     }
     const srcs = (lens.src || []).map((s) => this.app.sourceTitle(s)).join(' · ');
     box.replaceChildren(head, body, el('p', { class: 'lg-desc', text: lens.desc }),

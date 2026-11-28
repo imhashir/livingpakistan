@@ -4,6 +4,20 @@ import { LABELS } from './lenses.js';
 import { TourChip } from './tourchip.js';
 
 const norm = (s) => (s || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g, '');
+const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// On a phone the card's step controls are drawn glyphs: a paused card used to
+// read ◀ ▶ ▶ (play beside next). Desktop keeps its text glyphs.
+const GLYPH = {
+  prev: '<path d="M16.5 6.5 9 12l7.5 5.5v-11Z"/><path d="M7 6.5v11"/>',
+  next: '<path d="M7.5 6.5 15 12l-7.5 5.5v-11Z"/><path d="M17 6.5v11"/>',
+  pause: '<path d="M9 6.5v11M15 6.5v11"/>',
+  play: '<path d="M8.5 6v12l9.5-6-9.5-6Z"/>',
+};
+const ctl = (desk, glyph, label, title, onclick, cls = '') => el('button', { class: `tb-btn ${cls}`, title, 'aria-label': label, onclick }, [
+  el('span', { class: 'only-desk', text: desk }),
+  glyph ? el('span', { class: 'only-touch tc-svg', 'aria-hidden': 'true', html: `<svg viewBox="0 0 24 24">${GLYPH[glyph]}</svg>` }) : el('span', { class: 'only-touch', text: desk }),
+]);
 
 export class Tours {
   constructor(app) {
@@ -11,7 +25,7 @@ export class Tours {
     this.menu = el('div', { class: 'tour-menu glass modal hidden' });
     this.narr = el('div', { class: 'narr glass hidden' });
     // the one control cinema mode leaves on screen
-    this.exitBtn = el('button', { class: 'cinema-exit', title: 'Exit (Esc)', onclick: () => this.stop() }, ['✕']);
+    this.exitBtn = el('button', { class: 'cinema-exit', title: 'Exit (Esc)', 'aria-label': 'Exit the tours', onclick: () => this.stop() }, ['✕']);
     app.hud.append(this.menu, this.narr, this.exitBtn);
     // on phones the card folds into a badge in the top-right corner
     this.chip = new TourChip(this);
@@ -23,7 +37,8 @@ export class Tours {
           onclick: () => this.playAll() }, ['▶ Play all']),
       ]),
       el('div', { class: 'tour-grid' }, this.tours.map((t, k) => el('button', { class: 'tour-card', onclick: () => this.run(k) }, [el('b', { text: `${t.icon} ${t.title}` }), el('span', { text: t.sub })]))),
-      el('div', { class: 'src-note', style: { marginTop: '10px' }, text: `Tours fly the camera, switch lenses and lighting, and narrate with numbers read from the datasets in the Almanac. Play all runs the ${this.tours.length} of them back to back on a loop with the interface hidden. Esc to stop · → / ← to step.` }));
+      el('div', { class: 'src-note', style: { marginTop: '10px' } }, [`Tours fly the camera, switch lenses and lighting, and narrate with numbers read from the datasets in the Almanac. Play all runs the ${this.tours.length} of them back to back on a loop with the interface hidden. `,
+        el('span', { class: 'only-desk', text: 'Esc to stop · → / ← to step.' }), el('span', { class: 'only-touch', text: 'During a tour, tap the badge in the corner for the card; ✕ on the card ends the tour.' })]));
     window.addEventListener('keydown', (e) => {
       if (!this.active) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); this.next(); }
@@ -183,7 +198,8 @@ export class Tours {
    */
   playAll() {
     this.menu.classList.add('hidden');
-    this.loopAll = true;
+    // with reduced motion, play them through once rather than forever
+    this.loopAll = !reducedMotion();
     this.loopAt = 0;
     document.body.classList.add('cinema');
     this.run(0);
@@ -199,6 +215,8 @@ export class Tours {
     this.menu.classList.add('hidden');
     this.app.eras?.hide(); this.app.select(null);
     this.active = { tour: this.tours[k], i: -1, token: Symbol() };
+    // reduced motion: a tour waits for the reader to step it (cinema still plays)
+    if (reducedMotion() && !document.body.classList.contains('cinema')) this.paused = true;
     document.body.classList.add('touring');
     this.next();
   }
@@ -220,7 +238,8 @@ export class Tours {
     this.narr.replaceChildren(
       el('div', { class: 'narr-head' }, [
         el('div', { class: 'k', text: `${a.tour.icon} ${a.tour.title}` }),
-        el('button', { class: 'narr-x', text: '✕', title: 'End tour (Esc)', onclick: () => this.stop() }),
+        // on a phone ✕ ends the tour where it is, rather than flying home
+        el('button', { class: 'narr-x', text: '✕', title: 'End tour (Esc)', 'aria-label': 'End tour', onclick: () => this.stop(true, { keepCamera: !!this.app.mobile?.on }) }),
       ]),
       el('div', { class: 'narr-body' }, [
         el('div', { class: 'narr-step', text: st.k }),
@@ -232,9 +251,9 @@ export class Tours {
       el('div', { class: 'row' }, [
         el('div', { class: 'count', text: `${i + 1} / ${steps.length}` }),
         el('div', { class: 'narr-ctl' }, [
-          el('button', { class: 'tb-btn', text: '◀', title: 'Previous (←)', onclick: () => this.prev() }),
-          el('button', { class: 'tb-btn narr-pause', text: this.paused ? '▶' : '❚❚', title: 'Pause / resume', onclick: () => this.togglePause() }),
-          el('button', { class: 'tb-btn', text: i === steps.length - 1 ? 'Finish' : '▶', title: i === steps.length - 1 ? 'Finish tour' : 'Next (→)', onclick: () => this.next() }),
+          ctl('◀', 'prev', 'Previous stop', 'Previous (←)', () => this.prev()),
+          ctl(this.paused ? '▶' : '❚❚', this.paused ? 'play' : 'pause', this.paused ? 'Resume tour' : 'Pause tour', 'Pause / resume', () => this.togglePause(), `narr-pause${this.paused ? ' paused' : ''}`),
+          i === steps.length - 1 ? ctl('Finish', null, 'Finish tour', 'Finish tour', () => this.next()) : ctl('▶', 'next', 'Next stop', 'Next (→)', () => this.next()),
         ]),
       ]),
       prog);
@@ -261,7 +280,12 @@ export class Tours {
   togglePause() {
     this.paused = !this.paused;
     const b = this.narr.querySelector('.narr-pause');
-    if (b) b.textContent = this.paused ? '▶' : '❚❚';
+    if (b) {
+      b.querySelector('.only-desk').textContent = this.paused ? '▶' : '❚❚';
+      b.querySelector('svg').innerHTML = GLYPH[this.paused ? 'play' : 'pause'];
+      b.setAttribute('aria-label', this.paused ? 'Resume tour' : 'Pause tour');
+      b.classList.toggle('paused', !!this.paused);
+    }
     this.chip.syncPause();
   }
 
@@ -275,8 +299,10 @@ export class Tours {
    * goHome is false for callers that are about to take over the view
    * themselves (picking another tour, starting the walkthrough, Home itself),
    * which also keeps resetView from calling back into here.
+   * keepCamera puts the map back to its defaults but leaves the camera where
+   * the tour left it (a phone's ✕ and Back button).
    */
-  stop(goHome = true) {
+  stop(goHome = true, { keepCamera = false } = {}) {
     if (!this.active) return;
     this.active = null; this.paused = false;
     // whether it was ✕, Esc, or the menu, cinema ends here
@@ -287,6 +313,6 @@ export class Tours {
     this.app.lines.focusCorridor(null);
     this.app.focusOn(null);
     this.app.flood?.hide(); if (this.app.lens.current === 'flood') this.app.flood.show();
-    if (goHome) this.app.resetView();
+    if (goHome) this.app.resetView({ keepCamera });
   }
 }

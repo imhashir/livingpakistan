@@ -7,5 +7,5 @@ export function bindStage(s) { stage = s; }
 /** `{ shadows: true }` (the default) also re-renders the sun's shadow map; camera-only changes don't need it. */
 export function requestRender(opts) { stage?.invalidate(opts); }
 
-/** Only the DOM labels need re-placing (a declutter pass changed which are shown). */
+/** Only the DOM labels need re-placing (a declutter pass changed which are shown). Wakes a resting loop. */
 export function requestLabels() { stage?.invalidateLabels(); }

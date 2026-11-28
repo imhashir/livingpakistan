@@ -5,9 +5,11 @@
 import './mobile.css';
 import * as THREE from 'three';
 import { el } from './dom.js';
+import { requestRender } from '../scene/frame.js';
 
-// Phones in portrait, plus phones held sideways (short and touch-driven).
-export const MOBILE_QUERY = '(max-width: 768px), (pointer: coarse) and (max-height: 520px)';
+// Phones in portrait, phones held sideways (short and touch-driven), and
+// touch tablets up to 1100px wide (iPad portrait), which a finger drives.
+export const MOBILE_QUERY = '(max-width: 768px), (pointer: coarse) and (max-width: 1100px), (pointer: coarse) and (max-height: 520px)';
 
 // 24px line icons, drawn in currentColor so they take the HUD's amber/ice.
 const ICON = {
@@ -44,6 +46,20 @@ export class MobileUI {
     // iOS Safari zooms the page on a pinch whatever touch-action says, and
     // ignores user-scalable=no; its own gesture events can still be refused
     for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => { if (this.on) e.preventDefault(); }, { passive: false });
+    // iOS lays the keyboard over the page without resizing it; only the visual
+    // viewport shrinks. --vvh is what is left above the keyboard (M-06, M-21).
+    const vv = window.visualViewport;
+    const vvh = () => document.documentElement.style.setProperty('--vvh', `${Math.round(vv ? vv.height : innerHeight)}px`);
+    vv?.addEventListener('resize', vvh); vvh();
+    // iOS Safari only shows :active pressed states once the page listens for touches
+    document.addEventListener('touchstart', () => {}, { passive: true });
+    this._off = { x: 0, y: 0, tx: 0, ty: 0 };
+    app.stage.onTick((t, dt) => this._tickOffset(dt));
+    app.sites.labelZone = () => (this.on ? { margin: 4, rects: this._hudRects() } : null);
+    this._hist = false; this._backing = false;
+    window.addEventListener('popstate', () => this._popped());
+    this._watchLayout();
+    this._bindSwipe();
     this._apply(false);
   }
 
@@ -156,10 +172,11 @@ export class MobileUI {
   toggle(key) { if (this.isOpen(key)) this.close(key); else this.open(key); }
 
   /** Close whatever is open. Returns true if anything was. */
-  closeAll({ keepInspector = false } = {}) {
+  closeAll({ keepInspector = false, keepBar = false } = {}) {
     let any = false;
     for (const s of this.sheets) {
       if (keepInspector && s.key === 'inspector') continue;
+      if (keepBar && this._isBar(s.node)) continue;
       if (this._visible(s.node)) { this.close(s.key); any = true; }
     }
     return any;
@@ -172,18 +189,30 @@ export class MobileUI {
    */
   dismissOnTap() {
     if (!this.on) return false;
-    if (!this.closeAll({ keepInspector: true })) return false;
+    if (!this.closeAll({ keepInspector: true, keepBar: true })) return false;
     if (!this.isOpen('inspector') && this.app.selection) this.app.select(null);
     return true;
   }
 
+  /** The Explorer folded to a bar above the dock: it may share the screen with the inspector. */
+  _isBar(n) { return n === this.app.explorer.root && n.classList.contains('min'); }
+
   _watch() {
+    const has = (cls, v) => new RegExp(`(^|\\s)${cls}(\\s|$)`).test(v || '');
     const mo = new MutationObserver((records) => {
       if (this.on) {
         // the first panel to open in a batch wins: Surprise shows its card and
-        // then selects its place, and the card is what was asked for
-        const opened = records.find((r) => this._visible(r.target) && /(^|\s)hidden(\s|$)/.test(r.oldValue || ''))?.target;
-        if (opened) for (const s of this.sheets) if (s.node !== opened && this._visible(s.node)) this.close(s.key);
+        // then selects its place, and the card is what was asked for. A folded
+        // Explorer coming back up counts as opening.
+        const opened = records.find((r) => this._visible(r.target) && (has('hidden', r.oldValue) || (has('min', r.oldValue) && !this._isBar(r.target))))?.target;
+        if (opened) {
+          for (const s of this.sheets) {
+            if (s.node === opened || !this._visible(s.node)) continue;
+            // the card for a row picked in the Explorer stacks above its bar
+            if (opened === this.app.inspector.root && this._isBar(s.node)) continue;
+            this.close(s.key);
+          }
+        }
       }
       this._sync();
     });
@@ -191,6 +220,7 @@ export class MobileUI {
   }
 
   _sync() {
+    this._layoutChanged();
     const open = this.sheets.find((s) => this._visible(s.node));
     document.body.classList.toggle('m-sheet-open', !!(this.on && open));
     for (const b of this.dock.querySelectorAll('[data-sheet]')) {
@@ -200,10 +230,182 @@ export class MobileUI {
     for (const k of ['search', 'guide']) this.top.querySelector(`.m-${k}`).classList.toggle('on', !!open && open.key === k);
   }
 
+  // ------------------------------------------------------------------ swipe a sheet away
+  /**
+   * Drag a sheet's head (it carries a grab handle) down to put the sheet away:
+   * past 80 px, or a quick flick. Shorter drags spring back. The heads are
+   * touch-action: none (mobile.css), so the browser leaves the drag to us.
+   */
+  _bindSwipe() {
+    const HEADS = '.m-sheet-head, .pc-head, .insp-hero, .tour-head';
+    let d = null;
+    document.addEventListener('pointerdown', (e) => {
+      d = null;
+      if (!this.on || e.button > 0) return;
+      const head = e.target.closest?.(HEADS);
+      const s = head && this.sheets.find((x) => x.node.contains(head) && this._visible(x.node));
+      if (!s || (s.key === 'inspector' && s.node.scrollTop > 0)) return;
+      d = { s, id: e.pointerId, x: e.clientX, y: e.clientY, t: 0, dy: 0, live: false };
+    }, true);
+    document.addEventListener('pointermove', (e) => {
+      if (!d || e.pointerId !== d.id) return;
+      const dx = e.clientX - d.x, dy = e.clientY - d.y;
+      if (!d.live) {
+        if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) { d = null; return; }
+        if (dy < 8) return;
+        d.live = true; d.t = e.timeStamp; d.y0 = dy;
+        Object.assign(d.s.node.style, { transition: 'none', animation: 'none' });
+      }
+      d.dy = Math.max(0, dy); d.last = e.timeStamp;
+      d.s.node.style.transform = `translateY(${d.dy}px)`;
+    }, true);
+    const end = (e) => {
+      if (!d || e.pointerId !== d.id) return;
+      const g = d; d = null;
+      if (!g.live) return;
+      // the lift ends a drag, not a tap on whatever button it started on
+      const eat = (c) => { c.stopPropagation(); c.preventDefault(); };
+      window.addEventListener('click', eat, { capture: true, once: true });
+      setTimeout(() => window.removeEventListener('click', eat, { capture: true }), 350);
+      const n = g.s.node, v = (g.dy - g.y0) / Math.max(16, (g.last || e.timeStamp) - g.t);
+      if (e.type === 'pointerup' && (g.dy > 80 || (v > 0.6 && g.dy > 24))) {
+        if (g.s.key === 'inspector') this.app.select(null); else this.close(g.s.key);
+        Object.assign(n.style, { transform: '', transition: '', animation: '' });
+      } else {
+        n.style.transition = 'transform 0.22s cubic-bezier(.2, .8, .2, 1)'; n.style.transform = '';
+        setTimeout(() => { n.style.transition = ''; n.style.animation = ''; }, 240);
+      }
+    };
+    document.addEventListener('pointerup', end, true);
+    document.addEventListener('pointercancel', end, true);
+  }
+
+  // ------------------------------------------------------------------ what the HUD covers
+  /** Anything that moves the HUD around: sheets, the tour badge, the time bars, the walkthrough card. */
+  _watchLayout() {
+    const A = this.app;
+    const mo = new MutationObserver(() => this._layoutChanged());
+    for (const n of [document.body, this.peek, A.eras.root, A.flood.root, A.tours.chip.root, A.guide.card]) {
+      if (n) mo.observe(n, { attributes: true, attributeFilter: ['class'] });
+    }
+    // a sheet whose content changed (the inspector moving to another tile) changes height
+    const ro = new ResizeObserver(() => this._layoutChanged());
+    for (const s of this.sheets) ro.observe(s.node);
+  }
+
+  /** Batched to one pass per frame: sheet switches arrive as close + open. */
+  _layoutChanged() {
+    if (this._layoutRaf) return;
+    this._layoutRaf = requestAnimationFrame(() => {
+      this._layoutRaf = 0;
+      this._aimOffset();
+      this.app.sites.refreshLabels();
+      this._historySync();
+    });
+  }
+
+  /** Screen boxes the map labels must keep out of (read once per declutter pass). */
+  _hudRects() {
+    const out = [];
+    const add = (n) => {
+      if (!n) return;
+      const r = n.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      const cs = getComputedStyle(n);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity === 0) return;
+      out.push(r);
+    };
+    for (const n of this.top.children) add(n);
+    add(this.dock); add(this.peek);
+    for (const n of document.querySelectorAll('#hud > .tc-chip:not(.hidden) :is(.tc-hold, .tc-btn), #hud > .cinema-exit, #hud > .timebar:not(.hidden), #hud > .narr:not(.hidden), #hud > .gd-card:not(.hidden)')) add(n);
+    for (const s of this.sheets) if (this._visible(s.node)) add(s.node);
+    return out;
+  }
+
+  // ------------------------------------------------------------------ keep the selection above its card
+  /**
+   * The camera flies a selection to the middle of the screen, which on a
+   * phone is right under the card that opens for it. While the inspector (or
+   * the Surprise card) is up, the projection centre moves to the middle of
+   * the map that is still showing: up in portrait, left in landscape, where
+   * the card sits beside the rail. A view offset keeps orbit, zoom-to-cursor
+   * and picking maths intact.
+   */
+  _aimOffset() {
+    let tx = 0, ty = 0;
+    const card = this.on && [this.app.inspector.root, this.app.surprise.card].find((n) => this._visible(n) && getComputedStyle(n).display !== 'none');
+    if (card) {
+      const W = innerWidth, H = innerHeight, r = card.getBoundingClientRect();
+      if (r.width > W * 0.7) {
+        // across the bottom: centre between the top buttons and the card
+        if (r.top > H * 0.35) ty = Math.max(0, H / 2 - (this.top.getBoundingClientRect().bottom + r.top) / 2);
+      } else if (r.left > W * 0.3) tx = Math.max(0, W / 2 - r.left / 2);
+    }
+    const o = this._off;
+    if (tx === o.tx && ty === o.ty) return;
+    o.tx = Math.round(tx); o.ty = Math.round(ty);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { o.x = o.tx; o.y = o.ty; this._applyOffset(); }
+    // the ticker eases it in; wake the loop so it runs
+    requestRender({ shadows: false });
+  }
+
+  _tickOffset(dt) {
+    const o = this._off, dx = o.tx - o.x, dy = o.ty - o.y;
+    if (!dx && !dy) return false;
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) { o.x = o.tx; o.y = o.ty; } else {
+      // about the sheet's own 0.3 s slide
+      const k = 1 - Math.exp(-Math.min(dt, 0.1) * 11);
+      o.x += dx * k; o.y += dy * k;
+    }
+    this._applyOffset();
+    return true;
+  }
+
+  _applyOffset() {
+    const cam = this.app.stage.camera, o = this._off;
+    if (o.x || o.y) cam.setViewOffset(innerWidth, innerHeight, o.x, o.y, innerWidth, innerHeight);
+    else if (cam.view?.enabled) cam.clearViewOffset();
+  }
+
+  // ------------------------------------------------------------------ the back button
+  /**
+   * Back closes what is open instead of leaving the site. Opening the first
+   * sheet (or starting a tour or the walkthrough) pushes one history entry;
+   * switching sheets reuses it; putting everything away by hand pops it.
+   */
+  _busy() {
+    const A = this.app;
+    return this.sheets.some((s) => this._visible(s.node)) || !!A.tours.active || !!A.guide.running;
+  }
+
+  _historySync() {
+    if (!this.on || this._backing) return;
+    const busy = this._busy();
+    if (busy && !this._hist) {
+      history.pushState({ ...(history.state || {}), lpOpen: true }, '');
+      this._hist = true;
+    } else if (!busy && this._hist) {
+      this._hist = false;
+      if (history.state?.lpOpen) { this._backing = true; history.back(); }
+    }
+  }
+
+  _popped() {
+    if (this._backing) { this._backing = false; this._historySync(); return; }
+    if (!this._hist) return;
+    this._hist = false;
+    const A = this.app;
+    if (A.guide.running) A.guide.end();
+    if (A.tours.active) A.tours.stop(true, { keepCamera: true });
+    this.closeAll();
+    if (A.selection) A.select(null);
+  }
+
   _peek(lens) {
     const sc = this.app.lens.scale;
     const show = lens.id !== this.defaultLens && lens.level !== 'none' && sc;
     this.peek.classList.toggle('hidden', !show);
+    this._layoutChanged();
     if (!show) return;
     const cols = sc.cat ? Object.entries(sc.counts).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k]) => sc.pal[k] || '#888') : sc.stops;
     this.peekSwatch.style.background = sc.cat
@@ -247,7 +449,12 @@ export class MobileUI {
   _resized() {
     const wasHome = this._atHome();
     this._camera();
-    if (this.on && wasHome) this.app.home(true);
+    // Android resizes the page for its keyboard (interactive-widget): don't
+    // re-fit the country under someone who is typing
+    const typing = document.activeElement?.matches?.('input, textarea, select');
+    if (this.on && wasHome && !typing) this.app.home(true);
+    // the view offset is in screen pixels: re-aim it for the new shape
+    this._applyOffset(); this._layoutChanged();
   }
 
   // ------------------------------------------------------------------ camera
@@ -292,7 +499,7 @@ export class MobileUI {
     const botPx = rail ? 16 : H - dock.top + 12;
     const left = 16, right = rail ? W - dock.left + 12 : 16;
     const ndc = { x0: -1 + (2 * left) / W, x1: 1 - (2 * right) / W, y0: -1 + (2 * botPx) / H, y1: 1 - (2 * topPx) / H };
-    const probe = cam.clone(); probe.aspect = W / H; probe.updateProjectionMatrix();
+    const probe = cam.clone(); probe.clearViewOffset(); probe.aspect = W / H; probe.updateProjectionMatrix();
     const v = new THREE.Vector3(), t = new THREE.Vector3();
     const box = new THREE.Box3().setFromPoints(pts); box.getCenter(t); t.y = 0;
     const place = (d) => {
@@ -324,6 +531,27 @@ export class MobileUI {
     A.stage.controls.maxDistance = Math.max(3200, d * 1.4);
     this._pose = { key, x: t.x, z: t.z, dist: d, tilt, az };
     return this._pose;
+  }
+
+  /**
+   * First visit on a phone: one line on the gestures, over the map, until the
+   * first touch (or nine seconds), and the Tours button pulses once.
+   */
+  coach() {
+    if (!this.on) return;
+    const n = el('div', { class: 'm-coach glass', role: 'status' }, [
+      el('b', { text: 'Drag to move · pinch to zoom' }), el('span', { text: 'two fingers to tilt and turn · tap anything' })]);
+    this.app.hud.append(n);
+    const tours = this.dock.querySelector('[data-sheet=tours]');
+    tours.classList.add('m-pulse');
+    tours.addEventListener('animationend', () => tours.classList.remove('m-pulse'), { once: true });
+    let t = 0;
+    const done = () => {
+      clearTimeout(t); document.removeEventListener('pointerdown', done, true);
+      n.classList.add('gone'); setTimeout(() => n.remove(), 500);
+    };
+    document.addEventListener('pointerdown', done, true);
+    t = setTimeout(done, 9000);
   }
 
   /** Walkthrough: open the sheet that holds what a step is pointing at. */

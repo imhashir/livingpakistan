@@ -87,7 +87,7 @@ export class Stage {
     requestAnimationFrame(this._loop);
   }
 
-  invalidateLabels() { this._labelsDirty = true; }
+  invalidateLabels() { this._labelsDirty = true; this.wake(); }
 
   onQuality(fn) { this.qualityListeners.push(fn); }
 
@@ -146,8 +146,9 @@ export class Stage {
     const toPos = new THREE.Vector3(
       tgt.x + distance * Math.sin(tilt) * Math.sin(az), tgt.y + distance * Math.cos(tilt),
       tgt.z + distance * Math.sin(tilt) * Math.cos(az));
-    // arc up mid-flight for a cinematic hop
-    const lift = Math.min(fromPos.distanceTo(toPos) * 0.35, 900);
+    // arc up mid-flight for a cinematic hop; with reduced motion, a short straight cut
+    let lift = Math.min(fromPos.distanceTo(toPos) * 0.35, 900);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { duration = Math.min(duration, 0.35); lift = 0; }
     this.wake();
     return new Promise((resolve) => {
       this.flight = { t: 0, duration, fromPos, fromTgt, toPos, tgt, lift, resolve };
