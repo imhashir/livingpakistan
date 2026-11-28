@@ -1,0 +1,1196 @@
+{
+ "label": "baseline",
+ "date": "2026-11-28T07:16:19.699Z",
+ "git": "3a67605",
+ "dirty": false,
+ "query": "",
+ "orbitMs": 12000,
+ "machine": {
+  "cpus": 8,
+  "gl": "SwiftShader (ANGLE) — no hardware GPU in this environment"
+ },
+ "bundle": {
+  "js": [
+   {
+    "file": "index-Cw7pqKyj.js",
+    "bytes": 777988,
+    "gzip": 207296
+   }
+  ],
+  "css": [
+   {
+    "file": "index-BIrx2Jm2.css",
+    "bytes": 67119,
+    "gzip": 13509
+   }
+  ],
+  "data": [
+   {
+    "file": "atlas.json",
+    "bytes": 338833,
+    "gzip": 91254
+   },
+   {
+    "file": "cells.json",
+    "bytes": 373394,
+    "gzip": 44742
+   },
+   {
+    "file": "districts.json",
+    "bytes": 16688,
+    "gzip": 4052
+   },
+   {
+    "file": "layers.json",
+    "bytes": 364994,
+    "gzip": 97145
+   },
+   {
+    "file": "manifest.json",
+    "bytes": 66,
+    "gzip": 77
+   },
+   {
+    "file": "sources.json",
+    "bytes": 157487,
+    "gzip": 39183
+   },
+   {
+    "file": "world.json",
+    "bytes": 648229,
+    "gzip": 101870
+   }
+  ],
+  "totals": {
+   "js": 777988,
+   "jsGzip": 207296,
+   "css": 67119,
+   "data": 1899691,
+   "dataGzip": 378323
+  },
+  "entryJs": 777988
+ },
+ "scenarios": [
+  {
+   "id": "desktop-1440",
+   "viewport": "1440x900@1x",
+   "cpuThrottle": 1,
+   "note": "unthrottled CPU, SwiftShader GL",
+   "url": "http://127.0.0.1:4174/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 124,
+    "dclMs": 98,
+    "mapVisibleMs": 324,
+    "readyMs": 960,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 2.8,
+      "bytes": 366
+     },
+     {
+      "file": "atlas.json",
+      "ms": 22.5,
+      "bytes": 91921
+     },
+     {
+      "file": "cells.json",
+      "ms": 19.7,
+      "bytes": 46004
+     },
+     {
+      "file": "districts.json",
+      "ms": 15.3,
+      "bytes": 4390
+     },
+     {
+      "file": "layers.json",
+      "ms": 25.7,
+      "bytes": 98153
+     },
+     {
+      "file": "sources.json",
+      "ms": 20,
+      "bytes": 39925
+     },
+     {
+      "file": "world.json",
+      "ms": 33.3,
+      "bytes": 104541
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-Cw7pqKyj.js",
+      "ms": 29.1,
+      "bytes": 208287
+     }
+    ],
+    "longTasks": {
+     "n": 3,
+     "totalMs": 798,
+     "maxMs": 436
+    },
+    "scriptDurationMs": 590,
+    "taskDurationMs": 5758,
+    "layoutMs": 178,
+    "wallReadyMs": 5801,
+    "jsonParse": {
+     "atlas": 1.4,
+     "cells": 1,
+     "districts": 0.1,
+     "layers": 1.1,
+     "sources": 0.2,
+     "world": 1.7,
+     "total": 5.5
+    }
+   },
+   "orbit": {
+    "frames": 19,
+    "avgFps": 1.6,
+    "p5Fps": 0.8,
+    "p1Fps": 0.8,
+    "medianMs": 483.3,
+    "p95Ms": 1283.2,
+    "p99Ms": 1283.2,
+    "maxMs": 1333.3,
+    "dist": {
+     "<17ms": 0,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 1
+    },
+    "renders": 20,
+    "mainThreadBusyPct": 1.2,
+    "drawCallsPerFrame": 87,
+    "trianglesPerFrame": 475798,
+    "geometries": 44,
+    "textures": 18,
+    "programs": 27,
+    "longTasks": {
+     "n": 0,
+     "totalMs": 0
+    },
+    "heap": {
+     "allocMBperSec": 0.14,
+     "gcDrops": 0,
+     "freedMB": 0
+    },
+    "gc": {}
+   },
+   "hover": {
+    "frames": 9,
+    "avgFps": 2.2,
+    "p5Fps": 1.7,
+    "p1Fps": 1.7,
+    "medianMs": 500,
+    "p95Ms": 583.3,
+    "p99Ms": 583.3,
+    "maxMs": 583.3,
+    "dist": {
+     "<17ms": 0,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 1
+    },
+    "renders": 10,
+    "mainThreadBusyPct": 1.2
+   },
+   "idle": {
+    "rendersPerSec": 2.2,
+    "mainThreadBusyPct": 1.3,
+    "rafFps": 2
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 16,
+    "jsHeapEndMB": 16.4,
+    "jsHeapTotalMB": 18.1,
+    "cdpUsedMB": 11.8,
+    "gpuEstimateMB": 225.8,
+    "gpu": {
+     "drawingBuffer": 54.38,
+     "renderTargets": 38.72,
+     "shadowMaps": 128,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 225.82,
+     "drawingBufferSize": [
+      1440,
+      900
+     ],
+     "antialias": true,
+     "preserveDrawingBuffer": true,
+     "shadowMapEnabled": true,
+     "pixelRatio": 1,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 65,
+     "quality": "n/a",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  },
+  {
+   "id": "tv-1080p",
+   "viewport": "1920x1080@1x",
+   "cpuThrottle": 4,
+   "note": "4x CPU throttle, SwiftShader GL",
+   "url": "http://127.0.0.1:4174/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 72,
+    "dclMs": 174,
+    "mapVisibleMs": 1021,
+    "readyMs": 2453,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 1.7,
+      "bytes": 366
+     },
+     {
+      "file": "cells.json",
+      "ms": 16.2,
+      "bytes": 46004
+     },
+     {
+      "file": "atlas.json",
+      "ms": 14.6,
+      "bytes": 91921
+     },
+     {
+      "file": "districts.json",
+      "ms": 2.3,
+      "bytes": 4390
+     },
+     {
+      "file": "layers.json",
+      "ms": 15.7,
+      "bytes": 98153
+     },
+     {
+      "file": "sources.json",
+      "ms": 11.4,
+      "bytes": 39925
+     },
+     {
+      "file": "world.json",
+      "ms": 20.5,
+      "bytes": 104541
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-Cw7pqKyj.js",
+      "ms": 22.4,
+      "bytes": 208287
+     }
+    ],
+    "longTasks": {
+     "n": 5,
+     "totalMs": 1317,
+     "maxMs": 506
+    },
+    "scriptDurationMs": 785,
+    "taskDurationMs": 2505,
+    "layoutMs": 126,
+    "wallReadyMs": 2556,
+    "jsonParse": {
+     "atlas": 4.3,
+     "cells": 4.3,
+     "districts": 1,
+     "layers": 5.6,
+     "sources": 0.4,
+     "world": 7.5,
+     "total": 23.1
+    }
+   },
+   "orbit": {
+    "frames": 18,
+    "avgFps": 1.5,
+    "p5Fps": 0.8,
+    "p1Fps": 0.8,
+    "medianMs": 583.4,
+    "p95Ms": 1250,
+    "p99Ms": 1250,
+    "maxMs": 1716.6,
+    "dist": {
+     "<17ms": 0.056,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0.111,
+     ">100ms": 0.833
+    },
+    "renders": 19,
+    "mainThreadBusyPct": 3.2,
+    "drawCallsPerFrame": 87,
+    "trianglesPerFrame": 475867,
+    "geometries": 44,
+    "textures": 18,
+    "programs": 27,
+    "longTasks": {
+     "n": 0,
+     "totalMs": 0
+    },
+    "heap": {
+     "allocMBperSec": 0.16,
+     "gcDrops": 0,
+     "freedMB": 0
+    },
+    "gc": {}
+   },
+   "hover": {
+    "frames": 6,
+    "avgFps": 1.6,
+    "p5Fps": 1.6,
+    "p1Fps": 1.6,
+    "medianMs": 566.6,
+    "p95Ms": 633.4,
+    "p99Ms": 633.4,
+    "maxMs": 1266.7,
+    "dist": {
+     "<17ms": 0,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 1
+    },
+    "renders": 7,
+    "mainThreadBusyPct": 4.1
+   },
+   "idle": {
+    "rendersPerSec": 1.4,
+    "mainThreadBusyPct": 3.4,
+    "rafFps": 1.2
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 16,
+    "jsHeapEndMB": 16.4,
+    "jsHeapTotalMB": 17.8,
+    "cdpUsedMB": 11.8,
+    "gpuEstimateMB": 281.7,
+    "gpu": {
+     "drawingBuffer": 87.01,
+     "renderTargets": 61.95,
+     "shadowMaps": 128,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 281.68,
+     "drawingBufferSize": [
+      1920,
+      1080
+     ],
+     "antialias": true,
+     "preserveDrawingBuffer": true,
+     "shadowMapEnabled": true,
+     "pixelRatio": 1,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 65,
+     "quality": "n/a",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  },
+  {
+   "id": "tv-720p",
+   "viewport": "1280x720@1x",
+   "cpuThrottle": 6,
+   "note": "6x CPU throttle, SwiftShader GL",
+   "url": "http://127.0.0.1:4174/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 84,
+    "dclMs": 238,
+    "mapVisibleMs": 1397,
+    "readyMs": 2696,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 3.3,
+      "bytes": 366
+     },
+     {
+      "file": "atlas.json",
+      "ms": 9.6,
+      "bytes": 91921
+     },
+     {
+      "file": "cells.json",
+      "ms": 6.4,
+      "bytes": 46004
+     },
+     {
+      "file": "districts.json",
+      "ms": 2.4,
+      "bytes": 4390
+     },
+     {
+      "file": "sources.json",
+      "ms": 5.8,
+      "bytes": 39925
+     },
+     {
+      "file": "layers.json",
+      "ms": 11.5,
+      "bytes": 98153
+     },
+     {
+      "file": "world.json",
+      "ms": 16.9,
+      "bytes": 104541
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-Cw7pqKyj.js",
+      "ms": 21,
+      "bytes": 208287
+     }
+    ],
+    "longTasks": {
+     "n": 6,
+     "totalMs": 1796,
+     "maxMs": 631
+    },
+    "scriptDurationMs": 1100,
+    "taskDurationMs": 2794,
+    "layoutMs": 169,
+    "wallReadyMs": 2828,
+    "jsonParse": {
+     "atlas": 4.6,
+     "cells": 6.4,
+     "districts": 0.1,
+     "layers": 6.3,
+     "sources": 1,
+     "world": 8.5,
+     "total": 26.9
+    }
+   },
+   "orbit": {
+    "frames": 33,
+    "avgFps": 2.8,
+    "p5Fps": 1.4,
+    "p1Fps": 1.4,
+    "medianMs": 383.3,
+    "p95Ms": 699.9,
+    "p99Ms": 700,
+    "maxMs": 800.1,
+    "dist": {
+     "<17ms": 0.03,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0.121,
+     ">100ms": 0.848
+    },
+    "renders": 34,
+    "mainThreadBusyPct": 7.5,
+    "drawCallsPerFrame": 89,
+    "trianglesPerFrame": 475948,
+    "geometries": 44,
+    "textures": 18,
+    "programs": 27,
+    "longTasks": {
+     "n": 0,
+     "totalMs": 0
+    },
+    "heap": {
+     "allocMBperSec": 0.28,
+     "gcDrops": 1,
+     "freedMB": 0.1
+    },
+    "gc": {}
+   },
+   "hover": {
+    "frames": 8,
+    "avgFps": 1.9,
+    "p5Fps": 1.4,
+    "p1Fps": 1.4,
+    "medianMs": 416.7,
+    "p95Ms": 716.7,
+    "p99Ms": 716.7,
+    "maxMs": 799.9,
+    "dist": {
+     "<17ms": 0,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 1
+    },
+    "renders": 9,
+    "mainThreadBusyPct": 5.6
+   },
+   "idle": {
+    "rendersPerSec": 2.6,
+    "mainThreadBusyPct": 6.4,
+    "rafFps": 2.4
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 15.9,
+    "jsHeapEndMB": 16.5,
+    "jsHeapTotalMB": 17.4,
+    "cdpUsedMB": 11.9,
+    "gpuEstimateMB": 198.9,
+    "gpu": {
+     "drawingBuffer": 38.67,
+     "renderTargets": 27.53,
+     "shadowMaps": 128,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 198.92,
+     "drawingBufferSize": [
+      1280,
+      720
+     ],
+     "antialias": true,
+     "preserveDrawingBuffer": true,
+     "shadowMapEnabled": true,
+     "pixelRatio": 1,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 64,
+     "quality": "n/a",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  },
+  {
+   "id": "phone-390",
+   "viewport": "390x844@2x",
+   "cpuThrottle": 4,
+   "note": "4x CPU throttle, DPR 2, touch",
+   "url": "http://127.0.0.1:4174/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 84,
+    "dclMs": 186,
+    "mapVisibleMs": 1056,
+    "readyMs": 2285,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 2.5,
+      "bytes": 366
+     },
+     {
+      "file": "cells.json",
+      "ms": 8.4,
+      "bytes": 46004
+     },
+     {
+      "file": "atlas.json",
+      "ms": 10.8,
+      "bytes": 91921
+     },
+     {
+      "file": "districts.json",
+      "ms": 4.2,
+      "bytes": 4390
+     },
+     {
+      "file": "sources.json",
+      "ms": 6.9,
+      "bytes": 39925
+     },
+     {
+      "file": "layers.json",
+      "ms": 13,
+      "bytes": 98153
+     },
+     {
+      "file": "world.json",
+      "ms": 18.8,
+      "bytes": 104541
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-Cw7pqKyj.js",
+      "ms": 20.8,
+      "bytes": 208287
+     }
+    ],
+    "longTasks": {
+     "n": 6,
+     "totalMs": 1245,
+     "maxMs": 523
+    },
+    "scriptDurationMs": 760,
+    "taskDurationMs": 2334,
+    "layoutMs": 64,
+    "wallReadyMs": 2388,
+    "jsonParse": {
+     "atlas": 4.8,
+     "cells": 4.2,
+     "districts": 0.8,
+     "layers": 3.8,
+     "sources": 0.3,
+     "world": 6.7,
+     "total": 20.6
+    }
+   },
+   "orbit": {
+    "frames": 18,
+    "avgFps": 1.6,
+    "p5Fps": 0.9,
+    "p1Fps": 0.9,
+    "medianMs": 483.4,
+    "p95Ms": 1066.6,
+    "p99Ms": 1066.6,
+    "maxMs": 1416.6,
+    "dist": {
+     "<17ms": 0,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0.056,
+     ">100ms": 0.944
+    },
+    "renders": 19,
+    "mainThreadBusyPct": 2.4,
+    "drawCallsPerFrame": 77,
+    "trianglesPerFrame": 475090,
+    "geometries": 44,
+    "textures": 18,
+    "programs": 27,
+    "longTasks": {
+     "n": 0,
+     "totalMs": 0
+    },
+    "heap": {
+     "allocMBperSec": 0.13,
+     "gcDrops": 0,
+     "freedMB": 0
+    },
+    "gc": {}
+   },
+   "hover": {
+    "frames": 9,
+    "avgFps": 2.1,
+    "p5Fps": 1.9,
+    "p1Fps": 1.9,
+    "medianMs": 433.3,
+    "p95Ms": 516.7,
+    "p99Ms": 516.7,
+    "maxMs": 1083.3,
+    "dist": {
+     "<17ms": 0,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 1
+    },
+    "renders": 10,
+    "mainThreadBusyPct": 2.4
+   },
+   "idle": {
+    "rendersPerSec": 2.3,
+    "mainThreadBusyPct": 3.9,
+    "rafFps": 2.1
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 16,
+    "jsHeapEndMB": 16.4,
+    "jsHeapTotalMB": 17.5,
+    "cdpUsedMB": 11.9,
+    "gpuEstimateMB": 227.3,
+    "gpu": {
+     "drawingBuffer": 55.25,
+     "renderTargets": 39.34,
+     "shadowMaps": 128,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 227.3,
+     "drawingBufferSize": [
+      780,
+      1688
+     ],
+     "antialias": true,
+     "preserveDrawingBuffer": true,
+     "shadowMapEnabled": true,
+     "pixelRatio": 2,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 37,
+     "quality": "n/a",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  }
+ ],
+ "profile": {
+  "scenario": "tv-1080p",
+  "load": {
+   "totalMs": 4485,
+   "top": [
+    {
+     "fn": "(program) :0",
+     "selfMs": 3000.5,
+     "pct": 66.9
+    },
+    {
+     "fn": "onFirstUse index-ByHBYUWB.js:26901",
+     "selfMs": 391.4,
+     "pct": 8.7
+    },
+    {
+     "fn": "(anonymous) index-ByHBYUWB.js:1",
+     "selfMs": 40.8,
+     "pct": 0.9
+    },
+    {
+     "fn": "(garbage collector) :0",
+     "selfMs": 36.8,
+     "pct": 0.8
+    },
+    {
+     "fn": "emojiTexture index-ByHBYUWB.js:38484",
+     "selfMs": 31.2,
+     "pct": 0.7
+    },
+    {
+     "fn": "(idle) :0",
+     "selfMs": 29.2,
+     "pct": 0.7
+    },
+    {
+     "fn": "el index-ByHBYUWB.js:37634",
+     "selfMs": 25.8,
+     "pct": 0.6
+    },
+    {
+     "fn": "replaceLightNums index-ByHBYUWB.js:26544",
+     "selfMs": 21.6,
+     "pct": 0.5
+    },
+    {
+     "fn": "neighbours index-ByHBYUWB.js:36930",
+     "selfMs": 20.8,
+     "pct": 0.5
+    },
+    {
+     "fn": "ribbonGeometry index-ByHBYUWB.js:37934",
+     "selfMs": 19.2,
+     "pct": 0.4
+    },
+    {
+     "fn": "WebGLShader index-ByHBYUWB.js:26435",
+     "selfMs": 17.2,
+     "pct": 0.4
+    },
+    {
+     "fn": "Board index-ByHBYUWB.js:36985",
+     "selfMs": 15.1,
+     "pct": 0.3
+    },
+    {
+     "fn": "getContext index-ByHBYUWB.js:32225",
+     "selfMs": 13.7,
+     "pct": 0.3
+    },
+    {
+     "fn": "setProgram index-ByHBYUWB.js:33319",
+     "selfMs": 13.2,
+     "pct": 0.3
+    },
+    {
+     "fn": "build index-ByHBYUWB.js:37727",
+     "selfMs": 11.1,
+     "pct": 0.2
+    },
+    {
+     "fn": "getParameters index-ByHBYUWB.js:27064",
+     "selfMs": 10.8,
+     "pct": 0.2
+    },
+    {
+     "fn": "Dq js:554",
+     "selfMs": 10.6,
+     "pct": 0.2
+    },
+    {
+     "fn": "getProgram index-ByHBYUWB.js:33212",
+     "selfMs": 9.2,
+     "pct": 0.2
+    },
+    {
+     "fn": "Borders index-ByHBYUWB.js:37673",
+     "selfMs": 9,
+     "pct": 0.2
+    },
+    {
+     "fn": "projectObject index-ByHBYUWB.js:33059",
+     "selfMs": 8.6,
+     "pct": 0.2
+    },
+    {
+     "fn": "(anonymous) index-ByHBYUWB.js:38576",
+     "selfMs": 8.5,
+     "pct": 0.2
+    },
+    {
+     "fn": "init index-ByHBYUWB.js:44023",
+     "selfMs": 8.2,
+     "pct": 0.2
+    },
+    {
+     "fn": "InstancedMesh index-ByHBYUWB.js:16464",
+     "selfMs": 7.6,
+     "pct": 0.2
+    },
+    {
+     "fn": "createElement :0",
+     "selfMs": 7.6,
+     "pct": 0.2
+    },
+    {
+     "fn": "upload index-ByHBYUWB.js:26420",
+     "selfMs": 7.5,
+     "pct": 0.2
+    },
+    {
+     "fn": "l.We js:1100",
+     "selfMs": 7.5,
+     "pct": 0.2
+    },
+    {
+     "fn": "createBuffer index-ByHBYUWB.js:23184",
+     "selfMs": 7.4,
+     "pct": 0.2
+    },
+    {
+     "fn": "_buildCities index-ByHBYUWB.js:38541",
+     "selfMs": 7.2,
+     "pct": 0.2
+    },
+    {
+     "fn": "clone index-ByHBYUWB.js:3252",
+     "selfMs": 7.2,
+     "pct": 0.2
+    },
+    {
+     "fn": "fetch :0",
+     "selfMs": 7,
+     "pct": 0.2
+    }
+   ]
+  },
+  "orbit": {
+   "totalMs": 8132,
+   "top": [
+    {
+     "fn": "(idle) :0",
+     "selfMs": 7748.5,
+     "pct": 95.3
+    },
+    {
+     "fn": "(program) :0",
+     "selfMs": 242.6,
+     "pct": 3
+    },
+    {
+     "fn": "updateMatrixWorld index-ByHBYUWB.js:9040",
+     "selfMs": 12.3,
+     "pct": 0.2
+    },
+    {
+     "fn": "setProgram index-ByHBYUWB.js:33319",
+     "selfMs": 5.3,
+     "pct": 0.1
+    },
+    {
+     "fn": "push index-ByHBYUWB.js:27558",
+     "selfMs": 5.1,
+     "pct": 0.1
+    },
+    {
+     "fn": "setValueT1Array index-ByHBYUWB.js:26253",
+     "selfMs": 5.1,
+     "pct": 0.1
+    },
+    {
+     "fn": "get memory :0",
+     "selfMs": 4.4,
+     "pct": 0.1
+    },
+    {
+     "fn": "bindVertexArray :0",
+     "selfMs": 3.9,
+     "pct": 0
+    },
+    {
+     "fn": "tick :29",
+     "selfMs": 3.5,
+     "pct": 0
+    },
+    {
+     "fn": "requestAnimationFrame :0",
+     "selfMs": 3.3,
+     "pct": 0
+    },
+    {
+     "fn": "renderObject index-ByHBYUWB.js:36736",
+     "selfMs": 3.3,
+     "pct": 0
+    },
+    {
+     "fn": "getProgram index-ByHBYUWB.js:33212",
+     "selfMs": 3.2,
+     "pct": 0
+    },
+    {
+     "fn": "setValue index-ByHBYUWB.js:26412",
+     "selfMs": 2.8,
+     "pct": 0
+    },
+    {
+     "fn": "refreshMaterialUniforms index-ByHBYUWB.js:31014",
+     "selfMs": 2.7,
+     "pct": 0
+    },
+    {
+     "fn": "uniformMatrix4fv :0",
+     "selfMs": 2.7,
+     "pct": 0
+    },
+    {
+     "fn": "getProgramCacheKeyBooleans index-ByHBYUWB.js:27366",
+     "selfMs": 2.6,
+     "pct": 0
+    },
+    {
+     "fn": "place index-ByHBYUWB.js:38784",
+     "selfMs": 2.4,
+     "pct": 0
+    },
+    {
+     "fn": "(anonymous) index-ByHBYUWB.js:44069",
+     "selfMs": 2.4,
+     "pct": 0
+    },
+    {
+     "fn": "arraysEqual index-ByHBYUWB.js:25895",
+     "selfMs": 2.3,
+     "pct": 0
+    },
+    {
+     "fn": "WebGLRenderer.renderBufferDirect index-ByHBYUWB.js:32767",
+     "selfMs": 2.2,
+     "pct": 0
+    },
+    {
+     "fn": "WebGLRenderer.render index-ByHBYUWB.js:32977",
+     "selfMs": 2,
+     "pct": 0
+    },
+    {
+     "fn": "getProgramCacheKey index-ByHBYUWB.js:27292",
+     "selfMs": 2,
+     "pct": 0
+    },
+    {
+     "fn": "getParameters index-ByHBYUWB.js:27064",
+     "selfMs": 2,
+     "pct": 0
+    },
+    {
+     "fn": "setup index-ByHBYUWB.js:24040",
+     "selfMs": 1.9,
+     "pct": 0
+    },
+    {
+     "fn": "copy index-ByHBYUWB.js:3261",
+     "selfMs": 1.9,
+     "pct": 0
+    },
+    {
+     "fn": "setupLightsView index-ByHBYUWB.js:28045",
+     "selfMs": 1.9,
+     "pct": 0
+    },
+    {
+     "fn": "multiplyMatrices index-ByHBYUWB.js:7242",
+     "selfMs": 1.8,
+     "pct": 0
+    },
+    {
+     "fn": "hideObject index-ByHBYUWB.js:36732",
+     "selfMs": 1.8,
+     "pct": 0
+    },
+    {
+     "fn": "updateLabels index-ByHBYUWB.js:38777",
+     "selfMs": 1.8,
+     "pct": 0
+    },
+    {
+     "fn": "projectObject index-ByHBYUWB.js:33059",
+     "selfMs": 1.7,
+     "pct": 0
+    }
+   ]
+  },
+  "hover": {
+   "totalMs": 3842,
+   "top": [
+    {
+     "fn": "(idle) :0",
+     "selfMs": 3532.3,
+     "pct": 91.9
+    },
+    {
+     "fn": "(program) :0",
+     "selfMs": 199.9,
+     "pct": 5.2
+    },
+    {
+     "fn": "w js:278",
+     "selfMs": 7.5,
+     "pct": 0.2
+    },
+    {
+     "fn": "fromArray index-ByHBYUWB.js:7742",
+     "selfMs": 5.5,
+     "pct": 0.1
+    },
+    {
+     "fn": "wD js:769",
+     "selfMs": 5,
+     "pct": 0.1
+    },
+    {
+     "fn": "intersect index-ByHBYUWB.js:22742",
+     "selfMs": 4.6,
+     "pct": 0.1
+    },
+    {
+     "fn": "getMatrixAt index-ByHBYUWB.js:16584",
+     "selfMs": 4.3,
+     "pct": 0.1
+    },
+    {
+     "fn": "raycast index-ByHBYUWB.js:16599",
+     "selfMs": 3.9,
+     "pct": 0.1
+    },
+    {
+     "fn": "updateMatrixWorld index-ByHBYUWB.js:9040",
+     "selfMs": 3.7,
+     "pct": 0.1
+    },
+    {
+     "fn": "raycast index-ByHBYUWB.js:16176",
+     "selfMs": 3.3,
+     "pct": 0.1
+    },
+    {
+     "fn": "applyMatrix4 index-ByHBYUWB.js:3441",
+     "selfMs": 3.3,
+     "pct": 0.1
+    },
+    {
+     "fn": "distanceSqToPoint index-ByHBYUWB.js:15456",
+     "selfMs": 3.1,
+     "pct": 0.1
+    },
+    {
+     "fn": "setProgram index-ByHBYUWB.js:33319",
+     "selfMs": 2.8,
+     "pct": 0.1
+    },
+    {
+     "fn": "intersectSphere index-ByHBYUWB.js:15533",
+     "selfMs": 2.8,
+     "pct": 0.1
+    },
+    {
+     "fn": "copy index-ByHBYUWB.js:3261",
+     "selfMs": 2.6,
+     "pct": 0.1
+    },
+    {
+     "fn": "get cookie :0",
+     "selfMs": 2.6,
+     "pct": 0.1
+    },
+    {
+     "fn": "updateMatrix index-ByHBYUWB.js:9017",
+     "selfMs": 2.6,
+     "pct": 0.1
+    },
+    {
+     "fn": "multiplyMatrices index-ByHBYUWB.js:7242",
+     "selfMs": 2.5,
+     "pct": 0.1
+    },
+    {
+     "fn": "hideObject index-ByHBYUWB.js:36732",
+     "selfMs": 2.3,
+     "pct": 0.1
+    },
+    {
+     "fn": "addScaledVector index-ByHBYUWB.js:3311",
+     "selfMs": 2,
+     "pct": 0.1
+    },
+    {
+     "fn": "get index-ByHBYUWB.js:27472",
+     "selfMs": 1.8,
+     "pct": 0
+    },
+    {
+     "fn": "add :0",
+     "selfMs": 1.6,
+     "pct": 0
+    },
+    {
+     "fn": "getMaxScaleOnAxis index-ByHBYUWB.js:7443",
+     "selfMs": 1.5,
+     "pct": 0
+    },
+    {
+     "fn": "(anonymous) index-ByHBYUWB.js:44536",
+     "selfMs": 1.5,
+     "pct": 0
+    },
+    {
+     "fn": "getProgram index-ByHBYUWB.js:33212",
+     "selfMs": 1.4,
+     "pct": 0
+    },
+    {
+     "fn": "useProgram :0",
+     "selfMs": 1.4,
+     "pct": 0
+    },
+    {
+     "fn": "(anonymous) :0",
+     "selfMs": 1.2,
+     "pct": 0
+    },
+    {
+     "fn": "pick index-ByHBYUWB.js:38810",
+     "selfMs": 1.2,
+     "pct": 0
+    },
+    {
+     "fn": "CK.copyToHitData js:892",
+     "selfMs": 1.2,
+     "pct": 0
+    },
+    {
+     "fn": "dot index-ByHBYUWB.js:3657",
+     "selfMs": 1.1,
+     "pct": 0
+    }
+   ]
+  }
+ },
+ "note": "Baseline = main @ 3a67605 (production). The scenarios were served from an unmodified build of main; the CPU profile is from an unminified build of the same commit."
+}
