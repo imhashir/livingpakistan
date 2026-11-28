@@ -1,5 +1,14 @@
 // Terrain-draped animated ribbons: flowing rivers, glowing trade corridors with travelling pulses, canals, faults.
 import * as THREE from 'three';
+import { requestRender } from './frame.js';
+
+/** Free the GPU buffers and programs of everything under `root`. */
+export function disposeTree(root) {
+  root.traverse((o) => {
+    o.geometry?.dispose();
+    for (const m of [o.material].flat()) m?.dispose();
+  });
+}
 
 const RIVER_VS = `
   attribute float aDist; attribute float aSide; varying float vDist; varying float vSide; varying vec3 vWP;
@@ -101,7 +110,8 @@ export class Lines {
   }
 
   rebuild() {
-    for (const g of Object.values(this.groups)) g.removeFromParent();
+    // a relief change rebuilds every ribbon: free the old buffers instead of leaking them
+    for (const g of Object.values(this.groups)) { g.removeFromParent(); disposeTree(g); }
     this.groups = {};
     const L = this.layers.lines, b = this.board;
     // rivers — coloured by the Indus Waters Treaty allocation when that view is on
@@ -142,13 +152,15 @@ export class Lines {
     const vis = this.visible || { rivers: true, canals: false, corridors: false, roads: true, faults: false };
     this.visible = vis;
     for (const [k, g] of Object.entries(this.groups)) { g.visible = !!vis[k]; this.group.add(g); }
+    requestRender();
   }
 
-  setVisible(k, on) { this.visible[k] = on; if (this.groups[k]) this.groups[k].visible = on; }
+  setVisible(k, on) { this.visible[k] = on; if (this.groups[k]) this.groups[k].visible = on; requestRender({ shadows: false }); }
 
   /** Highlight one corridor (others dim) or null for all. */
   focusCorridor(id) {
     for (const [cid, m] of Object.entries(this.corridorMeshes)) m.material.uniforms.uOpacity.value = !id || id === cid ? 1 : 0.18;
+    requestRender({ shadows: false });
   }
 
   /** Colour rivers by Indus Waters Treaty allocation (western → Pakistan, eastern → India) or plain blue. */
@@ -158,5 +170,6 @@ export class Lines {
       const col = !on ? 0x2f8fd6 : iwt === 'western' ? 0x1fd6a0 : iwt === 'eastern' ? 0xff8a3d : 0x6a8fb0;
       m.material.uniforms.uColor.value.setHex(col);
     }
+    requestRender({ shadows: false });
   }
 }

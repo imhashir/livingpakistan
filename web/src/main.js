@@ -10,6 +10,7 @@ import { createWater, createSky, createVoid, Lighting } from './scene/environmen
 import { loadAll } from './data.js';
 import { App } from './app.js';
 import { instrument } from './analytics.js';
+import { QualityController } from './quality.js';
 
 const sub = document.getElementById('loader-sub');
 const say = (s) => { if (sub) sub.textContent = s; };
@@ -24,9 +25,18 @@ async function boot() {
   const voidPlane = createVoid(stage.scene);
   const sky = createSky(stage.scene);
   const lighting = new Lighting(stage.scene, stage.renderer);
-  const app = new App({ stage, board, water, sky, lighting, data, voidPlane });
+  // quality tier: each piece of the scene adjusts itself when the tier changes
+  stage.onQuality((q) => { lighting.setQuality(q); board.setQuality(q); water.setQuality(q); voidPlane.setQuality(q); });
+  const quality = new QualityController(stage);
+  quality.setMode(quality.mode, { persist: false });
+  const app = new App({ stage, board, water, sky, lighting, data, voidPlane, quality });
   await app.init();
+  // compile every visible material before the first frame, without blocking the main thread
+  // where the browser can compile in parallel (KHR_parallel_shader_compile)
+  say('Lighting the lamps…');
+  if (stage.renderer.extensions.has('KHR_parallel_shader_compile')) await stage.renderer.compileAsync(stage.scene, stage.camera).catch(() => {});
   instrument(app); // wraps the app's public methods to report usage to GA4
+  // t is the ambient clock: real time on the high tier, slower or frozen on lower tiers
   stage.onTick((t) => {
     water.uniforms.uTime.value = t;
     board.uniforms.uTime.value = t;

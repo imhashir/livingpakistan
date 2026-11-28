@@ -70,6 +70,7 @@ export class MobileUI {
 
     this.lensBody = el('div', { class: 'm-sheet-body' });
     this.lightBody = el('div', { class: 'm-sheet-body' });
+    this.qualityRow = this._qualityRow();
     const tile = (k, title, sub, fn) => el('button', { class: 'm-tile', onclick: fn }, [icon(k), el('b', { text: title }), el('small', { text: sub })]);
     this.glance = el('div', { class: 'm-glance' });
     this.moreBody = el('div', { class: 'm-sheet-body' }, [
@@ -114,6 +115,21 @@ export class MobileUI {
       { key: 'inspector', node: A.inspector.root },
     ];
     this.byKey = Object.fromEntries(this.sheets.map((s) => [s.key, s]));
+  }
+
+  /** Graphics quality as three chips in the Light sheet (desktop has a cycling chip instead). */
+  _qualityRow() {
+    const q = this.app.quality;
+    if (!q) return null;
+    const chips = ['low', 'auto', 'high'].map((m) => el('button', { class: 'chip', 'data-quality': m, onclick: () => q.setMode(m) },
+      [{ low: 'Low', auto: 'Auto', high: 'High' }[m]]));
+    const note = el('small', { class: 'm-quality-note' });
+    const sync = () => {
+      for (const c of chips) c.classList.toggle('on', c.dataset.quality === q.mode);
+      note.textContent = q.mode === 'auto' ? `Running ${q.tier}` : q.mode === 'low' ? 'Lightest, for older phones' : 'Full detail';
+    };
+    q.onChange(sync); sync();
+    return el('div', { class: 'm-quality' }, [el('div', { class: 'm-quality-head' }, [el('span', { text: 'Graphics' }), note]), el('div', { class: 'm-quality-chips' }, chips)]);
   }
 
   _x(fn) { return el('button', { class: 'm-x', title: 'Close', 'aria-label': 'Close', onclick: fn }, [icon('close')]); }
@@ -213,6 +229,7 @@ export class MobileUI {
       this._move(A.ui.dock, this.lensBody);
       this._move(A.hud.querySelector('.moods'), this.lightBody);
       this._move(A.reliefEl, this.lightBody);
+      if (this.qualityRow) this.lightBody.append(this.qualityRow);
       this._move(A.hud.querySelector('.topbar .yields'), this.glance);
       A.tip.classList.add('hidden');
     } else {

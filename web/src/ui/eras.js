@@ -2,6 +2,7 @@
 // switches the layers that tell its story (canals for the Raj canal colonies, corridors & cities for modern Pakistan).
 import * as THREE from 'three';
 import { el } from './dom.js';
+import { requestRender } from '../scene/frame.js';
 
 const ERA_STYLE = {
   mehrgarh: { color: 0xc98b4a, mood: 'golden', layers: [] },
@@ -67,6 +68,7 @@ export class EraMachine {
   hide() {
     if (!this.open) return;
     this.open = false; this.playing = false; this.root.classList.add('hidden'); this.beams.visible = false;
+    requestRender({ shadows: false });
     if (this._saved) {
       this.app.setMood(this._saved.mood);
       for (const k of ['era', 'city', 'unesco', 'wonder']) this.app.setLayer(k, this._saved.kinds.has(k));
@@ -84,6 +86,7 @@ export class EraMachine {
     const m = new THREE.Matrix4();
     sites.forEach((s, j) => { const p = this.app.sites.worldPos(s); m.makeTranslation(p.x, p.y, p.z); this.beams.setMatrixAt(j, m); });
     this.beams.count = sites.length; this.beams.instanceMatrix.needsUpdate = true; this.beams.visible = true;
+    requestRender({ shadows: false });
     this.uniforms.uColor.value.setHex(st.color);
     // mood + layers
     this.app.setMood(st.mood);
