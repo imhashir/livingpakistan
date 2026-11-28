@@ -195,7 +195,7 @@ body.mobile #hud:has(> .exp.min:not(.hidden)) .inspector {
   bottom: calc(var(--m-sheet-b) + var(--m-bar) + 6px); max-height: min(46dvh, var(--m-room) - 52px - var(--m-bar)); }
 /* three columns on a phone: District, the sort, and one more */
 body.mobile .exp-mcols { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 8px; }
-body.mobile .exp-mcols label { display: flex; align-items: center; gap: 8px; }
+body.mobile .exp-mcols label { display: flex; align-items: center; gap: 8px; min-width: 0; }
 body.mobile .exp-mcols label > span { width: 34px; flex: none; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); }
 body.mobile .exp-mcols .pc-select { flex: 1; min-width: 0; height: 40px; }
 body.mobile .exp-mcols .pc-btn { width: 44px; height: 40px; padding: 0; }
@@ -341,6 +341,6 @@ body.mobile .m-sheet-lenses { max-height: min(50dvh, var(--m-room) - 52px); }
   body.mobile .exp-table { max-height: none; flex: 1; }
   body.mobile .exp-plot { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
   body.mobile .exp-svg { height: 170px; }
-  body.mobile .exp-mcols { grid-template-columns: 1fr 1fr; margin-bottom: 4px; }
+  body.mobile .exp-mcols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-bottom: 4px; }
   body.mobile .exp :is(.pc-sub, .exp-info) { display: none; }
 }
