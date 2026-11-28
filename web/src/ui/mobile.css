@@ -18,6 +18,16 @@ body.mobile {
   overscroll-behavior: none;
 }
 body.mobile #hud button, body.mobile #hud input, body.mobile #hud select { touch-action: manipulation; }
+/* Pinch-zoom belongs to the map. A pinch that starts on the HUD must not zoom
+   the page (and strand every control off-screen), so nothing in the HUD
+   allows it; scrollers still pan. The bars and sheet heads take no gestures
+   at all (a sheet head's drag is the swipe-to-close). The viewport itself
+   stays zoomable, for accessibility. */
+body.mobile #hud { touch-action: pan-x pan-y; }
+body.mobile :is(.m-top, .m-dock, .m-peek, .m-sheet-head, .pc-head, .tour-head, .insp-hero, .tc-chip, .narr-head, .cinema-exit) { touch-action: none; }
+/* labels let touches through to the map, so a pan or pinch that starts on one
+   moves the map; a tap is matched to the label in App._bindPointer */
+body.mobile :is(.banner, .wlabel) { pointer-events: none; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 /* inputs under 16px make iOS zoom the page on focus */
 body.mobile #hud :is(input[type=text], input[type=search], select) { font-size: 16px; }
 
@@ -209,6 +219,8 @@ body.mobile .flood-stats { gap: 14px; flex-wrap: wrap; }
 body.mobile .narr { position: fixed; top: auto; left: var(--m-l); right: var(--m-r); bottom: var(--m-dock-b); width: auto; max-height: 40dvh; }
 body.mobile .narr-ctl .tb-btn { height: 38px; min-width: 42px; justify-content: center; }
 body.mobile.touring :is(.m-dock, .m-top-right, .m-peek) { display: none !important; }
+/* a selection left from before can never ghost behind the narration */
+body.mobile.touring .inspector { display: none !important; }
 body.mobile.cinema :is(.m-top, .m-dock, .m-peek) { display: none !important; }
 body.mobile .cinema-exit { top: var(--m-top); right: var(--m-r); width: 44px; height: 44px; }
 

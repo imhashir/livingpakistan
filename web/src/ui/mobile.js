@@ -41,6 +41,9 @@ export class MobileUI {
     let rt = null;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => this._resized(), 120); });
     app.onLens = (lens) => this._peek(lens);
+    // iOS Safari zooms the page on a pinch whatever touch-action says, and
+    // ignores user-scalable=no; its own gesture events can still be refused
+    for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => { if (this.on) e.preventDefault(); }, { passive: false });
     this._apply(false);
   }
 

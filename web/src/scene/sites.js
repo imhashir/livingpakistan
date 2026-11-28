@@ -180,11 +180,15 @@ export class Sites {
     this.banners = [];
     const ranked = [...cities].sort((a, b) => (b.pop || 0) - (a.pop || 0));
     ranked.forEach((c, rank) => {
-      const div = el('div', { class: `banner ${c.capital ? 'capital' : ''}`, 'data-id': c.id }, [
-        el('span', { class: 'banner-pop', text: c.pop ? fmt.big(c.pop) : '—' }),
+      // AJK and GB towns are not in the Census 2023 urban tables: rather than a
+      // bare "—" that reads as a glitch, those banners carry the name alone
+      const div = el('div', { class: `banner ${c.capital ? 'capital' : ''}`, 'data-id': c.id, role: 'button', tabindex: '0',
+        'aria-label': c.pop ? `${c.name}, ${fmt.big(c.pop)} people` : `${c.name}, population not covered by Census 2023` }, [
+        c.pop ? el('span', { class: 'banner-pop', text: fmt.big(c.pop) }) : '',
         el('span', { class: 'banner-name', text: c.name }),
       ]);
-      div.addEventListener('click', (e) => { e.stopPropagation(); this.onSelect?.(c); });
+      if (!c.pop) div.classList.add('no-pop');
+      this._activate(div, c);
       const o = new CSS2DObject(div);
       o.position.copy(this.worldPos(c, 14 + Math.min(10, Math.sqrt(c.pop || 1e5) / 500)));
       o.userData = { site: c, rank, minDist: rank < 6 ? 99999 : rank < 15 ? 1700 : rank < 30 ? 1000 : 650 };
@@ -231,12 +235,44 @@ export class Sites {
     rings.renderOrder = 10; this.wonderRings = rings; this.group.add(rings);
     // labels
     this.wonderLabels = kept.map((w) => {
-      const d = el('div', { class: 'wlabel' }, [el('span', { text: '✦ ' + w.name })]);
-      d.addEventListener('click', (e) => { e.stopPropagation(); this.onSelect?.(w); });
+      const d = el('div', { class: 'wlabel', role: 'button', tabindex: '0', 'aria-label': w.name }, [el('span', { text: '✦ ' + w.name })]);
+      this._activate(d, w);
       const o = new CSS2DObject(d); o.position.copy(this.worldPos(w, 16)); o.userData = { site: w, minDist: 700 };
       this.group.add(o); return o;
     });
   }
+
+  /** A label is a button: click, or Enter / Space when it has focus. */
+  _activate(node, site) {
+    node.addEventListener('click', (e) => { e.stopPropagation(); this.onSelect?.(site); });
+    node.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault(); e.stopPropagation(); this.onSelect?.(site);
+    });
+  }
+
+  /**
+   * On touch screens the labels let touches through to the map (so a pan or a
+   * pinch that starts on one still moves the map), and a tap is matched to a
+   * label here instead, with `slop` px of grace around its box.
+   */
+  labelAt(x, y, slop = 0) {
+    let best = null, bestD = Infinity;
+    for (const o of [...this.banners, ...this.wonderLabels]) {
+      if (!o.visible) continue;
+      const r = o.element.getBoundingClientRect();
+      if (!r.width) continue;
+      const dx = Math.max(r.left - x, 0, x - r.right), dy = Math.max(r.top - y, 0, y - r.bottom);
+      if (dx > slop || dy > slop) continue;
+      // inside beats near, and a banner (drawn on top) beats a wonder label
+      const d = Math.hypot(dx, dy) - (this.banners.includes(o) ? 0.5 : 0);
+      if (d < bestD) { bestD = d; best = o.userData.site; }
+    }
+    return best;
+  }
+
+  /** Re-run the declutter on the next tick (the HUD moved, so the free space changed). */
+  refreshLabels() { this._labelKey = null; this._lastDeclutter = 0; requestLabels(); }
 
   _buildPins() {
     this.pins = [];
@@ -287,20 +323,26 @@ export class Sites {
     if (this._lastDeclutter && now - this._lastDeclutter < 160) return;
     this._lastDeclutter = now;
     // nothing to redo while the camera, the viewport and the label set are unchanged
-    const W = innerWidth, H = innerHeight, cp = camera.position;
-    const key = `${cp.x},${cp.y},${cp.z},${target.x},${target.y},${target.z},${camera.fov},${W},${H}`;
+    const W = innerWidth, H = innerHeight, cp = camera.position, vo = camera.view?.enabled ? camera.view : null;
+    const key = `${cp.x},${cp.y},${cp.z},${target.x},${target.y},${target.z},${camera.fov},${W},${H},${vo ? `${vo.offsetX},${vo.offsetY}` : ''}`;
     if (key === this._labelKey) return;
     this._labelKey = key;
     // ticks run before the render that would refresh these, so bring them up to date first
     camera.updateMatrixWorld();
     const d = camera.position.distanceTo(target);
-    const boxes = [];
+    // Phones (see MobileUI): labels stay whole on screen and off the HUD. The
+    // HUD's boxes are read once per pass and seeded as already taken.
+    const zone = this.labelZone?.() || null;
+    const edge = zone ? zone.margin : -Infinity;
+    const boxes = zone ? zone.rects.map((r) => [r.left, r.top, r.right, r.bottom]) : [];
     const v = this._v || (this._v = new THREE.Vector3());
+    let at = null; // where the last place() put its box
     const place = (o, w, h) => {
       v.copy(o.position).project(camera);
       if (v.z > 1 || v.x < -1.1 || v.x > 1.1 || v.y < -1.1 || v.y > 1.1) return false;
       const x = (v.x + 1) / 2 * W, y = (1 - v.y) / 2 * H;
-      const b = [x - w / 2, y - h / 2, x + w / 2, y + h / 2];
+      const b = at = [x - w / 2, y - h / 2, x + w / 2, y + h / 2];
+      if (b[0] < edge || b[1] < edge || b[2] > W - edge || b[3] > H - edge) return false;
       if (boxes.some((q) => b[0] < q[2] && b[2] > q[0] && b[1] < q[3] && b[3] > q[1])) return false;
       boxes.push(b); return true;
     };
@@ -319,9 +361,17 @@ export class Sites {
       const w = banner ? 26 + o.userData.site.name.length * 9 : 20 + o.userData.site.name.length * 7;
       const h = banner ? 26 : 18;
       // a tour's subject stays legible whatever the distance gates say
+      at = null;
       o.visible = (want || focused) && place(o, w, h);
       if (focused) o.visible = true;
       if (o.visible !== was) changed = true;
+      // ...and on a phone it is nudged back inside the screen rather than cut off
+      let nudge = '';
+      if (focused && zone && at && v.z <= 1) {
+        const nx = Math.round(Math.max(edge - at[0], Math.min(0, W - edge - at[2]))), ny = Math.round(Math.max(edge - at[1], Math.min(0, H - edge - at[3])));
+        if (nx || ny) nudge = `${nx}px ${ny}px`;
+      }
+      if ((o.userData.nudge || '') !== nudge) { o.userData.nudge = nudge; o.element.style.translate = nudge; changed = true; }
     }
     if (changed) requestLabels();
   }

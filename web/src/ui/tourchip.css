@@ -12,8 +12,9 @@ body.mobile.touring .tc-chip:not(.hidden) {
   color: var(--ink);
   transition: opacity 0.18s ease;
 }
-/* cinema has its own exit in this corner: sit just below it */
-body.mobile.cinema .tc-chip { top: calc(var(--m-top) + 52px); }
+/* cinema has its own exit in this corner: sit just below it (the selector has
+   to outweigh the touring rule above) */
+body.mobile.touring.cinema .tc-chip:not(.hidden) { top: calc(var(--m-top) + 52px); }
 
 /* no callout, selection or magnifier on a long press; the badge handles its own touches */
 .tc-chip, .tc-chip * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }

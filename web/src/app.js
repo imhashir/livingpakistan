@@ -409,6 +409,12 @@ export class App {
       this.raycaster.setFromCamera(this.pointer, this.stage.camera);
       const hit = this.board.pick(this.raycaster);
       if (this.duel.picking && hit && this.data.world.owner[hit.cell] >= 0) { this.duel.pickDistrict(this.data.world.owner[hit.cell]); return; }
+      // a phone's tour owns the screen: a tap on the map only puts the tour card
+      // away (see TourChip), it does not open a card behind the narration
+      if (this.mobile.on && this.tours.active) return;
+      // on a phone the banners let touches through to the map, so a tap on one lands here
+      const label = this.mobile.on ? this.sites.labelAt(e.clientX, e.clientY, e.pointerType === 'touch' ? 12 : 0) : null;
+      if (label) { this.select({ site: label }); return; }
       if (this.mobile.dismissOnTap()) return;
       const site = this.sites.pick(this.raycaster);
       if (site) { this.select({ site }); return; }

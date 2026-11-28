@@ -296,6 +296,8 @@ body.dock-collapsed .dock-toggle { opacity: 1; pointer-events: auto; transform: 
 .narr-ctl .tb-btn { height: 27px; padding: 0 9px; font-size: 12px; }
 .narr .prog { position: absolute; left: 0; bottom: 0; height: 2px; background: var(--accent-2); transition: width 0.2s linear; border-radius: 0; }
 body.touring .dock, body.touring .legend, body.touring .inspector, body.touring .timebar { opacity: 0.15; pointer-events: none; }
+/* #hud > * turns pointer events back on with an id's weight, so say it again with one */
+body.touring #hud > :is(.dock, .legend, .inspector, .timebar) { pointer-events: none; }
 
 /* ---------- cinema: every tour end to end, nothing in the way
    One exit, top right. The narration stays — it is the tour's substance,
