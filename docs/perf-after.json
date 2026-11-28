@@ -1,0 +1,1331 @@
+{
+ "label": "after",
+ "date": "2026-11-28T07:43:30.895Z",
+ "git": "3a67605",
+ "dirty": true,
+ "query": "",
+ "orbitMs": 12000,
+ "machine": {
+  "cpus": 8,
+  "gl": "SwiftShader (ANGLE) — no hardware GPU in this environment"
+ },
+ "bundle": {
+  "js": [
+   {
+    "file": "index-C7AQUZ-E.js",
+    "bytes": 788953,
+    "gzip": 211279
+   }
+  ],
+  "css": [
+   {
+    "file": "index-DS157V5X.css",
+    "bytes": 68029,
+    "gzip": 13622
+   }
+  ],
+  "data": [
+   {
+    "file": "atlas.json",
+    "bytes": 338833,
+    "gzip": 91254
+   },
+   {
+    "file": "cells.json",
+    "bytes": 373394,
+    "gzip": 44742
+   },
+   {
+    "file": "districts.json",
+    "bytes": 16688,
+    "gzip": 4052
+   },
+   {
+    "file": "layers.json",
+    "bytes": 364994,
+    "gzip": 97145
+   },
+   {
+    "file": "manifest.json",
+    "bytes": 66,
+    "gzip": 77
+   },
+   {
+    "file": "sources.json",
+    "bytes": 157487,
+    "gzip": 39183
+   },
+   {
+    "file": "world.json",
+    "bytes": 648229,
+    "gzip": 101870
+   }
+  ],
+  "totals": {
+   "js": 788953,
+   "jsGzip": 211279,
+   "css": 68029,
+   "data": 1899691,
+   "dataGzip": 378323
+  },
+  "entryJs": 788953
+ },
+ "scenarios": [
+  {
+   "id": "desktop-1440",
+   "viewport": "1440x900@1x",
+   "cpuThrottle": 1,
+   "note": "unthrottled CPU, SwiftShader GL",
+   "url": "http://127.0.0.1:4199/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 72,
+    "dclMs": 64,
+    "mapVisibleMs": 234,
+    "readyMs": 586,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 1.3,
+      "bytes": 366
+     },
+     {
+      "file": "cells.json",
+      "ms": 15,
+      "bytes": 46004
+     },
+     {
+      "file": "atlas.json",
+      "ms": 16.5,
+      "bytes": 91921
+     },
+     {
+      "file": "districts.json",
+      "ms": 5,
+      "bytes": 4390
+     },
+     {
+      "file": "layers.json",
+      "ms": 19,
+      "bytes": 98153
+     },
+     {
+      "file": "sources.json",
+      "ms": 8.2,
+      "bytes": 39925
+     },
+     {
+      "file": "world.json",
+      "ms": 24.5,
+      "bytes": 104541
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-C7AQUZ-E.js",
+      "ms": 25.2,
+      "bytes": 212301
+     }
+    ],
+    "longTasks": {
+     "n": 2,
+     "totalMs": 444,
+     "maxMs": 308
+    },
+    "scriptDurationMs": 259,
+    "taskDurationMs": 600,
+    "layoutMs": 150,
+    "wallReadyMs": 631,
+    "jsonParse": {
+     "atlas": 1,
+     "cells": 0.9,
+     "districts": 0,
+     "layers": 1.4,
+     "sources": 0.2,
+     "world": 1.6,
+     "total": 5.1
+    }
+   },
+   "orbit": {
+    "frames": 83,
+    "avgFps": 6.8,
+    "p5Fps": 3,
+    "p1Fps": 2.5,
+    "medianMs": 166.7,
+    "p95Ms": 333.3,
+    "p99Ms": 400,
+    "maxMs": 416.7,
+    "dist": {
+     "<17ms": 0.349,
+     "17-33ms": 0.012,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 0.639
+    },
+    "renders": 83,
+    "mainThreadBusyPct": 2.9,
+    "drawCallsPerFrame": 69,
+    "trianglesPerFrame": 217741,
+    "geometries": 44,
+    "textures": 5,
+    "programs": 15,
+    "longTasks": {
+     "n": 0,
+     "totalMs": 0
+    },
+    "heap": {
+     "allocMBperSec": 0.65,
+     "gcDrops": 4,
+     "freedMB": 7.3
+    },
+    "gc": {
+     "traceEvents": 5210,
+     "events": {
+      "MinorGC": {
+       "n": 1,
+       "ms": 2.1,
+       "maxMs": 2.1
+      },
+      "V8.GCScavenger": {
+       "n": 1,
+       "ms": 1.9,
+       "maxMs": 1.9
+      },
+      "V8.GCIncrementalMarking": {
+       "n": 12,
+       "ms": 7.5,
+       "maxMs": 3.6
+      },
+      "MajorGC": {
+       "n": 1,
+       "ms": 3.2,
+       "maxMs": 3.2
+      },
+      "V8.GCFinalizeMC": {
+       "n": 1,
+       "ms": 3.1,
+       "maxMs": 3.1
+      },
+      "V8.GC_MARK_COMPACTOR": {
+       "n": 1,
+       "ms": 3,
+       "maxMs": 3
+      }
+     }
+    }
+   },
+   "hover": {
+    "frames": 40,
+    "avgFps": 9.7,
+    "p5Fps": 3,
+    "p1Fps": 2.9,
+    "medianMs": 16.7,
+    "p95Ms": 333.2,
+    "p99Ms": 350,
+    "maxMs": 400,
+    "dist": {
+     "<17ms": 0.575,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0.025,
+     ">100ms": 0.4
+    },
+    "renders": 19,
+    "mainThreadBusyPct": 4.6
+   },
+   "idle": {
+    "rendersPerSec": 0,
+    "mainThreadBusyPct": 2.4,
+    "rafFps": 59.9
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 15.5,
+    "jsHeapEndMB": 16.2,
+    "jsHeapTotalMB": 19.1,
+    "cdpUsedMB": 11.6,
+    "gpuEstimateMB": 42.8,
+    "gpu": {
+     "drawingBuffer": 10.53,
+     "renderTargets": 27.53,
+     "shadowMaps": 0,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 42.77,
+     "drawingBufferSize": [
+      1214,
+      758
+     ],
+     "antialias": false,
+     "preserveDrawingBuffer": false,
+     "shadowMapEnabled": false,
+     "pixelRatio": 0.8432740427115678,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 58,
+     "quality": "low",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  },
+  {
+   "id": "tv-1080p",
+   "viewport": "1920x1080@1x",
+   "cpuThrottle": 4,
+   "note": "4x CPU throttle, SwiftShader GL",
+   "url": "http://127.0.0.1:4199/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 56,
+    "dclMs": 151,
+    "mapVisibleMs": 984,
+    "readyMs": 1831,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 1.8,
+      "bytes": 366
+     },
+     {
+      "file": "atlas.json",
+      "ms": 11.2,
+      "bytes": 91921
+     },
+     {
+      "file": "cells.json",
+      "ms": 8.6,
+      "bytes": 46004
+     },
+     {
+      "file": "districts.json",
+      "ms": 3.2,
+      "bytes": 4390
+     },
+     {
+      "file": "sources.json",
+      "ms": 6.9,
+      "bytes": 39925
+     },
+     {
+      "file": "layers.json",
+      "ms": 12.2,
+      "bytes": 98153
+     },
+     {
+      "file": "world.json",
+      "ms": 18.1,
+      "bytes": 104541
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-C7AQUZ-E.js",
+      "ms": 23.4,
+      "bytes": 212301
+     }
+    ],
+    "longTasks": {
+     "n": 5,
+     "totalMs": 1191,
+     "maxMs": 480
+    },
+    "scriptDurationMs": 595,
+    "taskDurationMs": 1842,
+    "layoutMs": 128,
+    "wallReadyMs": 1863,
+    "jsonParse": {
+     "atlas": 4.5,
+     "cells": 5.5,
+     "districts": 0.1,
+     "layers": 3.5,
+     "sources": 0.7,
+     "world": 3.7,
+     "total": 18
+    }
+   },
+   "orbit": {
+    "frames": 77,
+    "avgFps": 6.3,
+    "p5Fps": 2.6,
+    "p1Fps": 2.5,
+    "medianMs": 183.4,
+    "p95Ms": 383.3,
+    "p99Ms": 400,
+    "maxMs": 416.5,
+    "dist": {
+     "<17ms": 0.377,
+     "17-33ms": 0.013,
+     "33-50ms": 0,
+     "50-100ms": 0.026,
+     ">100ms": 0.584
+    },
+    "renders": 77,
+    "mainThreadBusyPct": 9.6,
+    "drawCallsPerFrame": 70,
+    "trianglesPerFrame": 217854,
+    "geometries": 44,
+    "textures": 5,
+    "programs": 15,
+    "longTasks": {
+     "n": 0,
+     "totalMs": 0
+    },
+    "heap": {
+     "allocMBperSec": 0.6,
+     "gcDrops": 1,
+     "freedMB": 6.4
+    },
+    "gc": {
+     "traceEvents": 4975,
+     "events": {
+      "MinorGC": {
+       "n": 1,
+       "ms": 8,
+       "maxMs": 8
+      },
+      "V8.GCScavenger": {
+       "n": 1,
+       "ms": 7.3,
+       "maxMs": 7.3
+      },
+      "V8.GCIncrementalMarking": {
+       "n": 10,
+       "ms": 4.3,
+       "maxMs": 3.2
+      },
+      "MajorGC": {
+       "n": 1,
+       "ms": 12.7,
+       "maxMs": 12.7
+      },
+      "V8.GCFinalizeMC": {
+       "n": 1,
+       "ms": 11.8,
+       "maxMs": 11.8
+      },
+      "V8.GC_MARK_COMPACTOR": {
+       "n": 1,
+       "ms": 11.3,
+       "maxMs": 11.3
+      }
+     }
+    }
+   },
+   "hover": {
+    "frames": 36,
+    "avgFps": 8.6,
+    "p5Fps": 2.4,
+    "p1Fps": 2.2,
+    "medianMs": 16.7,
+    "p95Ms": 416.7,
+    "p99Ms": 450,
+    "maxMs": 483.3,
+    "dist": {
+     "<17ms": 0.556,
+     "17-33ms": 0,
+     "33-50ms": 0.028,
+     "50-100ms": 0.056,
+     ">100ms": 0.361
+    },
+    "renders": 16,
+    "mainThreadBusyPct": 12.7
+   },
+   "idle": {
+    "rendersPerSec": 0,
+    "mainThreadBusyPct": 9.2,
+    "rafFps": 59.9
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 15.4,
+    "jsHeapEndMB": 16.2,
+    "jsHeapTotalMB": 18.6,
+    "cdpUsedMB": 11.6,
+    "gpuEstimateMB": 42.8,
+    "gpu": {
+     "drawingBuffer": 10.55,
+     "renderTargets": 27.53,
+     "shadowMaps": 0,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 42.79,
+     "drawingBufferSize": [
+      1280,
+      720
+     ],
+     "antialias": false,
+     "preserveDrawingBuffer": false,
+     "shadowMapEnabled": false,
+     "pixelRatio": 0.6666666666666666,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 66,
+     "quality": "low",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  },
+  {
+   "id": "tv-720p",
+   "viewport": "1280x720@1x",
+   "cpuThrottle": 6,
+   "note": "6x CPU throttle, SwiftShader GL",
+   "url": "http://127.0.0.1:4199/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 88,
+    "dclMs": 254,
+    "mapVisibleMs": 1534,
+    "readyMs": 2442,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 2.8,
+      "bytes": 366
+     },
+     {
+      "file": "atlas.json",
+      "ms": 11.6,
+      "bytes": 91921
+     },
+     {
+      "file": "districts.json",
+      "ms": 3.9,
+      "bytes": 4390
+     },
+     {
+      "file": "cells.json",
+      "ms": 10,
+      "bytes": 46004
+     },
+     {
+      "file": "sources.json",
+      "ms": 8.4,
+      "bytes": 39925
+     },
+     {
+      "file": "layers.json",
+      "ms": 12.8,
+      "bytes": 98153
+     },
+     {
+      "file": "world.json",
+      "ms": 18.7,
+      "bytes": 104541
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-C7AQUZ-E.js",
+      "ms": 21.8,
+      "bytes": 212301
+     }
+    ],
+    "longTasks": {
+     "n": 5,
+     "totalMs": 1750,
+     "maxMs": 697
+    },
+    "scriptDurationMs": 918,
+    "taskDurationMs": 2469,
+    "layoutMs": 169,
+    "wallReadyMs": 2544,
+    "jsonParse": {
+     "atlas": 5.3,
+     "cells": 5.8,
+     "districts": 0.2,
+     "layers": 6.2,
+     "sources": 1.9,
+     "world": 9,
+     "total": 28.4
+    }
+   },
+   "orbit": {
+    "frames": 84,
+    "avgFps": 6.9,
+    "p5Fps": 3,
+    "p1Fps": 2.7,
+    "medianMs": 183.2,
+    "p95Ms": 333.3,
+    "p99Ms": 366.7,
+    "maxMs": 749.9,
+    "dist": {
+     "<17ms": 0.321,
+     "17-33ms": 0.036,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 0.643
+    },
+    "renders": 84,
+    "mainThreadBusyPct": 20.7,
+    "drawCallsPerFrame": 67,
+    "trianglesPerFrame": 217673,
+    "geometries": 44,
+    "textures": 5,
+    "programs": 15,
+    "longTasks": {
+     "n": 1,
+     "totalMs": 757
+    },
+    "heap": {
+     "allocMBperSec": 0.65,
+     "gcDrops": 3,
+     "freedMB": 6.7
+    },
+    "gc": {
+     "traceEvents": 5239,
+     "events": {
+      "MinorGC": {
+       "n": 1,
+       "ms": 8.1,
+       "maxMs": 8.1
+      },
+      "V8.GCScavenger": {
+       "n": 1,
+       "ms": 7.3,
+       "maxMs": 7.3
+      },
+      "V8.GCIncrementalMarking": {
+       "n": 6,
+       "ms": 1.6,
+       "maxMs": 1.4
+      },
+      "MajorGC": {
+       "n": 1,
+       "ms": 19,
+       "maxMs": 19
+      },
+      "V8.GCFinalizeMC": {
+       "n": 1,
+       "ms": 17.1,
+       "maxMs": 17.1
+      },
+      "V8.GC_MARK_COMPACTOR": {
+       "n": 1,
+       "ms": 17,
+       "maxMs": 17
+      }
+     }
+    }
+   },
+   "hover": {
+    "frames": 40,
+    "avgFps": 9.8,
+    "p5Fps": 3.3,
+    "p1Fps": 2.9,
+    "medianMs": 33.3,
+    "p95Ms": 300,
+    "p99Ms": 350,
+    "maxMs": 550,
+    "dist": {
+     "<17ms": 0.45,
+     "17-33ms": 0.125,
+     "33-50ms": 0,
+     "50-100ms": 0.05,
+     ">100ms": 0.375
+    },
+    "renders": 22,
+    "mainThreadBusyPct": 22.4
+   },
+   "idle": {
+    "rendersPerSec": 0,
+    "mainThreadBusyPct": 12.6,
+    "rafFps": 59.9
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 15.4,
+    "jsHeapEndMB": 16.2,
+    "jsHeapTotalMB": 19.4,
+    "cdpUsedMB": 11.6,
+    "gpuEstimateMB": 29.1,
+    "gpu": {
+     "drawingBuffer": 6.75,
+     "renderTargets": 17.62,
+     "shadowMaps": 0,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 29.08,
+     "drawingBufferSize": [
+      1024,
+      576
+     ],
+     "antialias": false,
+     "preserveDrawingBuffer": false,
+     "shadowMapEnabled": false,
+     "pixelRatio": 0.8,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 63,
+     "quality": "low",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  },
+  {
+   "id": "phone-390",
+   "viewport": "390x844@2x",
+   "cpuThrottle": 4,
+   "note": "4x CPU throttle, DPR 2, touch",
+   "url": "http://127.0.0.1:4199/#bench",
+   "errors": [],
+   "load": {
+    "fcpMs": 60,
+    "dclMs": 154,
+    "mapVisibleMs": 1071,
+    "readyMs": 1736,
+    "dataFetch": [
+     {
+      "file": "manifest.json",
+      "ms": 2.5,
+      "bytes": 366
+     },
+     {
+      "file": "atlas.json",
+      "ms": 9.9,
+      "bytes": 91921
+     },
+     {
+      "file": "cells.json",
+      "ms": 7.4,
+      "bytes": 46004
+     },
+     {
+      "file": "districts.json",
+      "ms": 3.9,
+      "bytes": 4390
+     },
+     {
+      "file": "layers.json",
+      "ms": 12.7,
+      "bytes": 98153
+     },
+     {
+      "file": "world.json",
+      "ms": 17.5,
+      "bytes": 104541
+     },
+     {
+      "file": "sources.json",
+      "ms": 5.9,
+      "bytes": 39925
+     }
+    ],
+    "jsFetch": [
+     {
+      "file": "index-C7AQUZ-E.js",
+      "ms": 22,
+      "bytes": 212301
+     }
+    ],
+    "longTasks": {
+     "n": 5,
+     "totalMs": 1222,
+     "maxMs": 567
+    },
+    "scriptDurationMs": 639,
+    "taskDurationMs": 1734,
+    "layoutMs": 59,
+    "wallReadyMs": 1837,
+    "jsonParse": {
+     "atlas": 4,
+     "cells": 3.7,
+     "districts": 0,
+     "layers": 4,
+     "sources": 0.8,
+     "world": 6.6,
+     "total": 19.1
+    }
+   },
+   "orbit": {
+    "frames": 107,
+    "avgFps": 8.9,
+    "p5Fps": 3.5,
+    "p1Fps": 3.3,
+    "medianMs": 133.3,
+    "p95Ms": 283.3,
+    "p99Ms": 300,
+    "maxMs": 416.6,
+    "dist": {
+     "<17ms": 0.336,
+     "17-33ms": 0.009,
+     "33-50ms": 0,
+     "50-100ms": 0.028,
+     ">100ms": 0.626
+    },
+    "renders": 107,
+    "mainThreadBusyPct": 15.2,
+    "drawCallsPerFrame": 58,
+    "trianglesPerFrame": 216902,
+    "geometries": 44,
+    "textures": 5,
+    "programs": 15,
+    "longTasks": {
+     "n": 1,
+     "totalMs": 418
+    },
+    "heap": {
+     "allocMBperSec": 0.64,
+     "gcDrops": 2,
+     "freedMB": 6.6
+    },
+    "gc": {
+     "traceEvents": 5324,
+     "events": {
+      "MinorGC": {
+       "n": 1,
+       "ms": 10.3,
+       "maxMs": 10.3
+      },
+      "V8.GCScavenger": {
+       "n": 1,
+       "ms": 4.9,
+       "maxMs": 4.9
+      },
+      "V8.GCIncrementalMarking": {
+       "n": 5,
+       "ms": 2.1,
+       "maxMs": 1
+      },
+      "MajorGC": {
+       "n": 1,
+       "ms": 12.4,
+       "maxMs": 12.4
+      },
+      "V8.GCFinalizeMC": {
+       "n": 1,
+       "ms": 11.7,
+       "maxMs": 11.7
+      },
+      "V8.GC_MARK_COMPACTOR": {
+       "n": 1,
+       "ms": 11.2,
+       "maxMs": 11.2
+      }
+     }
+    }
+   },
+   "hover": {
+    "frames": 240,
+    "avgFps": 60,
+    "p5Fps": 59.9,
+    "p1Fps": 59.5,
+    "medianMs": 16.7,
+    "p95Ms": 16.7,
+    "p99Ms": 16.8,
+    "maxMs": 16.8,
+    "dist": {
+     "<17ms": 1,
+     "17-33ms": 0,
+     "33-50ms": 0,
+     "50-100ms": 0,
+     ">100ms": 0
+    },
+    "renders": 0,
+    "mainThreadBusyPct": 8.1
+   },
+   "idle": {
+    "rendersPerSec": 0,
+    "mainThreadBusyPct": 7.4,
+    "rafFps": 59.9
+   },
+   "memory": {
+    "jsHeapAfterLoadMB": 15.5,
+    "jsHeapEndMB": 16,
+    "jsHeapTotalMB": 18.4,
+    "cdpUsedMB": 11.5,
+    "gpuEstimateMB": 13.4,
+    "gpu": {
+     "drawingBuffer": 2.41,
+     "renderTargets": 6.3,
+     "shadowMaps": 0,
+     "textures": 1.72,
+     "vertexBuffers": 2.99,
+     "total": 13.42,
+     "drawingBufferSize": [
+      312,
+      675
+     ],
+     "antialias": false,
+     "preserveDrawingBuffer": false,
+     "shadowMapEnabled": false,
+     "pixelRatio": 0.8,
+     "textureCount": 21,
+     "geometryCount": 56,
+     "sceneObjects": 496,
+     "labels": 46,
+     "quality": "low",
+     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+   }
+  }
+ ],
+ "profile": {
+  "scenario": "tv-1080p",
+  "load": {
+   "totalMs": 2562,
+   "top": [
+    {
+     "fn": "(program) :0",
+     "selfMs": 1551.6,
+     "pct": 60.6
+    },
+    {
+     "fn": "onFirstUse index-Cea8EPC8.js:26901",
+     "selfMs": 96.6,
+     "pct": 3.8
+    },
+    {
+     "fn": "(anonymous) index-Cea8EPC8.js:1",
+     "selfMs": 41.3,
+     "pct": 1.6
+    },
+    {
+     "fn": "(garbage collector) :0",
+     "selfMs": 32.8,
+     "pct": 1.3
+    },
+    {
+     "fn": "emojiTexture index-Cea8EPC8.js:38937",
+     "selfMs": 24.7,
+     "pct": 1
+    },
+    {
+     "fn": "ribbonGeometry index-Cea8EPC8.js:38380",
+     "selfMs": 22.4,
+     "pct": 0.9
+    },
+    {
+     "fn": "el index-Cea8EPC8.js:38065",
+     "selfMs": 21.2,
+     "pct": 0.8
+    },
+    {
+     "fn": "(idle) :0",
+     "selfMs": 14.7,
+     "pct": 0.6
+    },
+    {
+     "fn": "Board index-Cea8EPC8.js:37671",
+     "selfMs": 14.2,
+     "pct": 0.6
+    },
+    {
+     "fn": "build index-Cea8EPC8.js:38158",
+     "selfMs": 14.2,
+     "pct": 0.6
+    },
+    {
+     "fn": "rebuild index-Cea8EPC8.js:38466",
+     "selfMs": 12.8,
+     "pct": 0.5
+    },
+    {
+     "fn": "getContext index-Cea8EPC8.js:32225",
+     "selfMs": 12.1,
+     "pct": 0.5
+    },
+    {
+     "fn": "neighbours index-Cea8EPC8.js:37299",
+     "selfMs": 11.5,
+     "pct": 0.4
+    },
+    {
+     "fn": "replaceLightNums index-Cea8EPC8.js:26544",
+     "selfMs": 11.4,
+     "pct": 0.4
+    },
+    {
+     "fn": "(anonymous) index-Cea8EPC8.js:39033",
+     "selfMs": 10,
+     "pct": 0.4
+    },
+    {
+     "fn": "(anonymous) index-Cea8EPC8.js:38385",
+     "selfMs": 9.7,
+     "pct": 0.4
+    },
+    {
+     "fn": "computeBoundingSphere index-Cea8EPC8.js:16544",
+     "selfMs": 9.5,
+     "pct": 0.4
+    },
+    {
+     "fn": "Dq js:554",
+     "selfMs": 9.4,
+     "pct": 0.4
+    },
+    {
+     "fn": "createBuffer index-Cea8EPC8.js:23184",
+     "selfMs": 9.2,
+     "pct": 0.4
+    },
+    {
+     "fn": "colorSpaceToWorking index-Cea8EPC8.js:4527",
+     "selfMs": 9,
+     "pct": 0.4
+    },
+    {
+     "fn": "Borders index-Cea8EPC8.js:38104",
+     "selfMs": 8.9,
+     "pct": 0.3
+    },
+    {
+     "fn": "getExtension index-Cea8EPC8.js:25284",
+     "selfMs": 8.8,
+     "pct": 0.3
+    },
+    {
+     "fn": "l.We js:1100",
+     "selfMs": 8.1,
+     "pct": 0.3
+    },
+    {
+     "fn": "WebGLShader index-Cea8EPC8.js:26435",
+     "selfMs": 8.1,
+     "pct": 0.3
+    },
+    {
+     "fn": "Object3D index-Cea8EPC8.js:8237",
+     "selfMs": 7.7,
+     "pct": 0.3
+    },
+    {
+     "fn": "toArray index-Cea8EPC8.js:7754",
+     "selfMs": 7.4,
+     "pct": 0.3
+    },
+    {
+     "fn": "l.apply js:339",
+     "selfMs": 6.9,
+     "pct": 0.3
+    },
+    {
+     "fn": "Float32BufferAttribute index-Cea8EPC8.js:12107",
+     "selfMs": 6.7,
+     "pct": 0.3
+    },
+    {
+     "fn": "cb js:298",
+     "selfMs": 6.7,
+     "pct": 0.3
+    },
+    {
+     "fn": "clone index-Cea8EPC8.js:6502",
+     "selfMs": 6.2,
+     "pct": 0.2
+    }
+   ]
+  },
+  "orbit": {
+   "totalMs": 8253,
+   "top": [
+    {
+     "fn": "(idle) :0",
+     "selfMs": 7333.8,
+     "pct": 88.9
+    },
+    {
+     "fn": "(program) :0",
+     "selfMs": 598.2,
+     "pct": 7.2
+    },
+    {
+     "fn": "setProgram index-Cea8EPC8.js:33319",
+     "selfMs": 23,
+     "pct": 0.3
+    },
+    {
+     "fn": "updateMatrixWorld index-Cea8EPC8.js:9040",
+     "selfMs": 17,
+     "pct": 0.2
+    },
+    {
+     "fn": "renderObject index-Cea8EPC8.js:36736",
+     "selfMs": 16.7,
+     "pct": 0.2
+    },
+    {
+     "fn": "compose index-Cea8EPC8.js:7552",
+     "selfMs": 13.9,
+     "pct": 0.2
+    },
+    {
+     "fn": "get memory :0",
+     "selfMs": 13.2,
+     "pct": 0.2
+    },
+    {
+     "fn": "multiplyMatrices index-Cea8EPC8.js:7242",
+     "selfMs": 12.4,
+     "pct": 0.2
+    },
+    {
+     "fn": "hideObject index-Cea8EPC8.js:36732",
+     "selfMs": 10,
+     "pct": 0.1
+    },
+    {
+     "fn": "arraysEqual index-Cea8EPC8.js:25895",
+     "selfMs": 8.2,
+     "pct": 0.1
+    },
+    {
+     "fn": "WebGLRenderer.render index-Cea8EPC8.js:32977",
+     "selfMs": 7.9,
+     "pct": 0.1
+    },
+    {
+     "fn": "setValueM4 index-Cea8EPC8.js:25998",
+     "selfMs": 6.1,
+     "pct": 0.1
+    },
+    {
+     "fn": "getProgram index-Cea8EPC8.js:33212",
+     "selfMs": 5.9,
+     "pct": 0.1
+    },
+    {
+     "fn": "bindVertexArray :0",
+     "selfMs": 5.8,
+     "pct": 0.1
+    },
+    {
+     "fn": "upload index-Cea8EPC8.js:26420",
+     "selfMs": 5.5,
+     "pct": 0.1
+    },
+    {
+     "fn": "step :10",
+     "selfMs": 5.1,
+     "pct": 0.1
+    },
+    {
+     "fn": "tick :29",
+     "selfMs": 4.9,
+     "pct": 0.1
+    },
+    {
+     "fn": "setValue index-Cea8EPC8.js:26412",
+     "selfMs": 4.8,
+     "pct": 0.1
+    },
+    {
+     "fn": "updateMatrix index-Cea8EPC8.js:9017",
+     "selfMs": 4.6,
+     "pct": 0.1
+    },
+    {
+     "fn": "updateLabels index-Cea8EPC8.js:39237",
+     "selfMs": 4.2,
+     "pct": 0.1
+    },
+    {
+     "fn": "WebGLRenderer.renderBufferDirect index-Cea8EPC8.js:32767",
+     "selfMs": 4.2,
+     "pct": 0.1
+    },
+    {
+     "fn": "(anonymous) index-Cea8EPC8.js:44578",
+     "selfMs": 4.1,
+     "pct": 0
+    },
+    {
+     "fn": "place index-Cea8EPC8.js:39249",
+     "selfMs": 3.9,
+     "pct": 0
+    },
+    {
+     "fn": "setup index-Cea8EPC8.js:24040",
+     "selfMs": 3.8,
+     "pct": 0
+    },
+    {
+     "fn": "setValueV3f index-Cea8EPC8.js:25932",
+     "selfMs": 3.7,
+     "pct": 0
+    },
+    {
+     "fn": "drawElementsInstanced :0",
+     "selfMs": 3.6,
+     "pct": 0
+    },
+    {
+     "fn": "getParameters index-Cea8EPC8.js:27064",
+     "selfMs": 3.5,
+     "pct": 0
+    },
+    {
+     "fn": "renderObject index-Cea8EPC8.js:33190",
+     "selfMs": 3.5,
+     "pct": 0
+    },
+    {
+     "fn": "setMaterial index-Cea8EPC8.js:28810",
+     "selfMs": 3.4,
+     "pct": 0
+    },
+    {
+     "fn": "uniformMatrix4fv :0",
+     "selfMs": 3.4,
+     "pct": 0
+    }
+   ]
+  },
+  "hover": {
+   "totalMs": 3209,
+   "top": [
+    {
+     "fn": "(idle) :0",
+     "selfMs": 1887.4,
+     "pct": 58.8
+    },
+    {
+     "fn": "getShaderInfoLog :0",
+     "selfMs": 573.8,
+     "pct": 17.9
+    },
+    {
+     "fn": "(program) :0",
+     "selfMs": 296.1,
+     "pct": 9.2
+    },
+    {
+     "fn": "fromBufferAttribute index-Cea8EPC8.js:4001",
+     "selfMs": 99.3,
+     "pct": 3.1
+    },
+    {
+     "fn": "_placeTip index-Cea8EPC8.js:45203",
+     "selfMs": 44.8,
+     "pct": 1.4
+    },
+    {
+     "fn": "getProgramParameter :0",
+     "selfMs": 34.6,
+     "pct": 1.1
+    },
+    {
+     "fn": "raycast index-Cea8EPC8.js:16599",
+     "selfMs": 30,
+     "pct": 0.9
+    },
+    {
+     "fn": "getProgramInfoLog :0",
+     "selfMs": 20,
+     "pct": 0.6
+    },
+    {
+     "fn": "intersect index-Cea8EPC8.js:22742",
+     "selfMs": 19.9,
+     "pct": 0.6
+    },
+    {
+     "fn": "raycast index-Cea8EPC8.js:16176",
+     "selfMs": 19.2,
+     "pct": 0.6
+    },
+    {
+     "fn": "(garbage collector) :0",
+     "selfMs": 15.7,
+     "pct": 0.5
+    },
+    {
+     "fn": "multiplyMatrices index-Cea8EPC8.js:7242",
+     "selfMs": 13.6,
+     "pct": 0.4
+    },
+    {
+     "fn": "_computeIntersections index-Cea8EPC8.js:16196",
+     "selfMs": 7.1,
+     "pct": 0.2
+    },
+    {
+     "fn": "(anonymous) index-Cea8EPC8.js:45087",
+     "selfMs": 6.3,
+     "pct": 0.2
+    },
+    {
+     "fn": "showTip index-Cea8EPC8.js:45166",
+     "selfMs": 6,
+     "pct": 0.2
+    },
+    {
+     "fn": "fromArray index-Cea8EPC8.js:7742",
+     "selfMs": 5.9,
+     "pct": 0.2
+    },
+    {
+     "fn": "applyMatrix4 index-Cea8EPC8.js:3441",
+     "selfMs": 5.7,
+     "pct": 0.2
+    },
+    {
+     "fn": "checkGeometryIntersection index-Cea8EPC8.js:16289",
+     "selfMs": 5.3,
+     "pct": 0.2
+    },
+    {
+     "fn": "updateMatrixWorld index-Cea8EPC8.js:21192",
+     "selfMs": 4.1,
+     "pct": 0.1
+    },
+    {
+     "fn": "getMaxScaleOnAxis index-Cea8EPC8.js:7443",
+     "selfMs": 4,
+     "pct": 0.1
+    },
+    {
+     "fn": "intersectSphere index-Cea8EPC8.js:15533",
+     "selfMs": 3.2,
+     "pct": 0.1
+    },
+    {
+     "fn": "raycast index-Cea8EPC8.js:15284",
+     "selfMs": 3.1,
+     "pct": 0.1
+    },
+    {
+     "fn": "intersectTriangle index-Cea8EPC8.js:15660",
+     "selfMs": 2.9,
+     "pct": 0.1
+    },
+    {
+     "fn": "replaceChildren :0",
+     "selfMs": 2.9,
+     "pct": 0.1
+    },
+    {
+     "fn": "copy index-Cea8EPC8.js:3261",
+     "selfMs": 2.9,
+     "pct": 0.1
+    },
+    {
+     "fn": "(anonymous) index-Cea8EPC8.js:45052",
+     "selfMs": 2.8,
+     "pct": 0.1
+    },
+    {
+     "fn": "setProgram index-Cea8EPC8.js:33319",
+     "selfMs": 2.7,
+     "pct": 0.1
+    },
+    {
+     "fn": "frame index-Cea8EPC8.js:37207",
+     "selfMs": 2.7,
+     "pct": 0.1
+    },
+    {
+     "fn": "getVertexPosition index-Cea8EPC8.js:16140",
+     "selfMs": 2.6,
+     "pct": 0.1
+    },
+    {
+     "fn": "updateMatrixWorld index-Cea8EPC8.js:9040",
+     "selfMs": 2.4,
+     "pct": 0.1
+    }
+   ]
+  }
+ }
+}
